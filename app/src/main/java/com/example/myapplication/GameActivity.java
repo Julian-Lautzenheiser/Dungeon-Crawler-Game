@@ -1,2 +1,4 @@
-package com.example.myapplication;public class GameActivity {
+package com.example.myapplication;
+
+public class GameActivity {
 }

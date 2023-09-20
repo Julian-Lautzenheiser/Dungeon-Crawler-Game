@@ -17,16 +17,15 @@ public class MainActivity extends AppCompatActivity{
         Button startBtn = findViewById(R.id.startButton);
         TextView nameBox = findViewById(R.id.textName);
 
-        //Check if name is valid, if so then set difficulty based on radioButton
         startBtn.setOnClickListener(v -> {
             String name = (String) nameBox.getText();
-            if (name == null || name.trim() == "") {
-                finish(); //Leave current listener if name is not valid
-            } else {
+            if (name != null && name.trim() != "") { //Only start game if name is valid
+
                 RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
                 double difficulty = 1;
                 int radioId = difficultyRadioGroup.getCheckedRadioButtonId();
-                if (radioId == R.id.radioEasy) {
+                
+                if (radioId == R.id.radioEasy) { //Set difficulty based on what is chosen
                     difficulty = 0.5;
                 } else if (radioId == R.id.radioMedium) {
                     difficulty = 0.75;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity{
                 int sprite = 1;
                 int spriteId = spriteRadioGroup.getCheckedRadioButtonId();
 
-                if (spriteId == R.id.radioOne) { //Puts the sprite as an extra
+                if (spriteId == R.id.radioOne) {  //Set sprite based on what is chosen
                     sprite = 1;
                 } else if (spriteId == R.id.radioTwo) {
                     sprite = 2;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
 
                 Intent game = new Intent(MainActivity.this, GameActivity.class);
                 game.putExtra("difficulty", difficulty);
-                game.putExtra("sprite", sprite);
+                game.putExtra("sprite", sprite); //Puts the sprite as an extra
                 startActivity(game);
                 finish();
             }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textId"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText,MissingDefaultResource">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/dungeon_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/StartGameButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/design_default_color_on_secondary"
+        android:backgroundTint="@color/design_default_color_on_secondary"
+        android:gravity="center_horizontal"
+        android:text="@string/start_game"
+        android:textColor="@color/material_dynamic_neutral_variant10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <RadioGroup
+        android:id="@+id/CharacterRadioGroup"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="@id/difficultyGroup"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="108dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:labelFor="@id/CharacterRadioGroup"
+            android:minHeight="48dp" />
+
+        <RadioButton
+            android:id="@+id/Sprite1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            tools:ignore="MissingConstraints" />
+
+        <RadioButton
+            android:id="@+id/Sprite2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            tools:ignore="MissingConstraints" />
+
+        <RadioButton
+            android:id="@+id/Sprite3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            tools:ignore="MissingConstraints" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/difficultyGroup"
+        android:layout_width="175dp"
+        android:layout_height="200dp"
+        tools:ignore="DuplicateIds,MissingConstraints"
+        tools:layout_editor_absoluteX="540dp"
+        tools:layout_editor_absoluteY="108dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/material_dynamic_neutral_variant10"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:text="@string/difficulty"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/easyDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/easy_difficulty"
+            tools:ignore="MissingConstraints" />
+
+        <RadioButton
+            android:id="@+id/mediumDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/medium_difficulty"
+            tools:ignore="MissingConstraints" />
+
+        <RadioButton
+            android:id="@+id/hardDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/hard_difficulty"
+            tools:ignore="MissingConstraints" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/UsernameText"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:gravity="center_horizontal"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:text="Enter Username"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="340dp"
+        tools:layout_editor_absoluteY="67dp"></EditText>
+</androidx.constraintlayout.widget.ConstraintLayout>

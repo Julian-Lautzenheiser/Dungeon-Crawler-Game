@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity{
             finish();
         });
 
-        //Check if name is valid, if so then set difficulty based on radioButton
         startBtn.setOnClickListener(v -> {
             Intent config = new Intent(MainActivity.this, ConfigurationActivity.class);
             startActivity(config);

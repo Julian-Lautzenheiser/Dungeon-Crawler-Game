@@ -1,8 +1,12 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -21,28 +25,28 @@ public class ConfigurationActivity extends AppCompatActivity {
         startBtn.setOnClickListener(v -> {
             CharSequence name = nameBox.getText();
             if (name != null && ((String)name).trim() != "") {
-                RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
+                RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyGroup);
                 double difficulty = 1;
                 int radioId = difficultyRadioGroup.getCheckedRadioButtonId();
-                if (radioId == R.id.radioEasy) {
+                if (radioId == R.id.easyDifficulty) {
                     difficulty = 0.5;
-                } else if (radioId == R.id.radioMedium) {
+                } else if (radioId == R.id.mediumDifficulty) {
                     difficulty = 0.75;
-                } else if (radioId == R.id.radioHard) {
+                } else if (radioId == R.id.hardDifficulty) {
                     difficulty = 1;
                 } else {
                     difficulty = 0.5;
                 }
 
-                RadioGroup spriteRadioGroup = findViewById(R.id.spriteRadioGroup);
+                RadioGroup spriteRadioGroup = findViewById(R.id.CharacterGroup);
                 int sprite = 1;
                 int spriteId = spriteRadioGroup.getCheckedRadioButtonId();
 
-                if (spriteId == R.id.radioOne) { //Puts the sprite as an extra
+                if (spriteId == R.id.Sprite1) { //Puts the sprite as an extra
                     sprite = 1;
-                } else if (spriteId == R.id.radioTwo) {
+                } else if (spriteId == R.id.Sprite2) {
                     sprite = 2;
-                } else if (spriteId == R.id.radioThree) {
+                } else if (spriteId == R.id.Sprite3) {
                     sprite = 3;
                 } else {
                     sprite = 1;

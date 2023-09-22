@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity{
                 } else if (radioId == R.id.radioHard) {
                     difficulty = 1;
                 } else {
-                        difficulty = 0.5;
+                    difficulty = 0.5;
                 }
 
                 RadioGroup spriteRadioGroup = findViewById(R.id.spriteRadioGroup);

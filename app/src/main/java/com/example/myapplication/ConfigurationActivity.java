@@ -20,7 +20,6 @@ public class ConfigurationActivity extends AppCompatActivity {
         setContentView(R.layout.configuration_screen);
         Button startBtn = findViewById(R.id.StartGameButton);
         TextView nameBox = findViewById(R.id.UsernameText);
-        ImageView image = findViewById(R.id.spriteimage);
 
         //Check if name is valid, if so then set difficulty based on radioButton
         startBtn.setOnClickListener(v -> {
@@ -47,16 +46,12 @@ public class ConfigurationActivity extends AppCompatActivity {
 
                 if (spriteId == R.id.Sprite1) { //Puts the sprite as an extra
                     sprite = 1;
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.sword_warrior));
                 } else if (spriteId == R.id.Sprite2) {
                     sprite = 2;
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.wizard_warrior));
                 } else if (spriteId == R.id.Sprite3) {
                     sprite = 3;
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.fighter_warrior));
                 } else {
                     sprite = 1;
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.sword_warrior));
                 }
 
                 Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);

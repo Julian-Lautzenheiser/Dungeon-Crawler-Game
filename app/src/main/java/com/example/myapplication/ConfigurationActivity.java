@@ -19,10 +19,8 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         //Check if name is valid, if so then set difficulty based on radioButton
         startBtn.setOnClickListener(v -> {
-            String name = (String) nameBox.getText();
-            if (name == null || name.trim() == "") {
-                finish(); //Leave current listener if name is not valid
-            } else {
+            CharSequence name = nameBox.getText();
+            if (name != null && ((String)name).trim() != "") {
                 RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
                 double difficulty = 1;
                 int radioId = difficultyRadioGroup.getCheckedRadioButtonId();

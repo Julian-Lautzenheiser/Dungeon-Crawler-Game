@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity{
         TextView nameBox = findViewById(R.id.textName);
 
         startBtn.setOnClickListener(v -> {
-            String name = (String) nameBox.getText();
-            if (name != null && name.trim() != "") { //Only start game if name is valid
+            CharSequence name = nameBox.getText();
+            if (name != null && name.toString().trim() != "") { //Only start game if name is valid
 
                 RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
                 double difficulty = 1;

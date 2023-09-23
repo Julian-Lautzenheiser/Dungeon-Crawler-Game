@@ -24,6 +24,9 @@
             android:name=".ConfigurationActivity"
             android:exported="false" />
         <activity
+            android:name=".GameActivity"
+            android:exported="false" />
+        <activity
             android:name=".GameEndActivity"
             android:exported="false" />
     </application>

@@ -23,10 +23,8 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         //Check if name is valid, if so then set difficulty based on radioButton
         startBtn.setOnClickListener(v -> {
-            String name = (String) nameBox.getText();
-            if (name == null || name.trim() == "") {
-                finish(); //Leave current listener if name is not valid
-            } else {
+            String name = nameBox.getText().toString();
+            if (name != null && name.trim() != "") {
                 RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyGroup);
                 double difficulty = 1;
                 int radioId = difficultyRadioGroup.getCheckedRadioButtonId();
@@ -45,11 +43,11 @@ public class ConfigurationActivity extends AppCompatActivity {
                 int spriteId = spriteRadioGroup.getCheckedRadioButtonId();
 
                 if (spriteId == R.id.Sprite1) { //Puts the sprite as an extra
-                    sprite = 1;
+                    sprite = 1; //Warrior - Sword
                 } else if (spriteId == R.id.Sprite2) {
-                    sprite = 2;
+                    sprite = 2; //Mage - Wizard
                 } else if (spriteId == R.id.Sprite3) {
-                    sprite = 3;
+                    sprite = 3; //Fighter - Fighter
                 } else {
                     sprite = 1;
                 }
@@ -57,6 +55,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);
                 game.putExtra("difficulty", difficulty);
                 game.putExtra("sprite", sprite);
+                game.putExtra("name", name);
                 startActivity(game);
                 finish();
             }

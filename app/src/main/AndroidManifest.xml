@@ -17,18 +17,18 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.myapplication.ConfigurationActivity"
-            android:exported="false">
-        </activity>
+            android:name=".ConfigurationActivity"
+            android:exported="false" />
         <activity
-            android:name="com.example.myapplication.GameEndActivity"
-            android:exported="false">
-        </activity>
+            android:name=".GameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameEndActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

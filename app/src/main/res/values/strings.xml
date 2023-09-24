@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="configuration_background">My Application</string>
+    <string name = "username_entry">Enter Username</string>
     <string name="difficulty">Choose Difficulty:</string>
     <string name="easy_difficulty">Easy</string>
     <string name="medium_difficulty">Medium</string>

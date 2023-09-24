@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
         healthText.setText("HP: " + Double.toString((healthBase - difficulty)));
         
         healthText.setX(playerX);
-        healthText.setY(playerY + playerView.getMaxHeight()+playerTextOffset);
+        healthText.setY(playerY + playerView.getMaxHeight() + playerTextOffset);
         gameLayout.addView(healthText); //Creates health text and attaches it to character
         
         difficultyText = new TextView(this);
@@ -86,11 +86,11 @@ public class GameActivity extends AppCompatActivity {
         difficultyText.setX(playerX);
         difficultyText.setY(playerY + playerView.getMaxHeight());
         gameLayout.addView(difficultyText);
+        
         exitButton.setOnClickListener(v -> {
             Intent end = new Intent(GameActivity.this, GameEndActivity.class);
             startActivity(end);
             finish();
         });
-
     }
 }

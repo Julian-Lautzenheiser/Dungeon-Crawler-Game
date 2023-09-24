@@ -45,6 +45,7 @@
         tools:layout_editor_absoluteY="94dp"
         tools:ignore="MissingConstraints" />
 
+<<<<<<< HEAD
     <RadioGroup
         android:id="@+id/difficultyGroup"
         android:layout_width="0dp"
@@ -58,6 +59,38 @@
         app:layout_constraintTop_toBottomOf="@+id/UsernameText"
         app:layout_constraintVertical_bias="0.583"
         tools:ignore="MissingConstraints">
+=======
+    <ImageView
+        android:id="@+id/spriteimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/UsernameText"
+        android:layout_width="348dp"
+        android:layout_height="50dp"
+        android:background="#D7C45508"
+        android:gravity="center_horizontal"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:text="Enter Username"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="23dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="205dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <RadioGroup
+        android:id="@+id/difficultyGroup"
+        android:layout_width="174dp"
+        android:layout_height="199dp"
+        android:background="#D7C45508"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="424dp"
+        tools:layout_editor_absoluteY="104dp">
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
 
         <TextView
             android:layout_width="match_parent"
@@ -66,7 +99,11 @@
             android:minHeight="48dp"
             android:text="@string/difficulty"
             android:textColor="@color/black"
+<<<<<<< HEAD
             android:textSize="18sp" />
+=======
+            android:textSize="20dp" />
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
 
         <RadioButton
             android:id="@+id/easyDifficulty"
@@ -75,7 +112,11 @@
             android:checked="true"
             android:text="@string/easy_difficulty"
             android:textColor="@color/black"
+<<<<<<< HEAD
             android:textSize="20sp"
+=======
+            android:textSize="18dp"
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
             tools:ignore="MissingConstraints" />
 
         <RadioButton
@@ -101,6 +142,7 @@
 
     <RadioGroup
         android:id="@+id/CharacterGroup"
+<<<<<<< HEAD
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="364dp"
@@ -113,6 +155,14 @@
         app:layout_constraintTop_toBottomOf="@+id/UsernameText"
         app:layout_constraintVertical_bias="0.583"
         tools:ignore="MissingConstraints">
+=======
+        android:layout_width="174dp"
+        android:layout_height="199dp"
+        android:background="#D7C45508"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="104dp">
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
 
         <TextView
             android:layout_width="match_parent"
@@ -121,7 +171,11 @@
             android:minHeight="48dp"
             android:text="@string/characters"
             android:textColor="@color/black"
+<<<<<<< HEAD
             android:textSize="18sp" />
+=======
+            android:textSize="20dp" />
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
 
         <RadioButton
             android:id="@+id/Sprite1"
@@ -130,7 +184,11 @@
             android:checked="true"
             android:text="@string/sprite1"
             android:textColor="@color/black"
+<<<<<<< HEAD
             android:textSize="17sp"
+=======
+            android:textSize="18dp"
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
             tools:ignore="MissingConstraints" />
 
         <RadioButton
@@ -140,7 +198,11 @@
             android:checked="false"
             android:text="@string/sprite2"
             android:textColor="@color/black"
+<<<<<<< HEAD
             android:textSize="17sp"
+=======
+            android:textSize="18dp"
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
             tools:ignore="MissingConstraints" />
 
         <RadioButton
@@ -150,6 +212,7 @@
             android:checked="false"
             android:text="@string/sprite3"
             android:textColor="@color/black"
+<<<<<<< HEAD
             android:textSize="17sp"
             tools:ignore="MissingConstraints" />
     </RadioGroup>
@@ -167,4 +230,9 @@
         app:layout_constraintVertical_bias="0.615"
         app:srcCompat="@drawable/sword_warrior" />
 
+=======
+            android:textSize="18dp"
+            tools:ignore="MissingConstraints" />
+    </RadioGroup>
+>>>>>>> 3cc2779fda2edfc7f634b429fabdc7aedcae45e8
 </androidx.constraintlayout.widget.ConstraintLayout>

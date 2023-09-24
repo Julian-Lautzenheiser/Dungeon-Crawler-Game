@@ -22,22 +22,16 @@ public class ConfigurationActivity extends AppCompatActivity {
         //Check if name is valid, if so then set difficulty based on radioButton
         startBtn.setOnClickListener(v -> {
             String name = nameBox.getText().toString();
-            if (name.trim().isEmpty()) {
-                startBtn.setClickable(false);
-            } else {
-                startBtn.setClickable(true);
-            }
+
             RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyGroup);
-            double difficulty = 1;
+            double difficulty = 0;
             int radioId = difficultyRadioGroup.getCheckedRadioButtonId();
             if (radioId == R.id.easyDifficulty) {
-                difficulty = 0.5;
+                difficulty = 0;
             } else if (radioId == R.id.mediumDifficulty) {
-                difficulty = 0.75;
+                difficulty = 25;
             } else if (radioId == R.id.hardDifficulty) {
-                difficulty = 1;
-            } else {
-                difficulty = 0.5;
+                difficulty = 50;
             }
 
             RadioGroup spriteRadioGroup = findViewById(R.id.CharacterGroup);
@@ -49,29 +43,17 @@ public class ConfigurationActivity extends AppCompatActivity {
                 sprite = 2;
             } else if (spriteId == R.id.Sprite3) {
                 sprite = 3;
-            } else {
-                sprite = 1;
             }
 
-            switch (sprite) {
-                case 1:
-                    spritePhoto.setImageResource(R.drawable.sword_warrior);
-                    break;
-                case 2:
-                    spritePhoto.setImageResource(R.drawable.wizard_warrior);
-                    break;
-                case 3:
-                    spritePhoto.setImageResource(R.drawable.fighter_warrior);
-                    break;
-                default:
-                    spritePhoto.setImageResource(R.drawable.sword_warrior);
-                    break;
+            if (!name.trim().isEmpty()) {
+                Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);
+                game.putExtra("difficulty", difficulty);
+                game.putExtra("sprite", sprite);
+                game.putExtra("name", name);
+
+                startActivity(game);
+                finish();
             }
-            Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);
-            game.putExtra("difficulty", difficulty);
-            game.putExtra("sprite", sprite);
-            startActivity(game);
-            finish();
         });
     }
 }

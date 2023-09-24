@@ -21,9 +21,9 @@ public class GameActivity extends AppCompatActivity {
     private ConstraintLayout gameLayout;
     private int screenWidth;
     private int screenHeight;
-    private final int playerTextOffset = 100;
-    private final int healthBase = 100;
-    private final int maxSize = 300;
+    private final int PLAYER_TEXT_OFFSET = 100;
+    private final int HEALTH_BASE = 100;
+    private final int MAX_SIZE = 300;
 
 
 
@@ -53,21 +53,21 @@ public class GameActivity extends AppCompatActivity {
         playerY -= 300; //MOVES PLAYER CHARACTER INTO WHITESPACE
         playerView.setX(playerX);
         playerView.setY(playerY);
-        playerView.setMaxHeight(maxSize); //Makes the sprite not crazy big
-        playerView.setMaxWidth(maxSize);
+        playerView.setMaxHeight(MAX_SIZE); //Makes the sprite not crazy big
+        playerView.setMaxWidth(MAX_SIZE);
 
         gameLayout.addView(playerView);
 
         nameText = new TextView(this);
         nameText.setText("Name: " + getIntent().getStringExtra("name"));
         nameText.setX(playerX);
-        nameText.setY(playerY - playerTextOffset);
+        nameText.setY(playerY - PLAYER_TEXT_OFFSET);
         gameLayout.addView(nameText); //Creates name and attaches it to character
 
         difficulty = getIntent().getDoubleExtra("difficulty", 0.5);
         healthText = new TextView(this);
         //Subtracting health by difficulty increases health with lower difficulty
-        healthText.setText("HP: " + Double.toString((healthBase - difficulty)));
+        healthText.setText("HP: " + Double.toString((HEALTH_BASE - difficulty)));
         
         healthText.setX(playerX);
         healthText.setY(playerY + playerView.getMaxHeight());

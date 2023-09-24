@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ConfigurationActivity extends AppCompatActivity {
 
     private ImageView spritePhoto;
+    /** @noinspection checkstyle:Indentation, checkstyle:Indentation, checkstyle:Indentation */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,6 @@ public class ConfigurationActivity extends AppCompatActivity {
             } else {
                 sprite = 1;
             }
-
             switch (sprite) {
                 case 1:
                     spritePhoto.setImageResource(R.drawable.sword_warrior);
@@ -62,6 +62,9 @@ public class ConfigurationActivity extends AppCompatActivity {
                     break;
                 case 3:
                     spritePhoto.setImageResource(R.drawable.fighter_warrior);
+                    break;
+                default:
+                    spritePhoto.setImageResource(R.drawable.sword_warrior);
                     break;
             }
             Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);

@@ -129,7 +129,7 @@
             android:checked="true"
             android:text="@string/sprite1"
             android:textColor="@color/black"
-            android:textSize="17sp" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/Sprite2"
@@ -138,7 +138,7 @@
             android:checked="false"
             android:text="@string/sprite2"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/Sprite3"
@@ -147,7 +147,7 @@
             android:checked="false"
             android:text="@string/sprite3"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="14sp"
             tools:ignore="MissingConstraints" />
     </RadioGroup>
 

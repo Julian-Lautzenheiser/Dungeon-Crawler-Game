@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ public class GameActivity extends AppCompatActivity {
     private ImageView playerView;
     private TextView nameText;
     private TextView healthText;
+    
+    private TextView difficultyText;
 
     private float playerX;
     private float playerY;
@@ -61,25 +64,36 @@ public class GameActivity extends AppCompatActivity {
         nameText = new TextView(this);
         nameText.setText("Name: " + getIntent().getStringExtra("name"));
         nameText.setX(playerX);
-        nameText.setY(playerY - PLAYER_TEXT_OFFSET);
+        nameText.setY(playerY - playerTextOffset);
+        nameText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(nameText); //Creates name and attaches it to character
 
         difficulty = getIntent().getDoubleExtra("difficulty", 0.5);
         healthText = new TextView(this);
         //Subtracting health by difficulty increases health with lower difficulty
-        healthText.setText("HP: " + Double.toString((HEALTH_BASE - difficulty)));
-        
+        healthText.setText("HP: " + Double.toString((healthBase - difficulty)));
+        healthText.setTextColor(Color.parseColor("#FFFFFF"));
         healthText.setX(playerX);
-        healthText.setY(playerY + playerView.getMaxHeight());
+        healthText.setY(playerY + playerView.getMaxHeight() + playerTextOffset);
         gameLayout.addView(healthText); //Creates health text and attaches it to character
-
-
-
+        
+        difficultyText = new TextView(this);
+        if (difficulty == 0) {
+            difficultyText.setText("Difficulty: Easy");
+        } else if (difficulty == 25) {
+            difficultyText.setText("Difficulty: Medium");
+        } else if (difficulty == 50) {
+            difficultyText.setText("Difficulty: Hard");
+        }
+        difficultyText.setX(playerX);
+        difficultyText.setY(playerY + playerView.getMaxHeight());
+        difficultyText.setTextColor(Color.parseColor("#FFFFFF"));
+        gameLayout.addView(difficultyText);
+        
         exitButton.setOnClickListener(v -> {
             Intent end = new Intent(GameActivity.this, GameEndActivity.class);
             startActivity(end);
             finish();
         });
-
     }
 }

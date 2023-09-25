@@ -7,8 +7,8 @@
     <string name="medium_difficulty">Medium</string>
     <string name="hard_difficulty">Hard</string>
     <string name="characters">Choose Character:</string>
-    <string name="sprite1">Sprite 1: Warrior</string>
-    <string name="sprite2">Sprite 2: Mage</string>
-    <string name="sprite3">Sprite 3: Fighter</string>
+    <string name="sprite1">Sprite 1: Warrior (Sword)</string>
+    <string name="sprite2">Sprite 2: Mage (pointed hat)</string>
+    <string name="sprite3">Sprite 3: Fighter (gloves)</string>
     <string name="start_game">START</string>
 </resources>

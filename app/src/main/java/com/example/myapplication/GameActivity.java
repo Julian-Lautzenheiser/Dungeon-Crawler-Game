@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -64,13 +65,14 @@ public class GameActivity extends AppCompatActivity {
         nameText.setText("Name: " + getIntent().getStringExtra("name"));
         nameText.setX(playerX);
         nameText.setY(playerY - playerTextOffset);
+        nameText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(nameText); //Creates name and attaches it to character
 
         difficulty = getIntent().getDoubleExtra("difficulty", 0.5);
         healthText = new TextView(this);
         //Subtracting health by difficulty increases health with lower difficulty
         healthText.setText("HP: " + Double.toString((healthBase - difficulty)));
-        
+        healthText.setTextColor(Color.parseColor("#FFFFFF"));
         healthText.setX(playerX);
         healthText.setY(playerY + playerView.getMaxHeight() + playerTextOffset);
         gameLayout.addView(healthText); //Creates health text and attaches it to character
@@ -85,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
         }
         difficultyText.setX(playerX);
         difficultyText.setY(playerY + playerView.getMaxHeight());
+        difficultyText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(difficultyText);
         
         exitButton.setOnClickListener(v -> {

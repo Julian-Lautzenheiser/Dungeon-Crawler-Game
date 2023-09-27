@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.views;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.myapplication.R;
 
 public class GameActivity extends AppCompatActivity {
 

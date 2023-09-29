@@ -13,5 +13,11 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+        assertEquals(5, 4 + 1);
+    }
+
+    @Test
+    public void score_changes() {
+        assertEquals(0, 0);
     }
 }

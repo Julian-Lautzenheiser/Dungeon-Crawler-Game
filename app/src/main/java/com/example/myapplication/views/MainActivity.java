@@ -1,10 +1,13 @@
-package com.example.myapplication;
+package com.example.myapplication.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.example.myapplication.R;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

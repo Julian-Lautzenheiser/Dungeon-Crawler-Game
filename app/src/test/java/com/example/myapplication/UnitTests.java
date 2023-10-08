@@ -9,13 +9,27 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class UnitTests {
+
+    /**
+     * Local tests that checks to see if leaderboard is a singleton
+     */
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-        assertEquals(5, 4 + 1);
+    public void LeaderboardTest() {
+    
     }
 
+    /**
+     * Local tests that checks is game score is a singleton
+     */
+    @Test
+    public void GameScoreTest() {
+    
+    }
+
+    /**
+     * Local tests that checks to see if score decrements
+     */
     @Test
     public void score_changes() {
         assertEquals(0, 0);

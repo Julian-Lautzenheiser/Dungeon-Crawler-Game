@@ -31,7 +31,6 @@ public class GameActivity extends AppCompatActivity {
     private final int maxSize = 300;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

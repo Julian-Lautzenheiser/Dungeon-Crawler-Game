@@ -24,9 +24,9 @@ public class GameActivity extends AppCompatActivity {
     private ConstraintLayout gameLayout;
     private int screenWidth;
     private int screenHeight;
-    private final int PLAYER_TEXT_OFFSET = 100;
-    private final int HEALTH_BASE = 100;
-    private final int MAX_SIZE = 300;
+    private final int playerTextOffset = 100;
+    private final int healthBase = 100;
+    private final int maxSize = 300;
 
 
 
@@ -56,8 +56,8 @@ public class GameActivity extends AppCompatActivity {
         playerY -= 300; //MOVES PLAYER CHARACTER INTO WHITESPACE
         playerView.setX(playerX);
         playerView.setY(playerY);
-        playerView.setMaxHeight(MAX_SIZE); //Makes the sprite not crazy big
-        playerView.setMaxWidth(MAX_SIZE);
+        playerView.setMaxHeight(maxSize); //Makes the sprite not crazy big
+        playerView.setMaxWidth(maxSize);
 
         gameLayout.addView(playerView);
 

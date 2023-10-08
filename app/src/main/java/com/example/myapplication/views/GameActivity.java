@@ -34,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_room1);
         gameLayout = findViewById(R.id.gameLayout);
         Button exitButton = findViewById(R.id.buttonExit);
         screenWidth = getResources().getDisplayMetrics().widthPixels;

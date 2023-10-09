@@ -23,7 +23,6 @@ public class ConfigurationActivity extends AppCompatActivity {
         setContentView(R.layout.configuration_screen);
         Button startBtn = findViewById(R.id.StartGameButton);
         EditText nameBox = findViewById(R.id.UsernameText);
-
         configViewModel = new ViewModelProvider(this).get(ConfigViewModel.class);
 
         startBtn.setOnClickListener(v -> {
@@ -38,6 +37,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             if (!name.trim().isEmpty()) {
                 configViewModel.setPlayer(radioId, name, spriteId);
                 Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);
+
                 startActivity(game);
                 finish();
             }

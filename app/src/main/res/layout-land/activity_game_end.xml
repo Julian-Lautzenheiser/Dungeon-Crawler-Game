@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/textId"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.GameEndActivity">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="#38db"
+    >
 
-    <TextView
-        android:id="@+id/textView"
+    <TableLayout
+        android:layout_width="771dp"
+        android:layout_height="309dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="28dp" />
+    </TableLayout>
+
+    <Button
+        android:id="@+id/playagainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginBottom="94dp"
-        android:fontFamily="sans-serif-black"
-        android:shadowColor="#000000"
-        android:shadowRadius="5"
-        android:text="Temporary end screen"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textSize="45sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="#475CE1"
+        android:text="PLAY AGAIN"
+        android:textColor="@color/white" />
+
+</LinearLayout>

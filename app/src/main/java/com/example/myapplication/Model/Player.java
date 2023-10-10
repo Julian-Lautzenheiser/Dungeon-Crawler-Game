@@ -15,6 +15,14 @@ public class Player {
     double difficulty;
 
     private Player() {
+        this.playerX = 0.0f;
+        this.playerY = 0.0f;
+        this.sprite = 0;
+        this.spritePicId = 0;
+        this.health = 0;
+        this.score = 0;
+        this.name = "";
+        this.difficulty = 0.0;
     }
 
     public static Player getInstance() {
@@ -47,6 +55,7 @@ public class Player {
     public String getName() {
         return name;
     }
+    
     public void setScore(int score) {
         this.score = score;
     }
@@ -69,9 +78,8 @@ public class Player {
     public float getY() {
         return playerY;
     }
-
-    public float getScore() {
-        return score;
+    
+    public int getScore() {
+        return this.score;
     }
-
 }

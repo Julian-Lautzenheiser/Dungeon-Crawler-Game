@@ -70,4 +70,8 @@ public class Player {
         return playerY;
     }
 
+    public float getScore() {
+        return score;
+    }
+
 }

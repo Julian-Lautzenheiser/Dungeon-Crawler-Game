@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.myapplication.Model.LeaderBoard;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -16,7 +18,8 @@ public class UnitTests {
      */
     @Test
     public void LeaderboardTest() {
-    
+        LeaderBoard lb = LeaderBoard.getInstance();
+
     }
 
     /**

@@ -10,7 +10,7 @@ public class Player {
     private int sprite;
     private int spritePicId;
     private int health;
-    private int score;
+    private float score;
     private String name;
     private double difficulty;
 
@@ -20,7 +20,7 @@ public class Player {
         this.sprite = 0;
         this.spritePicId = 0;
         this.health = 0;
-        this.score = 0;
+        this.score = 0.0f;
         this.name = "";
         this.difficulty = 0.0;
     }
@@ -78,20 +78,8 @@ public class Player {
     public float getY() {
         return playerY;
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
     
-=======
-
     public float getScore() {
-        return score;
-    }
-
->>>>>>> main
-=======
-    
-    public int getScore() {
         return this.score;
     }
->>>>>>> JUnit_Tests
 }

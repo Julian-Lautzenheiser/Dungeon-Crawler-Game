@@ -1,9 +1,8 @@
-package com.example.myapplication.views;
+package com.example.myapplication.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.EditText;
 

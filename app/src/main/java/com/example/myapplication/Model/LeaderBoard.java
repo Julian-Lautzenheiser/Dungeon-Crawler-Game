@@ -1,4 +1,4 @@
-package com.example.myapplication.models;
+package com.example.myapplication.Model;
 
 public class LeaderBoard {
     private static LeaderBoard leaderboard;

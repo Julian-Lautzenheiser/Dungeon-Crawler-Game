@@ -55,6 +55,7 @@ public class Player {
     public String getName() {
         return name;
     }
+    
     public void setScore(int score) {
         this.score = score;
     }
@@ -78,6 +79,7 @@ public class Player {
         return playerY;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
 
@@ -86,4 +88,10 @@ public class Player {
     }
 
 >>>>>>> main
+=======
+    
+    public int getScore() {
+        return this.score;
+    }
+>>>>>>> JUnit_Tests
 }

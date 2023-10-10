@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name ="com.example.myapplication.views.MainActivity"
+            android:name ="com.example.myapplication.Views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,19 +21,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.ConfigurationActivity"
+            android:name=".Views.ConfigurationActivity"
             android:exported="false" />
         <activity
-            android:name=".views.GameScreen1Activity"
+            android:name=".Views.GameScreen1Activity"
             android:exported="false" />
         <activity
-            android:name=".views.GameScreen2Activity"
+            android:name=".Views.GameScreen2Activity"
             android:exported="false" />
         <activity
-            android:name=".views.GameScreen3Activity"
+            android:name=".Views.GameScreen3Activity"
             android:exported="false" />
         <activity
-            android:name=".views.GameEndActivity"
+            android:name=".Views.GameEndActivity"
             android:exported="false" />
     </application>
 

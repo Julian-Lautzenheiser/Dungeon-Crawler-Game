@@ -8,19 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModels.GameViewModel;
 
-public class GameActivity extends AppCompatActivity {
+public class GameScreen3Activity extends AppCompatActivity {
 
 
     private ImageView playerView;
     private TextView nameText;
     private TextView healthText;
-    
+
     private TextView difficultyText;
     private ConstraintLayout gameLayout;
 
@@ -29,9 +28,9 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_room3);
         gameLayout = findViewById(R.id.gameLayout);
-        Button exitButton = findViewById(R.id.buttonExit);
+        Button nextButton = findViewById(R.id.nextExit3);
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
@@ -66,16 +65,16 @@ public class GameActivity extends AppCompatActivity {
         healthText.setX(gameViewModel.getPlayerX());
         healthText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight() + gameViewModel.getPlayerTextOffset());
         gameLayout.addView(healthText); //Creates health text and attaches it to character
-        
+
         difficultyText = new TextView(this);
         difficultyText.setText("Difficulty: " + gameViewModel.getDifficulty());
         difficultyText.setX(gameViewModel.getPlayerX());
         difficultyText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight());
         difficultyText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(difficultyText);
-        
-        exitButton.setOnClickListener(v -> {
-            Intent end = new Intent(GameActivity.this, GameEndActivity.class);
+
+        nextButton.setOnClickListener(v -> {
+            Intent end = new Intent(GameScreen3Activity.this, GameEndActivity.class);
             startActivity(end);
             finish();
         });

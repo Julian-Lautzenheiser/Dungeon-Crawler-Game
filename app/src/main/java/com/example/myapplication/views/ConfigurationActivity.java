@@ -36,7 +36,7 @@ public class ConfigurationActivity extends AppCompatActivity {
 
             if (!name.trim().isEmpty()) {
                 configViewModel.setPlayer(radioId, name, spriteId);
-                Intent game = new Intent(ConfigurationActivity.this, GameActivity.class);
+                Intent game = new Intent(ConfigurationActivity.this, GameScreen1Activity.class);
 
                 startActivity(game);
                 finish();

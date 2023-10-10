@@ -24,7 +24,13 @@
             android:name=".views.ConfigurationActivity"
             android:exported="false" />
         <activity
-            android:name=".views.GameActivity"
+            android:name=".views.GameScreen1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".views.GameScreen2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".views.GameScreen3Activity"
             android:exported="false" />
         <activity
             android:name=".views.GameEndActivity"

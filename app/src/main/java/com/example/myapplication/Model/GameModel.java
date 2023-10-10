@@ -1,7 +1,5 @@
 package com.example.myapplication.Model;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 public class GameModel {
 
     private double difficulty;

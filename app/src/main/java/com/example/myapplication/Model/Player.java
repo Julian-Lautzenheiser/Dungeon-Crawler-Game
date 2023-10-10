@@ -12,9 +12,17 @@ public class Player {
     private int health;
     private int score;
     private String name;
-    double difficulty;
+    private double difficulty;
 
     private Player() {
+        this.playerX = 0.0f;
+        this.playerY = 0.0f;
+        this.sprite = 0;
+        this.spritePicId = 0;
+        this.health = 0;
+        this.score = 0;
+        this.name = "";
+        this.difficulty = 0.0;
     }
 
     public static Player getInstance() {

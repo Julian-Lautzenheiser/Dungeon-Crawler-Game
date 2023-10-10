@@ -24,7 +24,10 @@ public class GameScore {
     }
     
     public int decreaseScore() {
-        int currScore = getPlayerScore();
-        return currScore;
+        int newScore = getPlayerScore();
+        while (newScore != 0) {
+            newScore -= 15;
+        }
+        return newScore;
     }
 }

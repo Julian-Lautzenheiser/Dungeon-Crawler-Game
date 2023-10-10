@@ -57,4 +57,7 @@ public class GameViewModel extends ViewModel {
         return player.getName();
     }
 
+    public float getPlayerScore() {
+        return player.getScore();
+    }
 }

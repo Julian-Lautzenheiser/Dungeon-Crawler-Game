@@ -77,5 +77,13 @@ public class Player {
     public float getY() {
         return playerY;
     }
+<<<<<<< HEAD
     
+=======
+
+    public float getScore() {
+        return score;
+    }
+
+>>>>>>> main
 }

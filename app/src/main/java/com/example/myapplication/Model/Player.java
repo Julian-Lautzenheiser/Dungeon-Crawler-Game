@@ -77,5 +77,5 @@ public class Player {
     public float getY() {
         return playerY;
     }
-
+    
 }

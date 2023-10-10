@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.myapplication.Model.LeaderBoard;
+import com.example.myapplication.Model.Player;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -15,23 +18,17 @@ public class UnitTests {
      * Local tests that checks to see if leaderboard is a singleton
      */
     @Test
-    public void LeaderboardTest() {
-    
-    }
-
-    /**
-     * Local tests that checks is game score is a singleton
-     */
-    @Test
-    public void GameScoreTest() {
-    
+    public void leaderboardTest() {
+        LeaderBoard leaderBoard1 = LeaderBoard.getLeaderboard();
+        
     }
 
     /**
      * Local tests that checks to see if score decrements
      */
     @Test
-    public void score_changes() {
+    public void scoreChanges() {
+        Player player1 = Player.getInstance();
         assertEquals(0, 0);
     }
 }

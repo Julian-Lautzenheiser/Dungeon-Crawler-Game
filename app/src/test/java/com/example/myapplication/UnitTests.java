@@ -178,7 +178,7 @@ public class UnitTests {
         Player player = Player.getInstance();
         ConfigViewModel configViewModel = new ConfigViewModel();
         configViewModel.setPlayer(id, "Andrew", 1);
-        assertTrue(player1.getHealth() == 133);
+        assertTrue(player.getHealth() == 133);
     }
 
     @Test
@@ -187,7 +187,7 @@ public class UnitTests {
         Player player = Player.getInstance();
         ConfigViewModel configViewModel = new ConfigViewModel();
         configViewModel.setPlayer(id, "Andrew", 1);
-        assertTrue(player1.getHealth() == 100);
+        assertTrue(player.getHealth() == 100);
     }
     
     @Test

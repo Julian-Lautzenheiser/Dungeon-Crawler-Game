@@ -14,20 +14,16 @@ public class Player {
     private String name;
     private double difficulty;
 
-<<<<<<< HEAD
     public Player() {
         this.playerX = 0.0f;
         this.playerY = 0.0f;
         this.sprite = 0;
         this.spritePicId = 0;
         this.health = 0;
-        this.score = 0.0;
+        this.score = 200.0;
         this.name = "";
         this.difficulty = 0.0;
     }
-=======
-    private Player() { }
->>>>>>> main
 
     public static Player getInstance() {
         if (player == null) {

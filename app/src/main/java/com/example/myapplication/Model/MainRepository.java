@@ -3,11 +3,6 @@ package com.example.myapplication.Model;
 import com.example.myapplication.R;
 
 public class MainRepository {
-
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     private final int baseHealth = 100;
 
     public MainRepository() {

@@ -10,15 +10,9 @@ public class Player {
     private int sprite;
     private int spritePicId;
     private int health;
-<<<<<<< HEAD
-    private float score;
-    private String name;
-    private double difficulty;
-=======
-    private String name;
-    private double difficulty;
     private double score;
->>>>>>> main
+    private String name;
+    private double difficulty;
 
     public Player() {
         this.playerX = 0.0f;
@@ -26,7 +20,7 @@ public class Player {
         this.sprite = 0;
         this.spritePicId = 0;
         this.health = 0;
-        this.score = 0.0f;
+        this.score = 0.0;
         this.name = "";
         this.difficulty = 0.0;
     }
@@ -61,10 +55,7 @@ public class Player {
     public String getName() {
         return name;
     }
-    
-    public void setScore(int score) {
-        this.score = score;
-    }
+
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
@@ -84,18 +75,11 @@ public class Player {
     public float getY() {
         return playerY;
     }
-<<<<<<< HEAD
-    
-    public float getScore() {
-        return this.score;
-    }
-=======
 
     public double getScore() {
-        return score;
+        return this.score;
     }
     public void setScore(double newScore) {
         this.score = newScore;
     }
->>>>>>> main
 }

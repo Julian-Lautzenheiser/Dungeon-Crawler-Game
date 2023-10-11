@@ -17,19 +17,19 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameScreen1Activity extends AppCompatActivity {
-
-
+    
+    
     private ImageView playerView;
     private TextView nameText;
     private TextView healthText;
     
     private TextView difficultyText;
     private ConstraintLayout gameLayout;
-
+    
     private GameViewModel gameViewModel;
     private TextView playerScore;
     private Timer scoreTimer;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,53 +41,35 @@ public class GameScreen1Activity extends AppCompatActivity {
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         gameViewModel.setPlayerScore(100);
         gameViewModel.setScreenDimensions(screenWidth, screenHeight);
-<<<<<<< HEAD
-<<<<<<< HEAD
-        // Spawn player in middle of screen
-        gameViewModel.setPlayerPos(screenWidth / 2, screenHeight / 2);
-        
-=======
-        gameViewModel.setPlayerPos(screenWidth / 2, screenHeight / 2); // Spawn player in middle of screen
-=======
         gameViewModel.setPlayerPos(screenWidth / 2,
-                screenHeight / 2); // Spawn player in middle of screen
->>>>>>> main
-
->>>>>>> main
+        screenHeight / 2); // Spawn player in middle of screen
+        
         playerView = new ImageView(this);
         int id = gameViewModel.getSpriteImage();
         playerView.setImageResource(id);
         playerView.setAdjustViewBounds(true); //Allows resizing of sprite while keeping aspect ratio
         gameViewModel.setPlayerPos(gameViewModel.getPlayerX() / 2,
-<<<<<<< HEAD
-            gameViewModel.getPlayerY() - 300);
-=======
-                gameViewModel.getPlayerY() - 300);
->>>>>>> main
+        gameViewModel.getPlayerY() - 300);
         playerView.setX(gameViewModel.getPlayerX());
         playerView.setY(gameViewModel.getPlayerY());
         playerView.setMaxHeight(gameViewModel.getMaxSize()); //Makes the sprite not crazy big
         playerView.setMaxWidth(gameViewModel.getMaxSize());
         gameLayout.addView(playerView);
-
+        
         nameText = new TextView(this);
         nameText.setText("Name: " + gameViewModel.getPlayerName());
         nameText.setX(gameViewModel.getPlayerX());
         nameText.setY(gameViewModel.getPlayerY() - gameViewModel.getPlayerTextOffset());
         nameText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(nameText); //Creates name and attaches it to character
-
+        
         healthText = new TextView(this);
         //Subtracting health by difficulty increases health with lower difficulty
         healthText.setText("HP: " + gameViewModel.getPlayerHealth());
         healthText.setTextColor(Color.parseColor("#FFFFFF"));
         healthText.setX(gameViewModel.getPlayerX());
         healthText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight()
-<<<<<<< HEAD
-            + gameViewModel.getPlayerTextOffset());
-=======
-                + gameViewModel.getPlayerTextOffset());
->>>>>>> main
+        + gameViewModel.getPlayerTextOffset());
         gameLayout.addView(healthText); //Creates health text and attaches it to character
         
         difficultyText = new TextView(this);
@@ -96,7 +78,7 @@ public class GameScreen1Activity extends AppCompatActivity {
         difficultyText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight());
         difficultyText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(difficultyText);
-
+        
         playerScore = findViewById(R.id.score);
         playerScore.setText("Score: " + String.valueOf((int) gameViewModel.getPlayerScore()));
         scoreTimer = new Timer();
@@ -106,7 +88,7 @@ public class GameScreen1Activity extends AppCompatActivity {
                 runOnUiThread(() -> gameViewModel.decrementScore(gameViewModel, playerScore));
             }
         }, 1, 2000);
-
+        
         
         nextButton.setOnClickListener(v -> {
             scoreTimer.cancel();

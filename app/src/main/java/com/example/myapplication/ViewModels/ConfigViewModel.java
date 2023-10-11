@@ -1,18 +1,10 @@
 package com.example.myapplication.ViewModels;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.Model.MainRepository;
 import com.example.myapplication.Model.Player;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 public class ConfigViewModel extends ViewModel {
     private Player player = Player.getInstance();
     private MainRepository mainRepo = new MainRepository();

@@ -5,17 +5,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
 import android.widget.ArrayAdapter;
->>>>>>> main
 import android.widget.Button;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-<<<<<<< HEAD
-=======
 import android.widget.TextView;
->>>>>>> main
 
 import com.example.myapplication.Model.LeaderboardScore;
 import com.example.myapplication.R;
@@ -31,49 +24,41 @@ public class GameEndActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
-        
-        Button restart = findViewById(R.id.playagainButton);
-        
-        restart.setOnClickListener(v -> {
-            Intent end = new Intent(GameEndActivity.this, MainActivity.class);
-            startActivity(end);
-            finish();
-        });
         Button restartBtn = findViewById(R.id.playagainButton);
         leaderboardViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         ListView leaderboardList = findViewById(R.id.list);
         TextView recent = findViewById(R.id.recent);
-
-
+        
+        
         String name = gameViewModel.getPlayerName();
         double score = gameViewModel.getPlayerScore();
         LeaderboardScore displayScore = new LeaderboardScore(name, score);
-
+        
         String display = displayScore.getName() + " (";
         display += displayScore.getScore() + ") - ";
         display += displayScore.getDatetime();
         recent.setText(display);
-
+        
         leaderboardViewModel.addScore(displayScore);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, generateLeaderText());
-
+        android.R.layout.simple_list_item_1, generateLeaderText());
+        
         leaderboardList.setAdapter(adapter);
-
+        
         restartBtn.setOnClickListener(v -> {
             Intent config = new Intent(GameEndActivity.this, MainActivity.class);
             startActivity(config);
             finish();
         });
     }
-
+    
     public ArrayList<String> generateLeaderText() {
         ArrayList<String> finalText = new ArrayList<String>();
         for (LeaderboardScore ls : leaderboardViewModel.getTable()) {
             finalText.add(ls.getName() + " (" + ls.getScore() + ") - " + ls.getDatetime());
         }
-
+        
         return finalText;
     }
 }

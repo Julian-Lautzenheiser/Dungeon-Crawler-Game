@@ -14,7 +14,7 @@ public class Player {
     private String name;
     private double difficulty;
 
-    public Player() {
+    private Player() {
         this.playerX = 0.0f;
         this.playerY = 0.0f;
         this.sprite = 0;

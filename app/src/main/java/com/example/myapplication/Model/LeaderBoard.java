@@ -5,11 +5,9 @@ import java.util.ArrayList;
 public class LeaderBoard {
     private static LeaderBoard leaderboard = null;
     private static ArrayList<LeaderboardScore> table;
-    private static int size;
 
     private LeaderBoard() {
         this.table = new ArrayList<>();
-        this.size = 0;
     }
     
     public static LeaderBoard getInstance() {
@@ -27,5 +25,7 @@ public class LeaderBoard {
         return this.table;
     }
 
-    public int getSize() { return this.size;}
+    public int getSize() {
+        return this.table.size();
+    }
 }

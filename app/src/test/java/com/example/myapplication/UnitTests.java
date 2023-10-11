@@ -4,11 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.widget.RadioGroup;
+
 import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
 import com.example.myapplication.Model.Player;
+import com.example.myapplication.ViewModels.ConfigViewModel;
 import com.example.myapplication.ViewModels.GameViewModel;
 import java.util.ArrayList;
+import com.example.myapplication.R;
+
 import com.example.myapplication.ViewModels.GameViewModel;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
 
@@ -72,7 +77,7 @@ public class UnitTests {
         Player player1 = Player.getInstance();
         GameViewModel gModel = new GameViewModel();
         double newScore = player1.getScore();
-        if (player1.getScore() != 0) {
+        while (player1.getScore() != 0) {
             gModel.decreaseScore();
             newScore = player1.getScore();
         }
@@ -153,14 +158,47 @@ public class UnitTests {
     @Test
     public void playerNameCheck() {
         Player player1 = Player.getInstance();
-        player1.setName("Andrew");
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(1,"Andrew", 2);
         assertTrue(player1.getName() == "Andrew");
-        player1.setName("Andrew Andrew");
-        assertTrue(player1.getName() == "AndrewAndrew");
+    }
+
+    @Test
+    public void playerEasyDifficultyCheck() {
+        int id = R.id.easyDifficulty;
+        Player player1 = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id,"Andrew", 2);
+        assertTrue(player1.getHealth() == 200);
+    }
+
+    @Test
+    public void playerMediumDifficultyCheck() {
+        int id = R.id.mediumDifficulty;
+        Player player = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id, "Andrew", 1);
+        assertTrue(player.getHealth() == 133);
+    }
+
+    @Test
+    public void playerHardDifficultyCheck() {
+        int id = R.id.hardDifficulty;
+        Player player = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id, "Andrew", 1);
+        assertTrue(player.getHealth() == 100);
     }
     
+    /**
+     * Local test to make sure score can't be set to a negative value
+     */
     @Test
     public void scoreNegTest() {
-
+        Player player1 = Player.getInstance();
+        double expectedScore = player1.getScore();
+        player1.setScore(-100.0);
+        double newScore = player1.getScore();
+        assertTrue(expectedScore == newScore);
     }
 }

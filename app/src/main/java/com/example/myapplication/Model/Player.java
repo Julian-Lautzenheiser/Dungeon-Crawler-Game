@@ -84,6 +84,8 @@ public class Player {
         return this.score;
     }
     public void setScore(double newScore) {
-        this.score = newScore;
+        if (newScore >= 0) {
+            this.score = newScore;
+        }
     }
 }

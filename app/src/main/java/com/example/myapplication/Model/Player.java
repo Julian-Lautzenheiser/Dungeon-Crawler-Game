@@ -10,9 +10,15 @@ public class Player {
     private int sprite;
     private int spritePicId;
     private int health;
+<<<<<<< HEAD
     private float score;
     private String name;
     private double difficulty;
+=======
+    private String name;
+    double difficulty;
+    private double score;
+>>>>>>> main
 
     public Player() {
         this.playerX = 0.0f;
@@ -78,8 +84,18 @@ public class Player {
     public float getY() {
         return playerY;
     }
+<<<<<<< HEAD
     
     public float getScore() {
         return this.score;
     }
+=======
+
+    public double getScore() {
+        return score;
+    }
+    public void setScore(double newScore) {
+        this.score = newScore;
+    }
+>>>>>>> main
 }

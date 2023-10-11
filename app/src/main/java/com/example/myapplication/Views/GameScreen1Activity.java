@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModels.GameViewModel;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class GameScreen1Activity extends AppCompatActivity {
 
 
@@ -24,6 +27,8 @@ public class GameScreen1Activity extends AppCompatActivity {
     private ConstraintLayout gameLayout;
 
     private GameViewModel gameViewModel;
+    private TextView playerScore;
+    Timer scoreTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +39,16 @@ public class GameScreen1Activity extends AppCompatActivity {
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
-
+        gameViewModel.setPlayerScore(100);
         gameViewModel.setScreenDimensions(screenWidth, screenHeight);
+<<<<<<< HEAD
         // Spawn player in middle of screen
         gameViewModel.setPlayerPos(screenWidth / 2, screenHeight / 2);
         
+=======
+        gameViewModel.setPlayerPos(screenWidth / 2, screenHeight / 2); // Spawn player in middle of screen
+
+>>>>>>> main
         playerView = new ImageView(this);
         int id = gameViewModel.getSpriteImage();
         playerView.setImageResource(id);
@@ -73,8 +83,20 @@ public class GameScreen1Activity extends AppCompatActivity {
         difficultyText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight());
         difficultyText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(difficultyText);
+
+        playerScore = findViewById(R.id.score);
+        playerScore.setText("Score: " + String.valueOf((int) gameViewModel.getPlayerScore()));
+        scoreTimer = new Timer();
+        scoreTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> gameViewModel.decrementScore(gameViewModel, playerScore));
+            }
+        }, 1, 2000);
+
         
         nextButton.setOnClickListener(v -> {
+            scoreTimer.cancel();
             Intent screen2 = new Intent(GameScreen1Activity.this, GameScreen2Activity.class);
             startActivity(screen2);
             finish();

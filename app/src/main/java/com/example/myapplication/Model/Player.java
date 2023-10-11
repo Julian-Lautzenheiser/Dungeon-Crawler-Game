@@ -4,7 +4,7 @@ import com.example.myapplication.R;
 
 public class Player {
 
-    private static Player player;
+    private static Player player = null;
     private float playerX;
     private float playerY;
     private int sprite;
@@ -14,6 +14,7 @@ public class Player {
     private String name;
     private double difficulty;
 
+<<<<<<< HEAD
     public Player() {
         this.playerX = 0.0f;
         this.playerY = 0.0f;
@@ -24,10 +25,17 @@ public class Player {
         this.name = "";
         this.difficulty = 0.0;
     }
+=======
+    private Player() { }
+>>>>>>> main
 
     public static Player getInstance() {
         if (player == null) {
-            player = new Player();
+            synchronized (Player.class) {
+                if (player == null) {
+                    player = new Player();
+                }
+            }
         }
         return player;
     }

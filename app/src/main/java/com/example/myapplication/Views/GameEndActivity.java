@@ -29,36 +29,36 @@ public class GameEndActivity extends AppCompatActivity {
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         ListView leaderboardList = findViewById(R.id.list);
         TextView recent = findViewById(R.id.recent);
-
-
+        
+        
         String name = gameViewModel.getPlayerName();
         double score = gameViewModel.getPlayerScore();
         LeaderboardScore displayScore = new LeaderboardScore(name, score);
-
+        
         String display = displayScore.getName() + " (";
         display += displayScore.getScore() + ") - ";
         display += displayScore.getDatetime();
         recent.setText(display);
-
+        
         leaderboardViewModel.addScore(displayScore);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, generateLeaderText());
-
+        android.R.layout.simple_list_item_1, generateLeaderText());
+        
         leaderboardList.setAdapter(adapter);
-
+        
         restartBtn.setOnClickListener(v -> {
             Intent config = new Intent(GameEndActivity.this, MainActivity.class);
             startActivity(config);
             finish();
         });
     }
-
+    
     public ArrayList<String> generateLeaderText() {
         ArrayList<String> finalText = new ArrayList<String>();
         for (LeaderboardScore ls : leaderboardViewModel.getTable()) {
             finalText.add(ls.getName() + " (" + ls.getScore() + ") - " + ls.getDatetime());
         }
-
+        
         return finalText;
     }
 }

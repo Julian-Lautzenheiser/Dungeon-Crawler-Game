@@ -3,8 +3,6 @@ package com.example.myapplication.Model;
 import com.example.myapplication.R;
 
 public class MainRepository {
-
-
     private final int baseHealth = 100;
 
     public MainRepository() {

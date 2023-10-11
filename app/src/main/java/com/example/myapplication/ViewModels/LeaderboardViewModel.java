@@ -11,12 +11,12 @@ import java.util.Comparator;
 
 public class LeaderboardViewModel extends ViewModel {
     private LeaderBoard leaderboard = LeaderBoard.getInstance();
-    public LeaderboardViewModel() {}
+    public LeaderboardViewModel() { }
 
     public void addScore(LeaderboardScore s) {
         ArrayList<LeaderboardScore> table = leaderboard.getTable();
         table.add(s);
-        table.sort(Comparator.comparingDouble(a -> a.score));
+        table.sort(Comparator.comparingDouble(a -> a.getScore()));
 
         if (table.size() > 5) {
             table.remove(5);
@@ -24,7 +24,7 @@ public class LeaderboardViewModel extends ViewModel {
         Collections.reverse(table);
     }
 
-    public ArrayList<LeaderboardScore> getTable () {
+    public ArrayList<LeaderboardScore> getTable() {
         return leaderboard.getTable();
     }
 }

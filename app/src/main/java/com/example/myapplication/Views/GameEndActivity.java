@@ -5,19 +5,24 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.widget.ArrayAdapter;
+>>>>>>> main
 import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+<<<<<<< HEAD
+=======
+import android.widget.TextView;
+>>>>>>> main
 
-import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModels.GameViewModel;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class GameEndActivity extends AppCompatActivity {
     private LeaderboardViewModel leaderboardViewModel;
@@ -41,12 +46,18 @@ public class GameEndActivity extends AppCompatActivity {
         TextView recent = findViewById(R.id.recent);
 
 
-        LeaderboardScore displayScore = new LeaderboardScore(gameViewModel.getPlayerName(), gameViewModel.getPlayerScore());
+        String name = gameViewModel.getPlayerName();
+        double score = gameViewModel.getPlayerScore();
+        LeaderboardScore displayScore = new LeaderboardScore(name, score);
 
-        recent.setText(displayScore.name + " (" + displayScore.score + ") - " + displayScore.datetime);
+        String display = displayScore.getName() + " (";
+        display += displayScore.getScore() + ") - ";
+        display += displayScore.getDatetime();
+        recent.setText(display);
 
         leaderboardViewModel.addScore(displayScore);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, generateLeaderText());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, generateLeaderText());
 
         leaderboardList.setAdapter(adapter);
 
@@ -60,7 +71,7 @@ public class GameEndActivity extends AppCompatActivity {
     public ArrayList<String> generateLeaderText() {
         ArrayList<String> finalText = new ArrayList<String>();
         for (LeaderboardScore ls : leaderboardViewModel.getTable()) {
-            finalText.add(ls.name + " (" + ls.score + ") - " + ls.datetime);
+            finalText.add(ls.getName() + " (" + ls.getScore() + ") - " + ls.getDatetime());
         }
 
         return finalText;

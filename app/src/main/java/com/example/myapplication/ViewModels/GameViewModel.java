@@ -13,7 +13,7 @@ public class GameViewModel extends ViewModel {
     private Player player = Player.getInstance();
     private GameModel gModel = new GameModel();
 
-    public GameViewModel() {}
+    public GameViewModel() { }
 
     public int getSpriteImage() {
         return player.getSpritePicId();
@@ -77,6 +77,6 @@ public class GameViewModel extends ViewModel {
         gameViewModel.decreaseScore();
         playerScore.setText("Score: " + String.valueOf((int) gameViewModel.getPlayerScore()));
         playerScore.setTextColor(Color.parseColor("#FFFFFF"));
-        System.out.println("Hi: "+ String.valueOf((int) gameViewModel.getPlayerScore()));
+        System.out.println("Hi: " + String.valueOf((int) gameViewModel.getPlayerScore()));
     }
 }

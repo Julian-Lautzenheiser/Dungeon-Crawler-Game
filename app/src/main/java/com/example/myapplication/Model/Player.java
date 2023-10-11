@@ -16,7 +16,7 @@ public class Player {
     private double difficulty;
 =======
     private String name;
-    double difficulty;
+    private double difficulty;
     private double score;
 >>>>>>> main
 

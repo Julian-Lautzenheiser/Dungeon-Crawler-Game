@@ -28,7 +28,7 @@ public class GameScreen1Activity extends AppCompatActivity {
 
     private GameViewModel gameViewModel;
     private TextView playerScore;
-    Timer scoreTimer;
+    private Timer scoreTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,16 @@ public class GameScreen1Activity extends AppCompatActivity {
         gameViewModel.setPlayerScore(100);
         gameViewModel.setScreenDimensions(screenWidth, screenHeight);
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Spawn player in middle of screen
         gameViewModel.setPlayerPos(screenWidth / 2, screenHeight / 2);
         
 =======
         gameViewModel.setPlayerPos(screenWidth / 2, screenHeight / 2); // Spawn player in middle of screen
+=======
+        gameViewModel.setPlayerPos(screenWidth / 2,
+                screenHeight / 2); // Spawn player in middle of screen
+>>>>>>> main
 
 >>>>>>> main
         playerView = new ImageView(this);
@@ -54,7 +59,11 @@ public class GameScreen1Activity extends AppCompatActivity {
         playerView.setImageResource(id);
         playerView.setAdjustViewBounds(true); //Allows resizing of sprite while keeping aspect ratio
         gameViewModel.setPlayerPos(gameViewModel.getPlayerX() / 2,
+<<<<<<< HEAD
             gameViewModel.getPlayerY() - 300);
+=======
+                gameViewModel.getPlayerY() - 300);
+>>>>>>> main
         playerView.setX(gameViewModel.getPlayerX());
         playerView.setY(gameViewModel.getPlayerY());
         playerView.setMaxHeight(gameViewModel.getMaxSize()); //Makes the sprite not crazy big
@@ -74,7 +83,11 @@ public class GameScreen1Activity extends AppCompatActivity {
         healthText.setTextColor(Color.parseColor("#FFFFFF"));
         healthText.setX(gameViewModel.getPlayerX());
         healthText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight()
+<<<<<<< HEAD
             + gameViewModel.getPlayerTextOffset());
+=======
+                + gameViewModel.getPlayerTextOffset());
+>>>>>>> main
         gameLayout.addView(healthText); //Creates health text and attaches it to character
         
         difficultyText = new TextView(this);

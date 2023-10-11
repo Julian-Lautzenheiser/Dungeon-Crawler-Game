@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
 import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
 import com.example.myapplication.Model.Player;
+<<<<<<< HEAD
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
+=======
+>>>>>>> main
 
 import java.util.ArrayList;
 
@@ -17,7 +20,10 @@ import java.util.ArrayList;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
+<<<<<<< HEAD
     
+=======
+>>>>>>> main
     /**
      * Local test that checks to see if Plauer is a singleton
      */
@@ -29,7 +35,11 @@ public class UnitTests {
         player1.setSprite(2);
         player1.setSprite(3);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> main
     /**
      * Local tests that checks to see if leaderboard is a singleton
      */
@@ -40,6 +50,7 @@ public class UnitTests {
         leaderboardTest.add(new LeaderboardScore("Nawal", 0));
         leaderboardTest.add(new LeaderboardScore("Jai", 0));
         leaderboardTest.add(new LeaderboardScore("Julian", 0));
+<<<<<<< HEAD
     
         LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
         LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
@@ -53,6 +64,21 @@ public class UnitTests {
         assertArrayEquals(leaderboardTest.toArray(), leaderboardScore1.toArray());
     }
     
+=======
+        
+        LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
+        LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
+        LeaderBoard leaderBoard3 = LeaderBoard.getInstance();
+        LeaderBoard leaderBoard4 = LeaderBoard.getInstance();
+        
+        LeaderBoard leaderboard = LeaderBoard.getInstance();
+        ArrayList<LeaderboardScore> leaderboardScore1 = leaderboard.getTable();
+        
+        assertEquals(leaderboardTest.size(), leaderboardScore1.size());
+        assertArrayEquals(leaderboardTest.toArray(), leaderboardScore1.toArray());
+    }
+    
+>>>>>>> main
     /**
      * Local tests that checks to see if score decrements
      */
@@ -62,10 +88,17 @@ public class UnitTests {
         Player player1 = Player.getInstance();
         double playerScore = player1.getScore();
         double newScore = 0.0;
+<<<<<<< HEAD
         //float newScore = playerScore.decreaseScore();
         assertEquals(targetScore, newScore, 0.5);
     }
 
+=======
+        //double newScore = playerScore.decreaseScore();
+        assertEquals(targetScore, newScore, 0.5);
+    }
+    
+>>>>>>> main
     /**
      * Local test that checks to see if leaderboard size is 5 if there are more than 5 entries
      */

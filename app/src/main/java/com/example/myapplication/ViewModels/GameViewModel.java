@@ -1,5 +1,8 @@
 package com.example.myapplication.ViewModels;
 
+import android.graphics.Color;
+import android.widget.TextView;
+
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.Model.GameModel;
@@ -10,8 +13,7 @@ public class GameViewModel extends ViewModel {
     private Player player = Player.getInstance();
     private GameModel gModel = new GameModel();
 
-    public GameViewModel() {
-    }
+    public GameViewModel() {}
 
     public int getSpriteImage() {
         return player.getSpritePicId();
@@ -57,7 +59,24 @@ public class GameViewModel extends ViewModel {
         return player.getName();
     }
 
-    public float getPlayerScore() {
+    public double getPlayerScore() {
         return player.getScore();
+    }
+
+    public void setPlayerScore(double newScore) {
+        player.setScore(newScore);
+    }
+
+    public void decreaseScore() {
+        if (player.getScore() > 0) {
+            player.setScore(player.getScore() - 5);
+        }
+    }
+
+    public void decrementScore(GameViewModel gameViewModel, TextView playerScore) {
+        gameViewModel.decreaseScore();
+        playerScore.setText("Score: " + String.valueOf((int) gameViewModel.getPlayerScore()));
+        playerScore.setTextColor(Color.parseColor("#FFFFFF"));
+        System.out.println("Hi: "+ String.valueOf((int) gameViewModel.getPlayerScore()));
     }
 }

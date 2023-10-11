@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.myapplication.R;
 import com.example.myapplication.ViewModels.GameViewModel;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class GameScreen3Activity extends AppCompatActivity {
 
 
@@ -24,6 +27,8 @@ public class GameScreen3Activity extends AppCompatActivity {
     private ConstraintLayout gameLayout;
 
     private GameViewModel gameViewModel;
+    private TextView playerScore;
+    Timer scoreTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,18 @@ public class GameScreen3Activity extends AppCompatActivity {
         difficultyText.setTextColor(Color.parseColor("#FFFFFF"));
         gameLayout.addView(difficultyText);
 
+        playerScore = findViewById(R.id.score);
+        playerScore.setText("Score: " + String.valueOf((int) gameViewModel.getPlayerScore()));
+        scoreTimer = new Timer();
+        scoreTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> gameViewModel.decrementScore(gameViewModel, playerScore));
+            }
+        }, 1, 2000);
+
         nextButton.setOnClickListener(v -> {
+            scoreTimer.cancel();
             Intent end = new Intent(GameScreen3Activity.this, GameEndActivity.class);
             startActivity(end);
             finish();

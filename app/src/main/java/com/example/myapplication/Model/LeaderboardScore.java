@@ -5,10 +5,10 @@ import java.util.Date;
 
 public class LeaderboardScore {
     public String name;
-    public float score;
+    public double score;
     public String datetime;
 
-    public LeaderboardScore (String name, float score) {
+    public LeaderboardScore (String name, double score) {
         this.name = name;
         this.score = score;
         // Create a Date object to represent the current date and time

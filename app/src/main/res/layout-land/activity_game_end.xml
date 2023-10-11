@@ -9,24 +9,31 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="392dp"
-        android:layout_marginBottom="232dp"
-        android:text="Leaderboard"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/recentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="300dp"
         android:layout_marginBottom="292dp"
         android:text="Most recent attempt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/recent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="348dp"
+        android:layout_marginBottom="272dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="324dp"
+        android:layout_marginBottom="232dp"
+        android:text="Leaderboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -34,8 +41,8 @@
         android:id="@+id/playagainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="260dp"
         android:background="#475CE1"
         android:text="PLAY AGAIN"
         android:textColor="@color/white"
@@ -46,17 +53,8 @@
         android:id="@+id/list"
         android:layout_width="603dp"
         android:layout_height="222dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/recent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="127dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,4 +26,6 @@ public class LeaderBoard {
     public ArrayList<LeaderboardScore> getTable() {
         return this.table;
     }
+
+    public int getSize() { return this.size;}
 }

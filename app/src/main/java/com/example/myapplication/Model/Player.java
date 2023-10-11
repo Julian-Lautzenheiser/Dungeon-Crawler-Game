@@ -11,7 +11,7 @@ public class Player {
     private int spritePicId;
     private int health;
     private String name;
-    double difficulty;
+    private double difficulty;
     private double score;
 
     private Player() {

@@ -1,18 +1,13 @@
 package com.example.myapplication.ViewModels;
 
-import android.widget.RadioGroup;
-
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.Model.MainRepository;
-import com.example.myapplication.R;
 import com.example.myapplication.Model.Player;
 
-import java.nio.charset.MalformedInputException;
-
 public class ConfigViewModel extends ViewModel {
-    Player player = Player.getInstance();
-    MainRepository mainRepo = new MainRepository();
+    private Player player = Player.getInstance();
+    private MainRepository mainRepo = new MainRepository();
     public ConfigViewModel() {
     }
 

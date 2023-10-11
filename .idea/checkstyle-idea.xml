@@ -6,14 +6,13 @@
     <copyLibs>true</copyLibs>
     <option name="thirdPartyClasspath" />
     <option name="activeLocationIds">
-      <option value="c868d473-d3e9-4b20-ad90-f8300cefd129" />
+      <option value="f764404d-e543-4e3c-8303-16f77142e2fb" />
     </option>
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
-        <ConfigurationLocation id="c868d473-d3e9-4b20-ad90-f8300cefd129" type="LOCAL_FILE" scope="All" description="CS2340">$PROJECT_DIR$/../cs2340_checks.xml</ConfigurationLocation>
-        <ConfigurationLocation id="8680798a-e529-4ed7-80dc-88ba01b9bc6d" type="PROJECT_RELATIVE" scope="All" description="checkstyle">$PROJECT_DIR$/raw.githubusercontent.com_Georgia-Tech-CS2340_cs2340-codestyle_master_cs2340_checks.xml</ConfigurationLocation>
+        <ConfigurationLocation id="f764404d-e543-4e3c-8303-16f77142e2fb" type="LOCAL_FILE" scope="All" description="2340">$PROJECT_DIR$/../raw.githubusercontent.com_Georgia-Tech-CS2340_cs2340-codestyle_master_cs2340_checks.xml</ConfigurationLocation>
       </list>
     </option>
   </component>

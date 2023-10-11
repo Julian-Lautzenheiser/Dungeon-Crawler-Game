@@ -77,7 +77,7 @@ public class UnitTests {
         Player player1 = Player.getInstance();
         GameViewModel gModel = new GameViewModel();
         double newScore = player1.getScore();
-        if (player1.getScore() != 0) {
+        while (player1.getScore() != 0) {
             gModel.decreaseScore();
             newScore = player1.getScore();
         }
@@ -190,8 +190,15 @@ public class UnitTests {
         assertTrue(player.getHealth() == 100);
     }
     
+    /**
+     * Local test to make sure score can't be set to a negative value
+     */
     @Test
     public void scoreNegTest() {
-
+        Player player1 = Player.getInstance();
+        double expectedScore = player1.getScore();
+        player1.setScore(-100.0);
+        double newScore = player1.getScore();
+        assertTrue(expectedScore == newScore);
     }
 }

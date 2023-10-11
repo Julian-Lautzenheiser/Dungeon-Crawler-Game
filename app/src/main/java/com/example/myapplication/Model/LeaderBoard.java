@@ -1,10 +1,9 @@
 package com.example.myapplication.Model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class LeaderBoard {
-    private static LeaderBoard leaderboard;
+    private static LeaderBoard leaderboard = null;
     private static ArrayList<LeaderboardScore> table;
     private static int size;
 
@@ -15,7 +14,11 @@ public class LeaderBoard {
     
     public static LeaderBoard getInstance() {
         if (leaderboard == null) {
-            leaderboard = new LeaderBoard();
+            synchronized (LeaderBoard.class) {
+                if (leaderboard == null) {
+                    leaderboard = new LeaderBoard();
+                }
+            }
         }
         return leaderboard;
     }

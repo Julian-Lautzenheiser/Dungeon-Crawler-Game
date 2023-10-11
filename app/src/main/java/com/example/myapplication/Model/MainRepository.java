@@ -1,13 +1,11 @@
 package com.example.myapplication.Model;
 
-import android.widget.RadioGroup;
-
 import com.example.myapplication.R;
 
 public class MainRepository {
 
 
-    private final int base_health = 100;
+    private final int baseHealth = 100;
 
     public MainRepository() {
     }
@@ -24,6 +22,6 @@ public class MainRepository {
         return difficulty;
     }
     public int calcHealth(double difficulty) {
-        return (int)(base_health/difficulty);
+        return (int) (baseHealth / difficulty);
     }
 }

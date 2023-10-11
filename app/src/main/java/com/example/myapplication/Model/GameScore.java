@@ -12,7 +12,7 @@ public class GameScore {
         this.playerScore = 0;
     }
     
-    public static GameScore getGameScore() {
+    public static GameScore getGameScoreInstance() {
         if (gameScore == null) {
             gameScore = new GameScore();
         }
@@ -24,7 +24,11 @@ public class GameScore {
     }
     
     public int decreaseScore() {
-        int currScore = getPlayerScore();
+        int currScore = getPlayerScore() - 1;
+
+        if(currScore < 0) {
+            currScore = 0;
+        }
         return currScore;
     }
 }

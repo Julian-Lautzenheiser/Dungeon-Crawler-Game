@@ -4,13 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.example.myapplication.Model.LeaderBoard;
-import com.example.myapplication.Model.LeaderboardScore;
-import com.example.myapplication.Model.Player;
-import com.example.myapplication.ViewModels.GameViewModel;
+import com.example.myapplication.Model.*;
+import com.example.myapplication.ViewModels.*;
 import java.util.ArrayList;
-import com.example.myapplication.ViewModels.GameViewModel;
-import com.example.myapplication.ViewModels.LeaderboardViewModel;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -72,7 +68,7 @@ public class UnitTests {
         Player player1 = Player.getInstance();
         GameViewModel gModel = new GameViewModel();
         double newScore = player1.getScore();
-        if (player1.getScore() != 0) {
+        while (player1.getScore() != 0) {
             gModel.decreaseScore();
             newScore = player1.getScore();
         }
@@ -158,9 +154,16 @@ public class UnitTests {
         player1.setName("Andrew Andrew");
         assertTrue(player1.getName() == "AndrewAndrew");
     }
-    
+
+    /**
+     * Local test to make sure score can't be set to a negative value
+     */
     @Test
     public void scoreNegTest() {
-
+        Player player1 = Player.getInstance();
+        double expectedScore = player1.getScore();
+        player1.setScore(-100.0);
+        double newScore = player1.getScore();
+        assertTrue(expectedScore == newScore);
     }
 }

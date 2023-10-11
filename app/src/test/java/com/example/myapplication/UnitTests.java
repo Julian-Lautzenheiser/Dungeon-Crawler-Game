@@ -7,10 +7,7 @@ import static org.junit.Assert.*;
 import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
 import com.example.myapplication.Model.Player;
-<<<<<<< HEAD
-=======
 import com.example.myapplication.ViewModels.GameViewModel;
->>>>>>> main
 import java.util.ArrayList;
 import com.example.myapplication.ViewModels.GameViewModel;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
@@ -38,16 +35,6 @@ public class UnitTests {
      * Local tests that checks to see if leaderboard is a singleton
      */
     @Test
-<<<<<<< HEAD
-    public void leaderboardTest() {
-        ArrayList<LeaderboardScore> leaderboardTest = new ArrayList<>();
-        leaderboardTest.add(3, new LeaderboardScore("Andrew", 105));
-        leaderboardTest.add(0, new LeaderboardScore("Nawal", 200));
-        leaderboardTest.add(1, new LeaderboardScore("Jai", 140));
-        leaderboardTest.add(2, new LeaderboardScore("Julian", 120));
-    
-        LeaderboardViewModel lbView = new LeaderboardViewModel();
-=======
     public void leaderboardSingletonTest() {
         LeaderBoard lb1 = LeaderBoard.getInstance();
         assertFalse(lb1 == null);
@@ -98,7 +85,6 @@ public class UnitTests {
     @Test
     public void leaderBoardSizeExceedsCheck() {
         //LeaderBoard model vs LeaderBoard ViewModel??
-
         LeaderBoard lb = LeaderBoard.getInstance();
         ArrayList<LeaderboardScore> leaderboardTest = lb.getTable();
         assertFalse(lb == null);
@@ -107,16 +93,15 @@ public class UnitTests {
         leaderboardTest.add(new LeaderboardScore("Nawal", 0));
         leaderboardTest.add(new LeaderboardScore("Jai", 0));
         leaderboardTest.add(new LeaderboardScore("Julian", 0));
->>>>>>> main
         
         LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
-        lbView.addScore(new LeaderboardScore("Andrew", 105));
+        //lbView.addScore(new LeaderboardScore("Andrew", 105));
         LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
-        lbView.addScore(new LeaderboardScore("Nawal", 200));
+        //lbView.addScore(new LeaderboardScore("Nawal", 200));
         LeaderBoard leaderBoard3 = LeaderBoard.getInstance();
-        lbView.addScore(new LeaderboardScore("Jai", 140));
+        //lbView.addScore(new LeaderboardScore("Jai", 140));
         LeaderBoard leaderBoard4 = LeaderBoard.getInstance();
-        lbView.addScore(new LeaderboardScore("Julian", 120));
+        //lbView.addScore(new LeaderboardScore("Julian", 120));
         
         LeaderBoard leaderboard = LeaderBoard.getInstance();
         ArrayList<LeaderboardScore> leaderboardScore1 = leaderboard.getTable();
@@ -167,53 +152,15 @@ public class UnitTests {
      */
     @Test
     public void playerNameCheck() {
-        //Is name check logic inside Model?
         Player player1 = Player.getInstance();
-<<<<<<< HEAD
-        GameViewModel gModel = new GameViewModel();
-        double newScore = gModel.getPlayerScore();
-        while (player1.getScore() != 0) {
-            gModel.decreaseScore();
-            newScore = player1.getScore();
-        }
-        assertEquals(targetScore, newScore, 0.5);
-    }
-
-    /**
-     * Local test that checks to see if leaderboard size is 5 if there are more than 5 entries
-     */
-    @Test
-    public void leaderBoardSizeExceedsCheck() {
-        ArrayList<LeaderboardScore> leaderboardTest = new ArrayList<>();
-        leaderboardTest.add(new LeaderboardScore("Andrew", 0));
-        leaderboardTest.add(new LeaderboardScore("Nawal", 0));
-        leaderboardTest.add(new LeaderboardScore("Jai", 0));
-        leaderboardTest.add(new LeaderboardScore("Julian", 0));
-        leaderboardTest.add(new LeaderboardScore("Sukrutha", 0));
-    
-        LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard3 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard4 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard5 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard6 = LeaderBoard.getInstance();
-    
-        LeaderBoard leaderboard = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardScore1 = leaderboard.getTable();
-    
-        assertEquals(leaderboardTest.size(), leaderboardScore1.size());
-        assertArrayEquals(leaderboardTest.toArray(), leaderboardScore1.toArray());
-=======
         player1.setName("Andrew");
-
         assertTrue(player1.getName() == "Andrew");
-
         player1.setName("Andrew Andrew");
         assertTrue(player1.getName() == "AndrewAndrew");
     }
     
     @Test
     public void scoreNegTest() {
->>>>>>> main
+
     }
 }

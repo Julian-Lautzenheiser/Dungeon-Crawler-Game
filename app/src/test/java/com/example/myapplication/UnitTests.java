@@ -171,6 +171,24 @@ public class UnitTests {
         configViewModel.setPlayer(id,"Andrew", 2);
         assertTrue(player1.getHealth() == 200);
     }
+
+    @Test
+    public void playerMediumDifficultyCheck() {
+        int id = R.id.mediumDifficulty;
+        Player player = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id, "Andrew", 1);
+        assertTrue(player1.getHealth() == 133);
+    }
+
+    @Test
+    public void playerHardDifficultyCheck() {
+        int id = R.id.hardDifficulty;
+        Player player = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id, "Andrew", 1);
+        assertTrue(player1.getHealth() == 100);
+    }
     
     @Test
     public void scoreNegTest() {

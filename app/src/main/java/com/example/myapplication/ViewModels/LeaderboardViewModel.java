@@ -6,7 +6,6 @@ import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 

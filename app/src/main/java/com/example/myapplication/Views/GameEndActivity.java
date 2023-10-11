@@ -1,22 +1,13 @@
 package com.example.myapplication.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.widget.Button;
-=======
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TableRow;
-import android.widget.TextView;
->>>>>>> main
 
 import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
@@ -35,7 +26,6 @@ public class GameEndActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
-<<<<<<< HEAD
         
         Button restart = findViewById(R.id.playagainButton);
         
@@ -44,7 +34,6 @@ public class GameEndActivity extends AppCompatActivity {
             startActivity(end);
             finish();
         });
-=======
         Button restartBtn = findViewById(R.id.playagainButton);
         leaderboardViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
@@ -71,6 +60,5 @@ public class GameEndActivity extends AppCompatActivity {
         }
 
         return finalText;
->>>>>>> main
     }
 }

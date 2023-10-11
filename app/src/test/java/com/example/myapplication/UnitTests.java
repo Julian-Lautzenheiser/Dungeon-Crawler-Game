@@ -164,7 +164,7 @@ public class UnitTests {
     }
 
     @Test
-    public void playerHealthCheck() {
+    public void playerEasyDifficultyCheck() {
         int id = R.id.easyDifficulty;
         Player player1 = Player.getInstance();
         ConfigViewModel configViewModel = new ConfigViewModel();

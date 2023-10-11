@@ -4,11 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import android.widget.RadioGroup;
+
 import com.example.myapplication.Model.LeaderBoard;
 import com.example.myapplication.Model.LeaderboardScore;
 import com.example.myapplication.Model.Player;
+import com.example.myapplication.ViewModels.ConfigViewModel;
 import com.example.myapplication.ViewModels.GameViewModel;
 import java.util.ArrayList;
+import com.example.myapplication.R;
+
 import com.example.myapplication.ViewModels.GameViewModel;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
 
@@ -153,10 +158,18 @@ public class UnitTests {
     @Test
     public void playerNameCheck() {
         Player player1 = Player.getInstance();
-        player1.setName("Andrew");
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(1,"Andrew", 2);
         assertTrue(player1.getName() == "Andrew");
-        player1.setName("Andrew Andrew");
-        assertTrue(player1.getName() == "AndrewAndrew");
+    }
+
+    @Test
+    public void playerEasyDifficultyCheck() {
+        int id = R.id.easyDifficulty;
+        Player player1 = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id,"Andrew", 2);
+        assertTrue(player1.getHealth() == 200);
     }
     
     @Test

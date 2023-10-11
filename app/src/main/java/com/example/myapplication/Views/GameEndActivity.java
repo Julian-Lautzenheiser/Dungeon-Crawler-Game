@@ -35,10 +35,14 @@ public class GameEndActivity extends AppCompatActivity {
         leaderboardViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         ListView leaderboardList = findViewById(R.id.list);
+        TextView recent = findViewById(R.id.recent);
+
 
         LeaderboardScore displayScore = new LeaderboardScore(gameViewModel.getPlayerName(), gameViewModel.getPlayerScore());
-        leaderboardViewModel.addScore(displayScore);
 
+        recent.setText(displayScore.name + " (" + displayScore.score + ") - " + displayScore.datetime);
+
+        leaderboardViewModel.addScore(displayScore);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, generateLeaderText());
 
         leaderboardList.setAdapter(adapter);

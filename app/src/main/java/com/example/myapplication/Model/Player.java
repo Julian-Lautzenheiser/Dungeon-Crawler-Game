@@ -10,9 +10,9 @@ public class Player {
     private int sprite;
     private int spritePicId;
     private int health;
-    private int score;
     private String name;
     double difficulty;
+    private double score;
 
     private Player() {
     }
@@ -70,8 +70,10 @@ public class Player {
         return playerY;
     }
 
-    public float getScore() {
+    public double getScore() {
         return score;
     }
-
+    public void setScore(double newScore) {
+        this.score = newScore;
+    }
 }

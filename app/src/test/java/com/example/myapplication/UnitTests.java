@@ -128,28 +128,29 @@ public class UnitTests {
      */
     @Test
     public void leaderboardUpdateTest(){
-        //LeaderBoard model vs LeaderBoard ViewModel??
-        //Nawal pls review function logic
+        LeaderboardViewModel LBVM = new LeaderboardViewModel();
+        ArrayList<LeaderboardScore> table = LBVM.getTable();
+        assertFalse(LBVM == null);
 
-        LeaderBoard lb = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardTest = lb.getTable();
-        assertFalse(lb == null);
+        LBVM.addScore(new LeaderboardScore("Andrew", 0));
+        LBVM.addScore(new LeaderboardScore("Nawal", 10));
+        LBVM.addScore(new LeaderboardScore("Jai", 20));
+        LBVM.addScore(new LeaderboardScore("Julian", 30));
+        assertEquals(table.size(), 4);
+        LeaderboardScore[] arr = new LeaderboardScore[table.size()];
 
-        leaderboardTest.add(new LeaderboardScore("Andrew", 0));
-        leaderboardTest.add(new LeaderboardScore("Nawal", 0));
-        leaderboardTest.add(new LeaderboardScore("Jai", 0));
-        leaderboardTest.add(new LeaderboardScore("Julian", 0));
+        // Convert ArrayList into an array
+        table.toArray(arr);
 
-        LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard3 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard4 = LeaderBoard.getInstance();
 
-        LeaderBoard leaderboard = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardScore1 = leaderboard.getTable();
-
-        assertEquals(leaderboardTest.size(), leaderboardScore1.size());
-        assertArrayEquals(leaderboardTest.toArray(), leaderboardScore1.toArray());
+        assertEquals(arr[3].getName(), "Andrew");
+        assertTrue(arr[3].getScore() == 0);
+        assertEquals(arr[2].getName(), "Nawal");
+        assertTrue(arr[2].getScore() == 10);
+        assertEquals(arr[1].getName(), "Jai");
+        assertTrue(arr[1].getScore() == 20);
+        assertEquals(arr[0].getName(), "Julian");
+        assertTrue(arr[0].getScore() == 30);
     }
 
     /**

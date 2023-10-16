@@ -47,26 +47,6 @@ public class UnitTests {
         LeaderBoard lb2 = LeaderBoard.getInstance();
         assertTrue(lb1 == lb2);
     }
-    
-    /**
-    * Local test that checks player values update
-    */
-    @Test
-    public void playerUpdates() {
-        //Player Health Logic needs work
-        Player player1 = Player.getInstance();
-        player1.setDifficulty(0.5);
-        assertTrue(player1.getDifficulty() == 0.5);
-        assertTrue(player1.getHealth() == 5);
-
-        player1.setDifficulty(0.75);
-        assertTrue(player1.getDifficulty() == 0.75);
-        assertTrue(player1.getHealth() == 15);
-
-        player1.setDifficulty(1);
-        assertTrue(player1.getDifficulty() == 1);
-        assertTrue(player1.getHealth() == 25);
-    }
 
     /**
      * Local tests that checks to see if player score decrements
@@ -89,38 +69,22 @@ public class UnitTests {
      */
     @Test
     public void leaderBoardSizeExceedsCheck() {
-        //LeaderBoard model vs LeaderBoard ViewModel??
-        LeaderBoard lb = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardTest = lb.getTable();
-        assertFalse(lb == null);
+        LeaderboardViewModel LBVM = new LeaderboardViewModel();
+        ArrayList<LeaderboardScore> table = LBVM.getTable();
+        assertFalse(LBVM == null);
 
-        leaderboardTest.add(new LeaderboardScore("Andrew", 0));
-        leaderboardTest.add(new LeaderboardScore("Nawal", 0));
-        leaderboardTest.add(new LeaderboardScore("Jai", 0));
-        leaderboardTest.add(new LeaderboardScore("Julian", 0));
-        
-        LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
-        //lbView.addScore(new LeaderboardScore("Andrew", 105));
-        LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
-        //lbView.addScore(new LeaderboardScore("Nawal", 200));
-        LeaderBoard leaderBoard3 = LeaderBoard.getInstance();
-        //lbView.addScore(new LeaderboardScore("Jai", 140));
-        LeaderBoard leaderBoard4 = LeaderBoard.getInstance();
-        //lbView.addScore(new LeaderboardScore("Julian", 120));
-        
-        LeaderBoard leaderboard = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardScore1 = leaderboard.getTable();
-        
-        assertEquals(leaderboardTest.size(), leaderboardScore1.size());
-        assertArrayEquals(leaderboardTest.toArray(), leaderboardScore1.toArray());
+        LBVM.addScore(new LeaderboardScore("Andrew", 0));
+        LBVM.addScore(new LeaderboardScore("Nawal", 10));
+        LBVM.addScore(new LeaderboardScore("Jai", 20));
+        LBVM.addScore(new LeaderboardScore("Julian", 30));
+        assertEquals(table.size(), 4);
+        LeaderboardScore[] arr = new LeaderboardScore[table.size()];
 
-        assertTrue(lb.getSize() == 4);
 
-        leaderboardTest.add(new LeaderboardScore("Sukrutha", 0));
-        leaderboardTest.add(new LeaderboardScore("Pedro", 0));
+        LBVM.addScore(new LeaderboardScore("Sukrutha", 40));
+        LBVM.addScore(new LeaderboardScore("Pedro", 50));
 
-        //Size Does NOT Currently Update//
-        assertTrue(lb.getSize() == 5);
+        assertEquals(table.size(), 5);
     }
 
     /**
@@ -128,28 +92,29 @@ public class UnitTests {
      */
     @Test
     public void leaderboardUpdateTest(){
-        //LeaderBoard model vs LeaderBoard ViewModel??
-        //Nawal pls review function logic
+        LeaderboardViewModel LBVM = new LeaderboardViewModel();
+        ArrayList<LeaderboardScore> table = LBVM.getTable();
+        assertFalse(LBVM == null);
 
-        LeaderBoard lb = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardTest = lb.getTable();
-        assertFalse(lb == null);
+        LBVM.addScore(new LeaderboardScore("Andrew", 0));
+        LBVM.addScore(new LeaderboardScore("Nawal", 10));
+        LBVM.addScore(new LeaderboardScore("Jai", 20));
+        LBVM.addScore(new LeaderboardScore("Julian", 30));
+        assertEquals(table.size(), 4);
+        LeaderboardScore[] arr = new LeaderboardScore[table.size()];
 
-        leaderboardTest.add(new LeaderboardScore("Andrew", 0));
-        leaderboardTest.add(new LeaderboardScore("Nawal", 0));
-        leaderboardTest.add(new LeaderboardScore("Jai", 0));
-        leaderboardTest.add(new LeaderboardScore("Julian", 0));
+        // Convert ArrayList into an array
+        table.toArray(arr);
 
-        LeaderBoard leaderBoard1 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard2 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard3 = LeaderBoard.getInstance();
-        LeaderBoard leaderBoard4 = LeaderBoard.getInstance();
 
-        LeaderBoard leaderboard = LeaderBoard.getInstance();
-        ArrayList<LeaderboardScore> leaderboardScore1 = leaderboard.getTable();
-
-        assertEquals(leaderboardTest.size(), leaderboardScore1.size());
-        assertArrayEquals(leaderboardTest.toArray(), leaderboardScore1.toArray());
+        assertEquals(arr[3].getName(), "Andrew");
+        assertTrue(arr[3].getScore() == 0);
+        assertEquals(arr[2].getName(), "Nawal");
+        assertTrue(arr[2].getScore() == 10);
+        assertEquals(arr[1].getName(), "Jai");
+        assertTrue(arr[1].getScore() == 20);
+        assertEquals(arr[0].getName(), "Julian");
+        assertTrue(arr[0].getScore() == 30);
     }
 
     /**

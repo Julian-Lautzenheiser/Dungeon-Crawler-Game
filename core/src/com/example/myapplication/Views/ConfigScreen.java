@@ -240,8 +240,10 @@ public class ConfigScreen implements Screen {
         play.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
-                game.setScreen(new FirstDungeonScreen(game));
-                dispose();
+                if (game.getPlayerName() != null && game.getPlayerName() != "") {
+                    game.setScreen(new FirstDungeonScreen(game));
+                    dispose();
+                }
             }
         });
     }

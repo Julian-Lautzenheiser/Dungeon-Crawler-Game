@@ -18,7 +18,7 @@ public class MyTextInputListener implements TextInputListener {
 
     @Override
     public void canceled() {
-        input = "Larry";
+        input("Larry");
     }
 
     public String getInput() {

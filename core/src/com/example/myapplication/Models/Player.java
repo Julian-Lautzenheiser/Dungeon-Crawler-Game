@@ -3,8 +3,8 @@ package com.example.myapplication.Models;
 public class Player {
 
     private static Player player = null;
-    private float playerX;
-    private float playerY;
+    private int X;
+    private int Y;
     private String sprite;
     private int health;
     private double score;
@@ -12,8 +12,8 @@ public class Player {
     private double difficulty;
 
     private Player() {
-        this.playerX = 0.0f;
-        this.playerY = 0.0f;
+        this.X = 300;
+        this.Y = 200;
         this.sprite = "";
         this.health = 0;
         this.score = 200.0;
@@ -58,15 +58,17 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-    public void setPos(float x, float y) {
-        playerX = x;
-        playerY = y;
+    public int getX() {
+        return X;
     }
-    public float getX() {
-        return playerX;
+    public int getY() {
+        return Y;
     }
-    public float getY() {
-        return playerY;
+    public void setX(int x) {
+        player.X = x;
+    }
+    public void setY(int y) {
+        player.Y = y;
     }
 
     public double getScore() {

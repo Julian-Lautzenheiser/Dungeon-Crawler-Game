@@ -1,6 +1,7 @@
 package com.example.myapplication.Views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class FirstDungeonScreen implements Screen {
 
@@ -31,8 +34,11 @@ public class FirstDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
+    private Player player = Player.getInstance();
+    private MovementViewModel movement = new MovementViewModel();
 
     public FirstDungeonScreen(final Dungeon game) {
+
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -75,9 +81,10 @@ public class FirstDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        //Begins draw phase
         game.batch.begin();
-        game.batch.draw(sprite, 300, 200, 64, 64);
+        movement.updatePosition();
+
+        game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
         game.batch.end();
 
         stage.draw();

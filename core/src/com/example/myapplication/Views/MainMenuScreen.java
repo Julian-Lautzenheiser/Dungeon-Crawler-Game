@@ -50,7 +50,7 @@ public class MainMenuScreen implements Screen {
 
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 400);
+        camera.setToOrtho(false, 500, 300);
 
         table = new Table();
         //table.setTransform(true);
@@ -59,7 +59,7 @@ public class MainMenuScreen implements Screen {
         table.row();
         table.add(quit).width(200).height(100);
 
-        table.setPosition(600, 250);
+        table.setPosition(1100, 250);
         table.setDebug(true);
         stage.addActor(table);
         addListeners();
@@ -73,7 +73,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Dungeon Game!!! ", 300, 200);
+        game.font.draw(game.batch, "Welcome to Dungeon Game!!! ", 150, 150);
         game.batch.end();
 
         stage.draw();

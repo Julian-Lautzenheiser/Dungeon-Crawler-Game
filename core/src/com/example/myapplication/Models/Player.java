@@ -13,7 +13,7 @@ public class Player {
 
     private Player() {
         this.X = 300;
-        this.Y = 200;
+        this.Y = 100;
         this.sprite = "";
         this.health = 0;
         this.score = 200.0;
@@ -66,9 +66,16 @@ public class Player {
     }
     public void setX(int x) {
         player.X = x;
+        if(player.X < 0) {
+            player.X = 300;
+        }
     }
     public void setY(int y) {
+
         player.Y = y;
+        if(player.Y < 0) {
+            player.Y = 100;
+        }
     }
 
     public double getScore() {

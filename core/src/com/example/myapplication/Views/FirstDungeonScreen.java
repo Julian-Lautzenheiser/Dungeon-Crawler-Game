@@ -22,6 +22,8 @@ import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
 public class FirstDungeonScreen implements Screen {
 
     private final Dungeon game;
@@ -35,9 +37,12 @@ public class FirstDungeonScreen implements Screen {
     private OrthographicCamera camera;
     private Texture sprite;
     private Player player = Player.getInstance();
-    private MovementViewModel movement = new MovementViewModel();
+    private MovementViewModel movement = MovementViewModel.getMovementViewModel();
 
     public FirstDungeonScreen(final Dungeon game) {
+        //reset player position
+        player.setX(-1);
+        player.setY(-1);
 
         this.game = game;
         stage = new Stage();
@@ -66,6 +71,11 @@ public class FirstDungeonScreen implements Screen {
             }
         });
 
+        if(movement.checkExit(player.getX(), player.getY(), "room1.tmx")){
+            game.setScreen(new SecondDungeonScreen(game));
+            dispose();
+        };
+
         stage.addActor(next);
     }
 
@@ -82,9 +92,10 @@ public class FirstDungeonScreen implements Screen {
         renderer.render();
 
         game.batch.begin();
-        movement.updatePosition();
-
         game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
+
+        movement.updatePosition("room1.tmx");
+
         game.batch.end();
 
         stage.draw();

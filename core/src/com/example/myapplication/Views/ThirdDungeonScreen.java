@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class ThirdDungeonScreen implements Screen {
     private final Dungeon game;
@@ -31,8 +33,15 @@ public class ThirdDungeonScreen implements Screen {
     private OrthographicCamera camera;
     private Texture sprite;
 
+    private Player player = Player.getInstance();
+    private MovementViewModel movement = MovementViewModel.getMovementViewModel();
+
 
     public ThirdDungeonScreen(final Dungeon game) {
+        //reset player position
+        player.setX(-1);
+        player.setY(-1);
+
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -75,14 +84,17 @@ public class ThirdDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        //Begins draw phase
         game.batch.begin();
-        game.batch.draw(sprite, 300, 200, 64, 64);
+        game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
+
+        movement.updatePosition("room3.tmx");
+
         game.batch.end();
 
         stage.draw();
         stage.act();
     }
+
 
     @Override
     public void resize(int width, int height) {

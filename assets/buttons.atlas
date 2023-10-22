@@ -1,0 +1,9 @@
+buttons.png
+size:1024,128
+repeat:none
+button_checked
+bounds:414,2,204,92
+button_down
+bounds:208,2,204,92
+button_up
+bounds:2,2,204,92

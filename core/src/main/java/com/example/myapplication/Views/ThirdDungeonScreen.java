@@ -39,8 +39,8 @@ public class ThirdDungeonScreen implements Screen {
 
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setX(-1);
-        player.setY(-1);
+        player.setPlayerX(-1);
+        player.setPlayerY(-1);
 
         this.game = game;
         stage = new Stage();
@@ -63,7 +63,7 @@ public class ThirdDungeonScreen implements Screen {
 
         next.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new LeaderboardScreen(game));
                 dispose();
             }
@@ -84,12 +84,16 @@ public class ThirdDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        game.batch.begin();
-        game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
         movement.updatePosition("room3.tmx");
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {
+            game.setScreen(new LeaderboardScreen(game));
+            dispose();
+        }
 
-        game.batch.end();
+        game.getBatch().end();
 
         stage.draw();
         stage.act();
@@ -128,8 +132,8 @@ public class ThirdDungeonScreen implements Screen {
         skin = new Skin();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
-        game.buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.atlas"));
-        skin.addRegions(game.buttonAtlas);
+        game.setButtonAtlas(new TextureAtlas(Gdx.files.internal("buttons.atlas")));
+        skin.addRegions(game.getButtonAtlas());
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");

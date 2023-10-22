@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class LeaderboardViewModel{
+public class LeaderboardViewModel {
     private LeaderBoard leaderboard = LeaderBoard.getInstance();
     public LeaderboardViewModel() { }
 

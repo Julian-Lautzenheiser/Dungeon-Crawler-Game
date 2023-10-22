@@ -39,8 +39,8 @@ public class FirstDungeonScreen implements Screen {
     private Label.LabelStyle labelStyle;
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setX(-1);
-        player.setY(-1);
+        player.setPlayerX(-1);
+        player.setPlayerY(-1);
 
         this.game = game;
         stage = new Stage();
@@ -67,9 +67,9 @@ public class FirstDungeonScreen implements Screen {
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
 
         map = new TmxMapLoader().load("room1.tmx");
-
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        
+
+
         /*
         Table table = new Table();
         table.add(nameDisplay);
@@ -89,18 +89,14 @@ public class FirstDungeonScreen implements Screen {
         next.getLabel().setFontScale(6, 3);
         next.setPosition(400, 50);
 
+
         next.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new SecondDungeonScreen(game));
                 dispose();
             }
         });
-
-        if(movement.checkExit(player.getX(), player.getY(), "room1.tmx")){
-            game.setScreen(new SecondDungeonScreen(game));
-            dispose();
-        };
         
         //stage.addActor(table);
         stage.addActor(next);
@@ -118,12 +114,16 @@ public class FirstDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        game.batch.begin();
-        game.batch.draw(sprite, player.getX(), player.getY() - 15, 64, 64);
-
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
         movement.updatePosition("room1.tmx");
 
-        game.batch.end();
+
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
+            game.setScreen(new SecondDungeonScreen(game));
+            dispose();
+        }
+        game.getBatch().end();
 
         stage.draw();
         stage.act();
@@ -170,8 +170,8 @@ public class FirstDungeonScreen implements Screen {
         skin = new Skin();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
-        game.buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.atlas"));
-        skin.addRegions(game.buttonAtlas);
+        game.setButtonAtlas(new TextureAtlas(Gdx.files.internal("buttons.atlas")));
+        skin.addRegions(game.getButtonAtlas());
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");

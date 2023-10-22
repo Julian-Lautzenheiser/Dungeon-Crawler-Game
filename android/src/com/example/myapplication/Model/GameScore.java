@@ -26,7 +26,7 @@ public class GameScore {
     public int decreaseScore() {
         int currScore = getPlayerScore() - 1;
 
-        if(currScore < 0) {
+        if (currScore < 0) {
             currScore = 0;
         }
         return currScore;

@@ -47,12 +47,12 @@ public class SecondDungeonScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 14, 14);
+        camera.setToOrtho(false, 13, 10);
         camera.update();
 
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
 
-        map = new TmxMapLoader().load("room2.tmx");
+        map = new TmxMapLoader().load("room2-alt.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
 
         createStyle();
@@ -87,8 +87,8 @@ public class SecondDungeonScreen implements Screen {
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
-        movement.updatePosition("room2.tmx");
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2.tmx")) {
+        movement.updatePosition("room2-alt.tmx");
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2-alt.tmx")) {
             game.setScreen(new ThirdDungeonScreen(game));
             dispose();
         }

@@ -97,7 +97,7 @@ public class FirstDungeonScreen implements Screen {
         //        });
         
         //stage.addActor(table);
-        stage.addActor(next);
+        //stage.addActor(next);
     }
 
     @Override

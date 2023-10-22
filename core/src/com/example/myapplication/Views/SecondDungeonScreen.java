@@ -35,7 +35,7 @@ public class SecondDungeonScreen implements Screen {
     private Texture sprite;
     private Player player = Player.getInstance();
 
-    private MovementViewModel movement = MovementViewModel.getMovementViewModel();
+    private MovementViewModel movement = new MovementViewModel();
 
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position

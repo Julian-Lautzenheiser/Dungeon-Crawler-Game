@@ -34,7 +34,7 @@ public class ThirdDungeonScreen implements Screen {
     private Texture sprite;
 
     private Player player = Player.getInstance();
-    private MovementViewModel movement = MovementViewModel.getMovementViewModel();
+    private MovementViewModel movement = new MovementViewModel();
 
 
     public ThirdDungeonScreen(final Dungeon game) {

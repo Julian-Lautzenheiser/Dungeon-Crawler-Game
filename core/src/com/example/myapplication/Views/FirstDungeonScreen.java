@@ -37,7 +37,7 @@ public class FirstDungeonScreen implements Screen {
     private OrthographicCamera camera;
     private Texture sprite;
     private Player player = Player.getInstance();
-    private MovementViewModel movement = MovementViewModel.getMovementViewModel();
+    private MovementViewModel movement = new MovementViewModel();
 
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
@@ -92,7 +92,7 @@ public class FirstDungeonScreen implements Screen {
         renderer.render();
 
         game.batch.begin();
-        game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
+        game.batch.draw(sprite, player.getX(), player.getY() - 15, 64, 64);
 
         movement.updatePosition("room1.tmx");
 

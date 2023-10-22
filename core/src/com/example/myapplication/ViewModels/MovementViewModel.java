@@ -11,12 +11,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class MovementViewModel {
     private Player player = Player.getInstance();
-    private static MovementViewModel MVM = null;
-    private final int velocity = 12;
+    //private static MovementViewModel MVM = null;
+    private final int velocity = 10;
 
-    private MovementViewModel(){};
+    public MovementViewModel(){};
 
-    public static MovementViewModel getMovementViewModel() {
+/*    public static MovementViewModel getMovementViewModel() {
         if (MVM == null) {
             synchronized (MovementViewModel.class) {
                 if (MVM == null) {
@@ -25,7 +25,7 @@ public class MovementViewModel {
             }
         }
         return MVM;
-    }
+    }*/
     public void updatePosition(String level) {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             if(!checkCollision(player.getX() - velocity, player.getY(), level)) {
@@ -34,7 +34,7 @@ public class MovementViewModel {
             return;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            if(!checkCollision(player.getX(), player.getY() , level)) {
+            if(!checkCollision(player.getX() +velocity, player.getY()  , level)) {
                 player.setX(player.getX() + velocity);
             }
             return;
@@ -46,7 +46,7 @@ public class MovementViewModel {
             return;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(!checkCollision(player.getX() , player.getY() + (velocity + 10), level)) {
+            if(!checkCollision(player.getX() , player.getY() + (velocity), level)) {
                 player.setY(player.getY() + velocity);
             }
             return;

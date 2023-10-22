@@ -85,7 +85,7 @@ public class SecondDungeonScreen implements Screen {
         renderer.render();
 
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
+        game.getBatch().draw(sprite, player.getPlayerX() + 15, player.getPlayerY() - 15, 64, 64);
 
         movement.updatePosition("room2-alt.tmx");
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2-alt.tmx")) {

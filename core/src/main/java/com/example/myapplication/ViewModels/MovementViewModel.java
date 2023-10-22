@@ -5,79 +5,119 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.PlayerMovement;
+import com.example.myapplication.Models.Subscriber;
 
-public class MovementViewModel {
+public class MovementViewModel implements Subscriber {
     private Player player = Player.getInstance();
-    //private static MovementViewModel MVM = null;
+    private PlayerMovement playerMovement = new PlayerMovement();
     private final int velocity = 10;
-
-    public MovementViewModel(){};
-
-/*    public static MovementViewModel getMovementViewModel() {
-        if (MVM == null) {
-            synchronized (MovementViewModel.class) {
-                if (MVM == null) {
-                    MVM = new MovementViewModel();
-                }
-            }
+    
+    public MovementViewModel() { };
+    
+    private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
+        @Override
+        protected Rectangle newObject() {
+            return new Rectangle();
         }
-        return MVM;
-    }*/
+    };
+    private Array<Rectangle> tiles = new Array<Rectangle>();
     public void updatePosition(String level) {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            if(!checkCollision(player.getX() - velocity, player.getY(), level)) {
-                player.setX(player.getX() - velocity);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
+            || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            if (!checkCollision(player.getPlayerX() - velocity, player.getPlayerY(), level)) {
+                playerMovement.left();
             }
             return;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            if(!checkCollision(player.getX() +velocity, player.getY()  , level)) {
-                player.setX(player.getX() + velocity);
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)
+            || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            if (!checkCollision(player.getPlayerX() + velocity, player.getPlayerY(), level)) {
+                playerMovement.right();
             }
             return;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            if(!checkCollision(player.getX() , player.getY() - velocity , level)) {
-                player.setY(player.getY() - velocity);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
+            || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            if (!checkCollision(player.getPlayerX(), player.getPlayerY() - velocity, level)) {
+                playerMovement.down();
             }
             return;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(!checkCollision(player.getX() , player.getY() + (velocity), level)) {
-                player.setY(player.getY() + velocity);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)
+            || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            if (!checkCollision(player.getPlayerX(), player.getPlayerY() + (velocity), level)) {
+                playerMovement.up();
             }
             return;
         }
     }
     public boolean checkCollision(int playerX, int playerY, String level) {
+        //        int startX, endX, startY, endY;
+        //        Rectangle spriteRect = rectPool.obtain();
+        //        startX = playerX;
+        //        endX = (int) (playerX + 64/32f);
+        //        startY = playerY;
+        //        endY = (int) (playerY + 64/32f);
+        //        spriteRect.set(playerX, playerY, 64/32f, 64/32f);
+        //        getTiles(startX, startY, endX, endY, tiles);
+        //
+        //        for (Rectangle tile : tiles) {
+        //            if (spriteRect.overlaps(tile)) {
+        //                return true;
+        //            }
+        //        }
+        //        return falsel
         TiledMap map = new TmxMapLoader().load(level);
-        TiledMapTileLayer CollisionLayer = (TiledMapTileLayer) map.getLayers().get("Walls and Objects");
-        int tileSize = CollisionLayer.getTileWidth();
-
-        int xScaled = playerX / tileSize;
-        int yScaled = playerY / tileSize;
-
-        TiledMapTileLayer.Cell cell = CollisionLayer.getCell(xScaled, yScaled);
-        if (cell != null && cell.getTile() != null) {
-           return true;
-        }
-        return false;
-    }
-
-    public boolean checkExit(int x, int y, String level) {
-        TiledMap map = new TmxMapLoader().load(level);
-        TiledMapTileLayer CollisionLayer = (TiledMapTileLayer) map.getLayers().get("Doors");
-        int tileSize = CollisionLayer.getTileWidth();
-
-        int xScaled = x / tileSize;
-        int yScaled = (y + 10) / tileSize;
-
-        TiledMapTileLayer.Cell cell = CollisionLayer.getCell(xScaled, yScaled);
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer)
+            map.getLayers().get("Walls and Objects");
+        int tileSize = collisionLayer.getTileWidth();
+        
+        int xScaled = playerX / 32;
+        int yScaled = playerY / 32;
+        
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
+        System.out.println(xScaled + " " + yScaled + " " + cell);
         if (cell != null && cell.getTile() != null) {
             return true;
         }
         return false;
-
+    }
+    
+    public boolean checkExit(int x, int y, String level) {
+        TiledMap map = new TmxMapLoader().load(level);
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Doors");
+        int tileSize = collisionLayer.getTileWidth();
+        
+        int xScaled = x / tileSize;
+        int yScaled = (y + 10) / tileSize;
+        
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
+        if (cell != null && cell.getTile() != null) {
+            return true;
+        }
+        return false;
+        
+    }
+    
+    public void getTiles(int startX, int startY, int endX, int endY, Array<Rectangle> tiles) {
+        TiledMap map = new TmxMapLoader().load("room1.tmx");
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");
+        rectPool.freeAll(tiles);
+        tiles.clear();
+        for (int y = startY; y <= endY; y++) {
+            for (int x = startX; x <= endX; x++) {
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                if (cell != null) {
+                    Rectangle rect = rectPool.obtain();
+                    rect.set(x, y, 1, 1);
+                    tiles.add(rect);
+                }
+            }
+        }
     }
 }

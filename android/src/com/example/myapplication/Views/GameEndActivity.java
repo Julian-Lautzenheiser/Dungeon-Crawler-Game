@@ -42,7 +42,7 @@ public class GameEndActivity extends AppCompatActivity {
         
         leaderboardViewModel.addScore(displayScore);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-        android.R.layout.simple_list_item_1, generateLeaderText());
+            android.R.layout.simple_list_item_1, generateLeaderText());
         
         leaderboardList.setAdapter(adapter);
         

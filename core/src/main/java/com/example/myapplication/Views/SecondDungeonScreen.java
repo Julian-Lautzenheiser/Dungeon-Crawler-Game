@@ -36,11 +36,14 @@ public class SecondDungeonScreen implements Screen {
     private Player player = Player.getInstance();
 
     private MovementViewModel movement = new MovementViewModel();
+    //private float timeSeconds = 0f;
+    //private float period = 1f;
+    //private Label scoreDisplay;
 
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setX(-1);
-        player.setY(-1);
+        player.setPlayerX(-1);
+        player.setPlayerY(-1);
 
         this.game = game;
         stage = new Stage();
@@ -49,11 +52,13 @@ public class SecondDungeonScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 14, 14);
         camera.update();
-
+    
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
-
-        map = new TmxMapLoader().load("room2.tmx");
+    
+        map = new TmxMapLoader().load("room1.tmx");
+    
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+        
 
         createStyle();
         next = new TextButton("Next", style);
@@ -62,7 +67,7 @@ public class SecondDungeonScreen implements Screen {
 
         next.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new ThirdDungeonScreen(game));
                 dispose();
             }
@@ -70,7 +75,6 @@ public class SecondDungeonScreen implements Screen {
 
         stage.addActor(next);
     }
-
     @Override
     public void show() {
 
@@ -82,13 +86,21 @@ public class SecondDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-
-        game.batch.begin();
-        game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
+        /*
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            game.decreaseScore();
+            scoreDisplay.setText("Score: " + player.getScore());
+        }
+         */
+        
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
         movement.updatePosition("room2.tmx");
 
-        game.batch.end();
+        game.getBatch().end();
 
         stage.draw();
         stage.act();
@@ -127,8 +139,8 @@ public class SecondDungeonScreen implements Screen {
         skin = new Skin();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
-        game.buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.atlas"));
-        skin.addRegions(game.buttonAtlas);
+        game.setButtonAtlas(new TextureAtlas(Gdx.files.internal("buttons.atlas")));
+        skin.addRegions(game.getButtonAtlas());
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");

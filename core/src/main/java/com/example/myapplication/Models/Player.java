@@ -3,17 +3,19 @@ package com.example.myapplication.Models;
 public class Player {
 
     private static Player player = null;
-    private int X;
-    private int Y;
+    private int playerX;
+    private int playerY;
     private String sprite;
     private int health;
     private double score;
     private String name;
     private double difficulty;
+    private float width;
+    private float height;
 
     private Player() {
-        this.X = 300;
-        this.Y = 100;
+        this.playerX = 300;
+        this.playerY = 100;
         this.sprite = "";
         this.health = 0;
         this.score = 200.0;
@@ -58,23 +60,23 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-    public int getX() {
-        return X;
+    public int getPlayerX() {
+        return playerX;
     }
-    public int getY() {
-        return Y;
+    public int getPlayerY() {
+        return playerY;
     }
-    public void setX(int x) {
-        player.X = x;
-        if(player.X < 0) {
-            player.X = 300;
+    public void setPlayerX(int x) {
+        player.playerX = x;
+        if (player.playerX < 0) {
+            player.playerX = 300;
         }
     }
-    public void setY(int y) {
+    public void setPlayerY(int y) {
 
-        player.Y = y;
-        if(player.Y < 0) {
-            player.Y = 100;
+        player.playerY = y;
+        if (player.playerY < 0) {
+            player.playerY = 100;
         }
     }
 
@@ -85,5 +87,21 @@ public class Player {
         if (newScore >= 0) {
             this.score = newScore;
         }
+    }
+
+    public float getHeight() {
+        return height;
+    }
+    
+    public float getWidth() {
+        return width;
+    }
+    
+    public void setHeight(float height) {
+        this.height = height;
+    }
+    
+    public void setWidth(float width) {
+        this.width = width;
     }
 }

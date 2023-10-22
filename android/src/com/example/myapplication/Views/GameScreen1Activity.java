@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameScreen1Activity extends AppCompatActivity {
-    
+
     
     private ImageView playerView;
     private TextView nameText;
@@ -42,14 +42,14 @@ public class GameScreen1Activity extends AppCompatActivity {
         gameViewModel.setPlayerScore(100);
         gameViewModel.setScreenDimensions(screenWidth, screenHeight);
         gameViewModel.setPlayerPos(screenWidth / 2,
-        screenHeight / 2); // Spawn player in middle of screen
+            screenHeight / 2); // Spawn player in middle of screen
         
         playerView = new ImageView(this);
         int id = gameViewModel.getSpriteImage();
         playerView.setImageResource(id);
         playerView.setAdjustViewBounds(true); //Allows resizing of sprite while keeping aspect ratio
         gameViewModel.setPlayerPos(gameViewModel.getPlayerX() / 2,
-        gameViewModel.getPlayerY() - 300);
+            gameViewModel.getPlayerY() - 300);
         playerView.setX(gameViewModel.getPlayerX());
         playerView.setY(gameViewModel.getPlayerY());
         playerView.setMaxHeight(gameViewModel.getMaxSize()); //Makes the sprite not crazy big
@@ -69,7 +69,7 @@ public class GameScreen1Activity extends AppCompatActivity {
         healthText.setTextColor(Color.parseColor("#FFFFFF"));
         healthText.setX(gameViewModel.getPlayerX());
         healthText.setY(gameViewModel.getPlayerY() + playerView.getMaxHeight()
-        + gameViewModel.getPlayerTextOffset());
+            + gameViewModel.getPlayerTextOffset());
         gameLayout.addView(healthText); //Creates health text and attaches it to character
         
         difficultyText = new TextView(this);

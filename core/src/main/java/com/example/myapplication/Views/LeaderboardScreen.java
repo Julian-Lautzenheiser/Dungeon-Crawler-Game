@@ -46,8 +46,9 @@ public class LeaderboardScreen implements Screen {
         String display = displayScore.getName() + " (";
         display += displayScore.getScore() + ") - ";
         display += displayScore.getDatetime();
-        
-        skin = new Skin(Gdx.files.internal("plain-james-ui.json")); //Creates a new skin to display the label text as
+
+        // Creates a new skin to display the label text as
+        skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
         Label recent = new Label("New Score: " + display, skin);
         
@@ -65,14 +66,14 @@ public class LeaderboardScreen implements Screen {
         
         createStyle();
         restart = new TextButton("Restart", style);
-        restart.getLabel().setFontScale(5,5);
+        restart.getLabel().setFontScale(5, 5);
         table.add(restart).width(300);
         
         table.setPosition(1150, 500);
         
         restart.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new MainMenuScreen(game));
                 dispose();
             }
@@ -132,8 +133,8 @@ public class LeaderboardScreen implements Screen {
         buttonSkin = new Skin();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
-        game.buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.atlas"));
-        buttonSkin.addRegions(game.buttonAtlas);
+        game.setButtonAtlas(new TextureAtlas(Gdx.files.internal("buttons.atlas")));
+        buttonSkin.addRegions(game.getButtonAtlas());
         style.up = buttonSkin.getDrawable("button_up");
         style.down = buttonSkin.getDrawable("button_down");
         style.checked = buttonSkin.getDrawable("button_checked");

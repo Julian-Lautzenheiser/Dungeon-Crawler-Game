@@ -39,8 +39,8 @@ public class SecondDungeonScreen implements Screen {
 
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setX(-1);
-        player.setY(-1);
+        player.setPlayerX(220);
+        player.setPlayerY(70);
 
         this.game = game;
         stage = new Stage();
@@ -60,9 +60,10 @@ public class SecondDungeonScreen implements Screen {
         next.getLabel().setFontScale(6, 3);
         next.setPosition(400, 50);
 
+
         next.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new ThirdDungeonScreen(game));
                 dispose();
             }
@@ -83,12 +84,16 @@ public class SecondDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        game.batch.begin();
-        game.batch.draw(sprite, player.getX(), player.getY(), 64, 64);
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
         movement.updatePosition("room2.tmx");
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2.tmx")) {
+            game.setScreen(new ThirdDungeonScreen(game));
+            dispose();
+        }
 
-        game.batch.end();
+        game.getBatch().end();
 
         stage.draw();
         stage.act();
@@ -127,8 +132,8 @@ public class SecondDungeonScreen implements Screen {
         skin = new Skin();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
-        game.buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.atlas"));
-        skin.addRegions(game.buttonAtlas);
+        game.setButtonAtlas(new TextureAtlas(Gdx.files.internal("buttons.atlas")));
+        skin.addRegions(game.getButtonAtlas());
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");

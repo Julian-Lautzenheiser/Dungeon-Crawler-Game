@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.MyTextInputListener;
-import com.example.myapplication.Views.FirstDungeonScreen;
 
 public class ConfigScreen implements Screen {
     private final Dungeon game;
@@ -63,7 +62,7 @@ public class ConfigScreen implements Screen {
         stage.draw();
         stage.act();
         
-        //Updates the enterName's text to display player name (only when player name has been updated)
+        // Updates the enterName's text to display player name
         if (game.getPlayerName() != null && game.getPlayerName() != "") {
             enterName.setText(game.getPlayerName());
         }
@@ -105,8 +104,8 @@ public class ConfigScreen implements Screen {
         skin = new Skin();
         style.font = new BitmapFont();
         style.fontColor = Color.WHITE;
-        game.buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.atlas"));
-        skin.addRegions(game.buttonAtlas);
+        game.setButtonAtlas(new TextureAtlas(Gdx.files.internal("buttons.atlas")));
+        skin.addRegions(game.getButtonAtlas());
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
@@ -157,7 +156,8 @@ public class ConfigScreen implements Screen {
         difficultyHard.getLabel().setFontScale(6, 3);
         
         //Adds difficulty buttons to a group for radio button functionality
-        difficulties = new ButtonGroup<TextButton>(difficultyEasy, difficultyMedium, difficultyHard);
+        difficulties = new ButtonGroup<TextButton>(difficultyEasy,
+                difficultyMedium, difficultyHard);
         difficulties.setMaxCheckCount(1);
         difficulties.setMinCheckCount(0);
         difficulties.setChecked("Easy");
@@ -167,7 +167,7 @@ public class ConfigScreen implements Screen {
         enterName = new TextButton("Enter Name", style);
         enterName.getLabel().setFontScale(6, 4);
         
-        play = new TextButton("Play",style);
+        play = new TextButton("Play", style);
         play.getLabel().setFontScale(6, 4);
     }
     
@@ -175,7 +175,7 @@ public class ConfigScreen implements Screen {
     public void addListeners() {
         spriteMage.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 sprites.uncheckAll();
                 sprites.setChecked("Mage");
                 spriteMage.setChecked(true);
@@ -184,7 +184,7 @@ public class ConfigScreen implements Screen {
         });
         spriteKnight.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 sprites.uncheckAll();
                 sprites.setChecked("Knight");
                 spriteKnight.setChecked(true);
@@ -193,7 +193,7 @@ public class ConfigScreen implements Screen {
         });
         spriteFighter.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 sprites.uncheckAll();
                 sprites.setChecked("Fighter");
                 spriteFighter.setChecked(true);
@@ -202,7 +202,7 @@ public class ConfigScreen implements Screen {
         });
         difficultyEasy.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 difficulties.uncheckAll();
                 difficulties.setChecked("Easy");
                 difficultyEasy.setChecked(true);
@@ -211,7 +211,7 @@ public class ConfigScreen implements Screen {
         });
         difficultyMedium.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 difficulties.uncheckAll();
                 difficulties.setChecked("Medium");
                 difficultyMedium.setChecked(true);
@@ -220,7 +220,7 @@ public class ConfigScreen implements Screen {
         });
         difficultyHard.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 difficulties.uncheckAll();
                 difficulties.setChecked("Hard");
                 difficultyHard.setChecked(true);
@@ -230,14 +230,15 @@ public class ConfigScreen implements Screen {
         
         enterName.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                Gdx.input.getTextInput(listener, "Input Your Name!", "Input your name", "Your name");
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.input.getTextInput(listener, "Input Your Name!",
+                        "Input your name", "Your name");
             }
         });
         
         play.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y) {
                 if (game.getPlayerName() != null && game.getPlayerName() != "") {
                     game.setScreen(new FirstDungeonScreen(game));
                     dispose();

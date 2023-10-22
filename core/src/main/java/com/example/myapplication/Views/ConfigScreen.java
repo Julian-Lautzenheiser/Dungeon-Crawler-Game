@@ -17,9 +17,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.MyTextInputListener;
+import com.example.myapplication.Views.FirstDungeonScreen;
 
 public class ConfigScreen implements Screen {
-
     private final Dungeon game;
     private OrthographicCamera camera;
     private Table table;
@@ -37,71 +37,68 @@ public class ConfigScreen implements Screen {
     private ButtonGroup<TextButton> difficulties;
     private ButtonGroup<TextButton> sprites;
     private MyTextInputListener listener = new MyTextInputListener();
-
+    
     public ConfigScreen(final Dungeon game) {
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
+        
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 20, 15);
-
+        
         createStyle();
-
+        
         createButtons();
         createButtonTable();
-
+        
         stage.addActor(table);
         addListeners();
     }
-
-
+    
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
         camera.update();
-
+        
         stage.draw();
         stage.act();
-
+        
         //Updates the enterName's text to display player name (only when player name has been updated)
         if (game.getPlayerName() != null && game.getPlayerName() != "") {
             enterName.setText(game.getPlayerName());
         }
-
-
     }
-
+    
     @Override
     public void show() {
-
+    
     }
-
+    
     @Override
     public void resize(int width, int height) {
-
+    
     }
-
+    
     @Override
     public void pause() {
-
+    
     }
-
+    
     @Override
     public void resume() {
-
+    
     }
-
+    
     @Override
     public void hide() {
-
+    
     }
-
+    
     @Override
     public void dispose() {
-
+    
     }
-
+    
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();
@@ -118,30 +115,30 @@ public class ConfigScreen implements Screen {
         //Creates table with the different buttons and formats it
         table = new Table();
         //table.setTransform(true);
-        table.add(enterName).colspan(2).width(625);
+        table.add(enterName).colspan(5).width(830);
         table.row();
-        table.add(spriteMage).width(300);
-        table.add(difficultyEasy).padLeft(25).width(300);
+        table.add(spriteMage).width(400);
+        table.add(difficultyEasy).padLeft(25).width(400);
         table.row();
-        table.add(spriteKnight).width(300);
-        table.add(difficultyMedium).padLeft(25).width(300);
+        table.add(spriteKnight).width(400);
+        table.add(difficultyMedium).padLeft(25).width(400);
         table.row();
-        table.add(spriteFighter).width(300);
-        table.add(difficultyHard).padLeft(25).width(300);
+        table.add(spriteFighter).width(400);
+        table.add(difficultyHard).padLeft(25).width(400);
         table.row();
-        table.add(play).colspan(2).width(625);
-
-        table.setPosition(800, 300);
+        table.add(play).colspan(5).width(830);
+        
+        table.setPosition(1150, 500);
     }
     public void createButtons() {
         //Creates sprite buttons
         spriteMage = new TextButton("Mage", style);
-        spriteMage.getLabel().setFontScale(6, 3);
+        spriteMage.getLabel().setFontScale(6, 4);
         spriteKnight = new TextButton("Knight", style);
-        spriteKnight.getLabel().setFontScale(5, 3);
+        spriteKnight.getLabel().setFontScale(6, 4);
         spriteFighter = new TextButton("Fighter", style);
-        spriteFighter.getLabel().setFontScale(5, 3);
-
+        spriteFighter.getLabel().setFontScale(6, 4);
+        
         //Adds sprite buttons to a group for radio button functionality
         sprites = new ButtonGroup<>(spriteMage, spriteKnight, spriteFighter);
         sprites.setMaxCheckCount(1);
@@ -150,7 +147,7 @@ public class ConfigScreen implements Screen {
         game.setSprite("Mage");
         spriteMage.setChecked(true);
         sprites.setUncheckLast(true);
-
+        
         //Creates difficulty buttons
         difficultyEasy = new TextButton("Easy", style);
         difficultyEasy.getLabel().setFontScale(6, 3);
@@ -158,7 +155,7 @@ public class ConfigScreen implements Screen {
         difficultyMedium.getLabel().setFontScale(5, 3);
         difficultyHard = new TextButton("Hard", style);
         difficultyHard.getLabel().setFontScale(6, 3);
-
+        
         //Adds difficulty buttons to a group for radio button functionality
         difficulties = new ButtonGroup<TextButton>(difficultyEasy, difficultyMedium, difficultyHard);
         difficulties.setMaxCheckCount(1);
@@ -166,13 +163,14 @@ public class ConfigScreen implements Screen {
         difficulties.setChecked("Easy");
         game.setDifficulty(0.5);
         difficulties.setUncheckLast(true);
-
+        
         enterName = new TextButton("Enter Name", style);
-        enterName.getLabel().setFontScale(5, 3);
-
+        enterName.getLabel().setFontScale(6, 4);
+        
         play = new TextButton("Play",style);
-        play.getLabel().setFontScale(6, 3);
+        play.getLabel().setFontScale(6, 4);
     }
+    
     //Adds listeners all in one method so it's out of the constructor
     public void addListeners() {
         spriteMage.addListener(new ClickListener() {
@@ -229,14 +227,14 @@ public class ConfigScreen implements Screen {
                 game.setDifficulty(1.0);
             }
         });
-
+        
         enterName.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
                 Gdx.input.getTextInput(listener, "Input Your Name!", "Input your name", "Your name");
             }
         });
-
+        
         play.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
@@ -247,6 +245,4 @@ public class ConfigScreen implements Screen {
             }
         });
     }
-
-
 }

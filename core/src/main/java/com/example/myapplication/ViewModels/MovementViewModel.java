@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.example.myapplication.Models.Movement;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.Models.Subscriber;
@@ -58,21 +57,21 @@ public class MovementViewModel implements Subscriber {
         }
     }
     public boolean checkCollision(int playerX, int playerY, String level) {
-//        int startX, endX, startY, endY;
-//        Rectangle spriteRect = rectPool.obtain();
-//        startX = playerX;
-//        endX = (int) (playerX + 64/32f);
-//        startY = playerY;
-//        endY = (int) (playerY + 64/32f);
-//        spriteRect.set(playerX, playerY, 64/32f, 64/32f);
-//        getTiles(startX, startY, endX, endY, tiles);
-//
-//        for (Rectangle tile : tiles) {
-//            if (spriteRect.overlaps(tile)) {
-//                return true;
-//            }
-//        }
-//        return false;
+        //        int startX, endX, startY, endY;
+        //        Rectangle spriteRect = rectPool.obtain();
+        //        startX = playerX;
+        //        endX = (int) (playerX + 64/32f);
+        //        startY = playerY;
+        //        endY = (int) (playerY + 64/32f);
+        //        spriteRect.set(playerX, playerY, 64/32f, 64/32f);
+        //        getTiles(startX, startY, endX, endY, tiles);
+        //
+        //        for (Rectangle tile : tiles) {
+        //            if (spriteRect.overlaps(tile)) {
+        //                return true;
+        //            }
+        //        }
+        //        return false;
 
         TiledMap map = new TmxMapLoader().load(level);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer)

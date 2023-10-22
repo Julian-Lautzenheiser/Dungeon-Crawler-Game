@@ -2,12 +2,10 @@ package com.example.myapplication.ViewModels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.myapplication.Models.Player;
-import com.badlogic.gdx.math.Rectangle;
 
 public class MovementViewModel {
     private Player player = Player.getInstance();

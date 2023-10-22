@@ -1,7 +1,6 @@
 package com.example.myapplication.Views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -21,8 +21,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.MovementViewModel;
-
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class FirstDungeonScreen implements Screen {
 
@@ -38,7 +36,7 @@ public class FirstDungeonScreen implements Screen {
     private Texture sprite;
     private Player player = Player.getInstance();
     private MovementViewModel movement = new MovementViewModel();
-
+    private Label.LabelStyle labelStyle;
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
         player.setX(-1);
@@ -51,13 +49,41 @@ public class FirstDungeonScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 13, 10);
         camera.update();
+    
+        //labelStyle = new Label.LabelStyle();
+        //labelStyle.font = new BitmapFont();
+        //style.fontColor = Color.WHITE;
+    
+        //String name = player.getName();
+        //int health = player.getHealth();
+        //double score = player.getScore();
+        //String difficulty = chosenDifficulty(player.getDifficulty());
+    
+        //Label nameDisplay = new Label("Player: " + name, labelStyle);
+        //Label hp = new Label("HP: "+ health, labelStyle);
+        //Label scoreDisplay = new Label("Score: " + score, labelStyle);
+        //Label difficultyDisplay = new Label("Difficulty: " + difficulty, labelStyle);
 
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
 
         map = new TmxMapLoader().load("room1.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-
+        
+        /*
+        Table table = new Table();
+        table.add(nameDisplay);
+        table.row();
+        table.add(hp);
+        table.row();
+        table.add(scoreDisplay);
+        table.row();
+        table.add(difficultyDisplay);
+        table.row();
+        
+        table.setPosition(400, 50);
+        */
+    
         createStyle();
         next = new TextButton("Next", style);
         next.getLabel().setFontScale(6, 3);
@@ -75,7 +101,8 @@ public class FirstDungeonScreen implements Screen {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         };
-
+        
+        //stage.addActor(table);
         stage.addActor(next);
     }
 
@@ -127,7 +154,16 @@ public class FirstDungeonScreen implements Screen {
         map.dispose();
         sprite.dispose();
     }
-
+    public String chosenDifficulty(double difficulty) {
+        if (difficulty == 0.5) {
+            return "Easy";
+        } else if (difficulty == 0.75) {
+            return "Medium";
+        } else if (difficulty == 1.0) {
+            return "Hard";
+        }
+        return null;
+    }
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();

@@ -21,7 +21,6 @@ import com.example.myapplication.ViewModels.LeaderboardViewModel;
 import java.util.ArrayList;
 
 public class LeaderboardScreen implements Screen {
-
     private final Dungeon game;
     private OrthographicCamera camera;
     private LeaderboardViewModel leaderboardViewModel;
@@ -30,30 +29,30 @@ public class LeaderboardScreen implements Screen {
     private Stage stage;
     private TextButton.TextButtonStyle style;
     private Skin buttonSkin;
-
+    
     public LeaderboardScreen(final Dungeon game) {
         this.game = game;
         leaderboardViewModel = new LeaderboardViewModel();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
+        
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 20, 15);
-
+        
         String name = game.getPlayerName();
         double score = game.getPlayerScore();
         LeaderboardScore displayScore = new LeaderboardScore(name, score);
-
+        
         String display = displayScore.getName() + " (";
         display += displayScore.getScore() + ") - ";
         display += displayScore.getDatetime();
-
+        
         skin = new Skin(Gdx.files.internal("plain-james-ui.json")); //Creates a new skin to display the label text as
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
         Label recent = new Label("New Score: " + display, skin);
-
+        
         leaderboardViewModel.addScore(displayScore);
-
+        
         Table table = new Table();
         ArrayList<LeaderboardScore> scores = leaderboardViewModel.getTable();
         table.add(recent);
@@ -63,24 +62,23 @@ public class LeaderboardScreen implements Screen {
             table.add(new Label(scoreText, skin));
             table.row();
         }
-
-
+        
         createStyle();
         restart = new TextButton("Restart", style);
+        restart.getLabel().setFontScale(5,5);
         table.add(restart).width(300);
-
-        table.setPosition(200, 200);
-
+        
+        table.setPosition(1150, 500);
+        
         restart.addListener(new ClickListener() {
             @Override
             public void clicked (InputEvent event, float x, float y) {
-                game.setScreen(new ConfigScreen(game));
+                game.setScreen(new MainMenuScreen(game));
                 dispose();
             }
         });
-
+        
         stage.addActor(table);
-
     }
 
     public String generateLeaderText(LeaderboardScore ls) {
@@ -88,47 +86,46 @@ public class LeaderboardScreen implements Screen {
         finalText = (ls.getName() + " (" + ls.getScore() + ") - " + ls.getDatetime());
         return finalText;
     }
-
-
+    
     @Override
     public void show() {
-
+    
     }
-
+    
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
         camera.update();
-
+        
         stage.draw();
         stage.act();
     }
-
+    
     @Override
     public void resize(int width, int height) {
-
+    
     }
-
+    
     @Override
     public void pause() {
-
+    
     }
-
+    
     @Override
     public void resume() {
-
+    
     }
-
+    
     @Override
     public void hide() {
-
+    
     }
-
+    
     @Override
     public void dispose() {
-
+    
     }
-
+    
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();

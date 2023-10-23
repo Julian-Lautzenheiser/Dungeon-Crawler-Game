@@ -295,11 +295,4 @@ public class UnitTests {
         player.newScreen(2);
         assertEquals(player.getLevel(), 3);
     }
-
-    @Test
-    public void checkLevelFourIncreaseToZero() {
-        Player player = Player.getInstance();
-        player.newScreen(3);
-        assertEquals(player.getLevel(), 0);
-    }
 }

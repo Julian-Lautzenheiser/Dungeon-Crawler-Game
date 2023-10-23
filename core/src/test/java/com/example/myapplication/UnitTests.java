@@ -288,4 +288,11 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
+
+    @Test
+    public void checkLevelThreeIncrease() {
+        Player player = Player.getInstance();
+        player.newScreen(2);
+        assertEquals(player.getLevel(), 3);
+    }
 }

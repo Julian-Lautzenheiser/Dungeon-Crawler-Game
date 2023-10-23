@@ -72,7 +72,7 @@ public class Player {
             player.playerX = 300;
         }
     }
-    public void setPlayerY(int y) {
+    public void setPlayerY(int playerY) {
         player.playerY = playerY;
         if (player.playerY < 0) {
             player.playerY = 100;

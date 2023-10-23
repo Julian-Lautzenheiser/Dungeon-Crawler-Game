@@ -84,29 +84,7 @@ public class Dungeon extends Game {
         this.buttonAtlas = buttonAtlas;
     }
 
-    public SpriteBatch getBatch() {
-        return batch;
-    }
 
-    public void setBatch(SpriteBatch batch) {
-        this.batch = batch;
-    }
-
-    public BitmapFont getFont() {
-        return font;
-    }
-
-    public void setFont(BitmapFont font) {
-        this.font = font;
-    }
-
-    public TextureAtlas getButtonAtlas() {
-        return buttonAtlas;
-    }
-
-    public void setButtonAtlas(TextureAtlas buttonAtlas) {
-        this.buttonAtlas = buttonAtlas;
-    }
 
     /*public void setPlayer(int radioId, String name, int spriteId) {
         double difficulty = mainRepo.calcDifficulty(radioId);

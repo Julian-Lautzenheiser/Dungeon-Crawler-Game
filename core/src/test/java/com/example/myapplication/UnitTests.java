@@ -4,42 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
-import com.example.myapplication.Models.Movement;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.ViewModels.Dungeon;
-import com.example.myapplication.Models.PlayerMovement;
 
 import java.util.ArrayList;
 
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
-import com.example.myapplication.ViewModels.MovementViewModel;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.example.myapplication.Models.Player;
-import com.example.myapplication.ViewModels.Dungeon;
-import com.example.myapplication.ViewModels.MovementViewModel;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -316,5 +290,23 @@ public class UnitTests {
         Player player = Player.getInstance();
         player.newScreen(3);
         assertEquals(player.getLevel(), 0);
+    }
+    
+    @Test
+    public void checkSetHeight() {
+        Player player = Player.getInstance();
+        float expectedHeight = 5;
+        player.setHeight(0);
+        
+        assertTrue(expectedHeight == player.getHeight());
+    }
+
+    @Test
+    public void checkSetWidth() {
+        Player player = Player.getInstance();
+        float expectedWidth = 5;
+        player.setWidth(0);
+        
+        assertTrue(expectedWidth == player.getWidth());
     }
 }

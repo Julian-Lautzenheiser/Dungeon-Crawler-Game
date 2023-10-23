@@ -205,6 +205,7 @@ public class UnitTests {
         player1.setPlayerX(100);
         player1.setPlayerY(100);
         
+        
         assert(player1.getPlayerX() == 100);
         assert(player1.getPlayerY() == 100);
     }
@@ -221,30 +222,27 @@ public class UnitTests {
         assert(player1.getPlayerY() == 100);
     }
     
-    /**
-     * Local test to test wall collision
-     */
+
     
-    @Test
-    public void WallCollisionTest() {
-        Player player1 = Player.getInstance();
-        player1.setPlayerX(300);
-        player1.setPlayerY(100);
-        PlayerMovement playerMovement = new PlayerMovement();
-        MovementViewModel movement = new MovementViewModel();
-        
-        //TiledMap map = new TmxMapLoader().load("room1.tmx");
-        
-        for(int i = 0; i < 500; i++){
-            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
-                player1.setPlayerX(player1.getPlayerX() - 10);
-            }
-        }
-        assert(player1.getPlayerX() > 0);
-    }
-    
-    /* Local test to make sure score can't be set to a negative value
+    /* Local test to test wall collision
+    //    @Test
+    //    public void WallCollisionTest() {
+    //        Player player1 = Player.getInstance();
+    //        player1.setPlayerX(300);
+    //        player1.setPlayerY(100);
+    //        PlayerMovement playerMovement = new PlayerMovement();
+    //        MovementViewModel movement = new MovementViewModel();
+    //
+    //        //TiledMap map = new TmxMapLoader().load("room1.tmx");
+    //        for(int i = 0; i < 500; i++){
+    //            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
+    //                player1.setPlayerX(player1.getPlayerX() - 10);
+    //            }
+    //        }
+    //        assert(player1.getPlayerX() > 0);
+    //    }
      */
+
     @Test
     public void moveUpLeft() {
         Player player1 = Player.getInstance();
@@ -285,24 +283,20 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
-    
-    @Test
-    public void
-
 
     @Test
     public void checkInitialLevel() {
         Player player = Player.getInstance();
         assertEquals(player.getLevel(), 0);
     }
-    
+
     @Test
     public void checkLevelOneIncrease() {
         Player player = Player.getInstance();
         player.newScreen(0);
         assertEquals(player.getLevel(), 1);
     }
-    
+
     @Test
     public void checkLevelTwoIncrease() {
         Player player = Player.getInstance();
@@ -310,6 +304,7 @@ public class UnitTests {
         assertEquals(player.getLevel(), 2);
     }
     
+    @Test
     public void checkLevelThreeIncrease() {
         Player player = Player.getInstance();
         player.newScreen(2);

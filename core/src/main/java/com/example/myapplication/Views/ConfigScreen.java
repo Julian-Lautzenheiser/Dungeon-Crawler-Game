@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,6 +37,7 @@ public class ConfigScreen implements Screen {
     private ButtonGroup<TextButton> difficulties;
     private ButtonGroup<TextButton> sprites;
     private MyTextInputListener listener = new MyTextInputListener();
+    private Texture sprite;
     
     public ConfigScreen(final Dungeon game) {
         this.game = game;
@@ -58,6 +60,10 @@ public class ConfigScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
         camera.update();
+    
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, 750, 500, 64, 64);
+        game.getBatch().end();
         
         stage.draw();
         stage.act();
@@ -95,7 +101,7 @@ public class ConfigScreen implements Screen {
     
     @Override
     public void dispose() {
-    
+        sprite.dispose();
     }
     
     public void createStyle() {
@@ -166,9 +172,11 @@ public class ConfigScreen implements Screen {
         
         enterName = new TextButton("Enter Name", style);
         enterName.getLabel().setFontScale(6, 4);
-        
+
         play = new TextButton("Play", style);
         play.getLabel().setFontScale(6, 4);
+    
+        sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
     }
     
     //Adds listeners all in one method so it's out of the constructor
@@ -180,6 +188,8 @@ public class ConfigScreen implements Screen {
                 sprites.setChecked("Mage");
                 spriteMage.setChecked(true);
                 game.setSprite("Mage");
+                dispose();
+                sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
             }
         });
         spriteKnight.addListener(new ClickListener() {
@@ -189,6 +199,8 @@ public class ConfigScreen implements Screen {
                 sprites.setChecked("Knight");
                 spriteKnight.setChecked(true);
                 game.setSprite("Knight");
+                dispose();
+                sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
             }
         });
         spriteFighter.addListener(new ClickListener() {
@@ -198,6 +210,8 @@ public class ConfigScreen implements Screen {
                 sprites.setChecked("Fighter");
                 spriteFighter.setChecked(true);
                 game.setSprite("Fighter");
+                dispose();
+                sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
             }
         });
         difficultyEasy.addListener(new ClickListener() {

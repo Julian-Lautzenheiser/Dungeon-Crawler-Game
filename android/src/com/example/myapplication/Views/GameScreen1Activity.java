@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameScreen1Activity extends AppCompatActivity {
-    
+
     
     private ImageView playerView;
     private TextView nameText;

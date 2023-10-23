@@ -42,21 +42,21 @@ public class SecondDungeonScreen implements Screen {
 
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setPlayerX(-1);
-        player.setPlayerY(-1);
+        player.setPlayerX(220);
+        player.setPlayerY(70);
 
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 14, 14);
+        camera.setToOrtho(false, 13, 10);
         camera.update();
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
-    
-        map = new TmxMapLoader().load("room1.tmx");
-    
+      
+        map = new TmxMapLoader().load("room2-alt.tmx");
+      
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         
 
@@ -64,6 +64,7 @@ public class SecondDungeonScreen implements Screen {
         next = new TextButton("Next", style);
         next.getLabel().setFontScale(6, 3);
         next.setPosition(400, 50);
+
 
         next.addListener(new ClickListener() {
             @Override
@@ -86,6 +87,7 @@ public class SecondDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+
         /*
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         if (timeSeconds > period) {
@@ -94,11 +96,15 @@ public class SecondDungeonScreen implements Screen {
             scoreDisplay.setText("Score: " + player.getScore());
         }
          */
-        
-        game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
-        movement.updatePosition("room2.tmx");
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, player.getPlayerX() + 15, player.getPlayerY() - 15, 64, 64);
+
+        movement.updatePosition("room2-alt.tmx");
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2-alt.tmx")) {
+            game.setScreen(new ThirdDungeonScreen(game));
+            dispose();
+        }
 
         game.getBatch().end();
 

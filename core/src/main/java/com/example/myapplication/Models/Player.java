@@ -66,15 +66,14 @@ public class Player {
     public int getPlayerY() {
         return playerY;
     }
-    public void setPlayerX(int x) {
-        player.playerX = x;
+    public void setPlayerX(int playerX) {
+        player.playerX = playerX;
         if (player.playerX < 0) {
             player.playerX = 300;
         }
     }
     public void setPlayerY(int y) {
-
-        player.playerY = y;
+        player.playerY = playerY;
         if (player.playerY < 0) {
             player.playerY = 100;
         }
@@ -83,6 +82,7 @@ public class Player {
     public double getScore() {
         return this.score;
     }
+  
     public void setScore(double newScore) {
         if (newScore >= 0) {
             this.score = newScore;
@@ -92,15 +92,15 @@ public class Player {
     public float getHeight() {
         return height;
     }
-    
+
     public float getWidth() {
         return width;
     }
-    
+
     public void setHeight(float height) {
         this.height = height;
     }
-    
+
     public void setWidth(float width) {
         this.width = width;
     }

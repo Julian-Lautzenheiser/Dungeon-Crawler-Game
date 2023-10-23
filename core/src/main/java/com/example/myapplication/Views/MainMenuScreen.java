@@ -24,7 +24,7 @@ public class MainMenuScreen implements Screen {
     private TextButton.TextButtonStyle style;
     private Table table;
     private Stage stage;
-    
+
     public MainMenuScreen(final Dungeon game) {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);

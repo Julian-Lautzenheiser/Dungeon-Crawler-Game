@@ -115,6 +115,7 @@ public class ThirdDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+
         /*
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         if (timeSeconds > period) {
@@ -127,6 +128,10 @@ public class ThirdDungeonScreen implements Screen {
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
         movement.updatePosition("room3.tmx");
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {
+            game.setScreen(new LeaderboardScreen(game));
+            dispose();
+        }
 
         game.getBatch().end();
 

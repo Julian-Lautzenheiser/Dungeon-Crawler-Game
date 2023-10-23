@@ -11,13 +11,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
@@ -64,7 +62,6 @@ public class FirstDungeonScreen implements Screen {
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
 
         map = new TmxMapLoader().load("room1.tmx");
-
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         
         Label nameDisplay = new Label("Player: " + name, skin);
@@ -79,7 +76,8 @@ public class FirstDungeonScreen implements Screen {
         Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
         difficultyDisplay.setFontScale(2, 2);
         difficultyDisplay.setColor(Color.WHITE);
-        
+       
+        /*
         Table table = new Table();
         table.add(nameDisplay);
         table.row();
@@ -91,26 +89,23 @@ public class FirstDungeonScreen implements Screen {
         table.row();
         
         table.setPosition(250, 100);
+        */
     
         createStyle();
-        next = new TextButton("Next", style);
-        next.getLabel().setFontScale(6, 3);
-        next.setPosition(400, 50);
-
-        next.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SecondDungeonScreen(game));
-                dispose();
-            }
-        });
-
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
-            game.setScreen(new SecondDungeonScreen(game));
-            dispose();
-        }
+        //        next = new TextButton("Next", style);
+        //        next.getLabel().setFontScale(6, 3);
+        //        next.setPosition(400, 50);
+        //
+        //
+        //        next.addListener(new ClickListener() {
+        //            @Override
+        //            public void clicked(InputEvent event, float x, float y) {
+        //                game.setScreen(new SecondDungeonScreen(game));
+        //                dispose();
+        //            }
+        //        });
         
-        stage.addActor(table);
+        //stage.addActor(table);
         stage.addActor(next);
     }
 
@@ -125,18 +120,24 @@ public class FirstDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-    
+      
+    /*
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         if (timeSeconds > period) {
             timeSeconds -= period;
             game.decreaseScore();
             scoreDisplay.setText("Score: " + player.getScore());
         }
+        */
         
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
-
         movement.updatePosition("room1.tmx");
+
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
+            game.setScreen(new SecondDungeonScreen(game));
+            dispose();
+        }
 
         game.getBatch().end();
 

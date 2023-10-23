@@ -163,7 +163,7 @@ public class ConfigScreen implements Screen {
         
         //Adds difficulty buttons to a group for radio button functionality
         difficulties = new ButtonGroup<TextButton>(difficultyEasy,
-            difficultyMedium, difficultyHard);
+                difficultyMedium, difficultyHard);
         difficulties.setMaxCheckCount(1);
         difficulties.setMinCheckCount(0);
         difficulties.setChecked("Easy");
@@ -172,6 +172,7 @@ public class ConfigScreen implements Screen {
         
         enterName = new TextButton("Enter Name", style);
         enterName.getLabel().setFontScale(6, 4);
+
         play = new TextButton("Play", style);
         play.getLabel().setFontScale(6, 4);
     
@@ -245,7 +246,7 @@ public class ConfigScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.input.getTextInput(listener, "Input Your Name!",
-                    "Input your name", "Your name");
+                        "Input your name", "Your name");
             }
         });
         

@@ -16,9 +16,7 @@ public class MovementViewModel implements Subscriber {
     private Player player = Player.getInstance();
     private PlayerMovement playerMovement = new PlayerMovement();
     private final int velocity = 10;
-    
     public MovementViewModel() { };
-    
     private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
         @Override
         protected Rectangle newObject() {
@@ -28,28 +26,28 @@ public class MovementViewModel implements Subscriber {
     private Array<Rectangle> tiles = new Array<Rectangle>();
     public void updatePosition(String level) {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
-            || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             if (!checkCollision(player.getPlayerX() - velocity, player.getPlayerY(), level)) {
                 playerMovement.left();
             }
             return;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)
-            || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             if (!checkCollision(player.getPlayerX() + velocity, player.getPlayerY(), level)) {
                 playerMovement.right();
             }
             return;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
-            || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+                || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             if (!checkCollision(player.getPlayerX(), player.getPlayerY() - velocity, level)) {
                 playerMovement.down();
             }
             return;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)
-            || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             if (!checkCollision(player.getPlayerX(), player.getPlayerY() + (velocity), level)) {
                 playerMovement.up();
             }
@@ -71,15 +69,16 @@ public class MovementViewModel implements Subscriber {
         //                return true;
         //            }
         //        }
-        //        return falsel
+        //        return false;
+
         TiledMap map = new TmxMapLoader().load(level);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer)
-            map.getLayers().get("Walls and Objects");
+                map.getLayers().get("Walls and Objects");
         int tileSize = collisionLayer.getTileWidth();
-        
+
         int xScaled = playerX / 32;
         int yScaled = playerY / 32;
-        
+
         TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
         System.out.println(xScaled + " " + yScaled + " " + cell);
         if (cell != null && cell.getTile() != null) {
@@ -92,18 +91,16 @@ public class MovementViewModel implements Subscriber {
         TiledMap map = new TmxMapLoader().load(level);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Doors");
         int tileSize = collisionLayer.getTileWidth();
-        
         int xScaled = x / tileSize;
         int yScaled = (y + 10) / tileSize;
-        
+
         TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
         if (cell != null && cell.getTile() != null) {
             return true;
         }
-        return false;
-        
+        return false;   
     }
-    
+
     public void getTiles(int startX, int startY, int endX, int endY, Array<Rectangle> tiles) {
         TiledMap map = new TmxMapLoader().load("room1.tmx");
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");

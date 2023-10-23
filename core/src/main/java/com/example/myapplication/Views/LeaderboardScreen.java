@@ -47,7 +47,8 @@ public class LeaderboardScreen implements Screen {
         String display = displayScore.getName() + " (";
         display += displayScore.getScore() + ") - ";
         display += displayScore.getDatetime();
-        
+
+        // Creates a new skin to display the label text as
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
         

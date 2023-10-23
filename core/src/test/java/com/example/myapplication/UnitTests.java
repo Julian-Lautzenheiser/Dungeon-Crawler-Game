@@ -4,15 +4,42 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
+import com.example.myapplication.Models.Movement;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.Models.PlayerMovement;
 
 import java.util.ArrayList;
 
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
+import com.example.myapplication.ViewModels.MovementViewModel;
+
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Player;
+import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.MovementViewModel;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -168,7 +195,57 @@ public class UnitTests {
     }
     
     //Sprint 3 Tests
+  
     /**
+     * Local test to make sure you can set player pos
+     */
+    @Test
+    public void playerSetPosTest() {
+        Player player1 = Player.getInstance();
+        player1.setPlayerX(100);
+        player1.setPlayerY(100);
+
+
+        assert(player1.getPlayerX() == 100);
+        assert(player1.getPlayerY() == 100);
+    }
+
+    /**
+     * Local test to make sure player cant have negative position
+     */
+    @Test
+    public void playerBoundsTest() {
+        Player player1 = Player.getInstance();
+        player1.setPlayerX(-100);
+        player1.setPlayerY(-100);
+        assert(player1.getPlayerX() == 300);
+        assert(player1.getPlayerY() == 100);
+    }
+
+
+
+    /**
+     * Local test to test wall collision
+     */
+
+    @Test
+    public void WallCollisionTest() {
+        Player player1 = Player.getInstance();
+        player1.setPlayerX(300);
+        player1.setPlayerY(100);
+        PlayerMovement playerMovement = new PlayerMovement();
+        MovementViewModel movement = new MovementViewModel();
+
+        //TiledMap map = new TmxMapLoader().load("room1.tmx");
+
+        for(int i = 0; i < 500; i++){
+            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
+                player1.setPlayerX(player1.getPlayerX() - 10);
+            }
+        }
+        assert(player1.getPlayerX() > 0);
+    }
+
      * Local test to make sure score can't be set to a negative value
      */
     @Test

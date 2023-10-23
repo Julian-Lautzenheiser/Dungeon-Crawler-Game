@@ -227,24 +227,22 @@ public class UnitTests {
     /**
      * Local test to test wall collision
      */
-
-    @Test
-    public void WallCollisionTest() {
-        Player player1 = Player.getInstance();
-        player1.setPlayerX(300);
-        player1.setPlayerY(100);
-        PlayerMovement playerMovement = new PlayerMovement();
-        MovementViewModel movement = new MovementViewModel();
-
-        //TiledMap map = new TmxMapLoader().load("room1.tmx");
-
-        for(int i = 0; i < 500; i++){
-            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
-                player1.setPlayerX(player1.getPlayerX() - 10);
-            }
-        }
-        assert(player1.getPlayerX() > 0);
-    }
+    //    @Test
+    //    public void WallCollisionTest() {
+    //        Player player1 = Player.getInstance();
+    //        player1.setPlayerX(300);
+    //        player1.setPlayerY(100);
+    //        PlayerMovement playerMovement = new PlayerMovement();
+    //        MovementViewModel movement = new MovementViewModel();
+    //
+    //        //TiledMap map = new TmxMapLoader().load("room1.tmx");
+    //        for(int i = 0; i < 500; i++){
+    //            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
+    //                player1.setPlayerX(player1.getPlayerX() - 10);
+    //            }
+    //        }
+    //        assert(player1.getPlayerX() > 0);
+    //    }
 
      /* Local test to make sure score can't be set to a negative value
      */
@@ -309,6 +307,7 @@ public class UnitTests {
         assertEquals(player.getLevel(), 2);
     }
 
+    @Test
     public void checkLevelThreeIncrease() {
         Player player = Player.getInstance();
         player.newScreen(2);

@@ -72,8 +72,7 @@ public class Player {
             player.playerX = 300;
         }
     }
-    public void setPlayerY(int playerY) {
-
+    public void setPlayerY(int y) {
         player.playerY = playerY;
         if (player.playerY < 0) {
             player.playerY = 100;
@@ -83,6 +82,7 @@ public class Player {
     public double getScore() {
         return this.score;
     }
+  
     public void setScore(double newScore) {
         if (newScore >= 0) {
             this.score = newScore;

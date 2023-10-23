@@ -35,8 +35,6 @@ public class ThirdDungeonScreen implements Screen {
 
     private Player player = Player.getInstance();
     private MovementViewModel movement = new MovementViewModel();
-
-
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -49,12 +47,45 @@ public class ThirdDungeonScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 13, 8);
         camera.update();
-
-
+        
+        /*
+        String name = player.getName();
+        int health = player.getHealth();
+        double score = player.getScore();
+        String difficulty = chosenDifficulty(player.getDifficulty());
+         */
+    
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
-
-        map = new TmxMapLoader().load("room3.tmx");
+    
+        map = new TmxMapLoader().load("room1.tmx");
+    
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+    /*
+        Label nameDisplay = new Label("Player: " + name, skin);
+        nameDisplay.setFontScale(2, 2);
+        nameDisplay.setColor(Color.WHITE);
+        Label hp = new Label("HP: " + health, skin);
+        hp.setFontScale(2, 2);
+        hp.setColor(Color.WHITE);
+        scoreDisplay = new Label("Score: " + score, skin);
+        scoreDisplay.setFontScale(2, 2);
+        scoreDisplay.setColor(Color.WHITE);
+        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
+        difficultyDisplay.setFontScale(2, 2);
+        difficultyDisplay.setColor(Color.WHITE);
+    
+        Table table = new Table();
+        table.add(nameDisplay);
+        table.row();
+        table.add(hp);
+        table.row();
+    
+        table.row();
+        table.add(difficultyDisplay);
+        table.row();
+    
+        table.setPosition(250, 100);
+     */
 
         createStyle();
         next = new TextButton("Next", style);
@@ -68,7 +99,8 @@ public class ThirdDungeonScreen implements Screen {
                 dispose();
             }
         });
-
+        
+        //stage.addActor(table);
         stage.addActor(next);
     }
 
@@ -84,6 +116,14 @@ public class ThirdDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
+        /*
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            game.decreaseScore();
+            scoreDisplay.setText("Score: " + player.getScore());
+        }
+        */
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
 
@@ -125,6 +165,7 @@ public class ThirdDungeonScreen implements Screen {
         map.dispose();
         sprite.dispose();
     }
+    
 
     public void createStyle() {
         //Creates the style to set how the buttons look

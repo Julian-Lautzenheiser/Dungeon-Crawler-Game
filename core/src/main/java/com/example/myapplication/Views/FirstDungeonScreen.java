@@ -11,12 +11,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
@@ -36,7 +35,9 @@ public class FirstDungeonScreen implements Screen {
     private Texture sprite;
     private Player player = Player.getInstance();
     private MovementViewModel movement = new MovementViewModel();
-    private Label.LabelStyle labelStyle;
+    private Label scoreDisplay;
+    private float timeSeconds = 0f;
+    private float period = 1f;
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -50,53 +51,59 @@ public class FirstDungeonScreen implements Screen {
         camera.setToOrtho(false, 13, 10);
         camera.update();
     
-        //labelStyle = new Label.LabelStyle();
-        //labelStyle.font = new BitmapFont();
-        //style.fontColor = Color.WHITE;
+        skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
+        skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
     
-        //String name = player.getName();
-        //int health = player.getHealth();
-        //double score = player.getScore();
-        //String difficulty = chosenDifficulty(player.getDifficulty());
-    
-        //Label nameDisplay = new Label("Player: " + name, labelStyle);
-        //Label hp = new Label("HP: "+ health, labelStyle);
-        //Label scoreDisplay = new Label("Score: " + score, labelStyle);
-        //Label difficultyDisplay = new Label("Difficulty: " + difficulty, labelStyle);
-
+        String name = player.getName();
+        int health = player.getHealth();
+        double score = player.getScore();
+        String difficulty = chosenDifficulty(player.getDifficulty());
+        
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
 
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-
-
+        
+        Label nameDisplay = new Label("Player: " + name, skin);
+        nameDisplay.setFontScale(2, 2);
+        nameDisplay.setColor(Color.WHITE);
+        Label hp = new Label("HP: " + health, skin);
+        hp.setFontScale(2, 2);
+        hp.setColor(Color.WHITE);
+        scoreDisplay = new Label("Score: " + score, skin);
+        scoreDisplay.setFontScale(2, 2);
+        scoreDisplay.setColor(Color.WHITE);
+        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
+        difficultyDisplay.setFontScale(2, 2);
+        difficultyDisplay.setColor(Color.WHITE);
+       
         /*
         Table table = new Table();
         table.add(nameDisplay);
         table.row();
         table.add(hp);
         table.row();
-        table.add(scoreDisplay);
+        
         table.row();
         table.add(difficultyDisplay);
         table.row();
         
-        table.setPosition(400, 50);
+        table.setPosition(250, 100);
         */
     
         createStyle();
-        next = new TextButton("Next", style);
-        next.getLabel().setFontScale(6, 3);
-        next.setPosition(400, 50);
-
-
-        next.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new SecondDungeonScreen(game));
-                dispose();
-            }
-        });
+        //        next = new TextButton("Next", style);
+        //        next.getLabel().setFontScale(6, 3);
+        //        next.setPosition(400, 50);
+        //
+        //
+        //        next.addListener(new ClickListener() {
+        //            @Override
+        //            public void clicked(InputEvent event, float x, float y) {
+        //                game.setScreen(new SecondDungeonScreen(game));
+        //                dispose();
+        //            }
+        //        });
         
         //stage.addActor(table);
         stage.addActor(next);
@@ -113,16 +120,25 @@ public class FirstDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-
+      
+    /*
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            game.decreaseScore();
+            scoreDisplay.setText("Score: " + player.getScore());
+        }
+        */
+        
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
         movement.updatePosition("room1.tmx");
-
 
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }
+
         game.getBatch().end();
 
         stage.draw();
@@ -154,6 +170,7 @@ public class FirstDungeonScreen implements Screen {
         map.dispose();
         sprite.dispose();
     }
+    
     public String chosenDifficulty(double difficulty) {
         if (difficulty == 0.5) {
             return "Easy";

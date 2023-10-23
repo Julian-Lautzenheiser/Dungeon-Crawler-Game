@@ -29,6 +29,7 @@ public class LeaderboardScreen implements Screen {
     private Stage stage;
     private TextButton.TextButtonStyle style;
     private Skin buttonSkin;
+    private Label winner;
     
     public LeaderboardScreen(final Dungeon game) {
         this.game = game;
@@ -50,21 +51,31 @@ public class LeaderboardScreen implements Screen {
         // Creates a new skin to display the label text as
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
+        
+        winner = new Label("YOU WIN!", skin);
+        winner.setFontScale(8, 7);
         Label recent = new Label("New Score: " + display, skin);
+        recent.setFontScale(2, 2);
         
         leaderboardViewModel.addScore(displayScore);
         
         Table table = new Table();
         ArrayList<LeaderboardScore> scores = leaderboardViewModel.getTable();
+        table.add(winner);
+        table.row();
         table.add(recent);
         table.row();
+        
         for (LeaderboardScore sc : scores) { //Adds scores in leaderboard to a table to be displayed
             String scoreText = generateLeaderText(sc);
-            table.add(new Label(scoreText, skin));
+            Label newScore = new Label(scoreText, skin);
+            newScore.setFontScale(2, 2);
+            table.add(newScore);
             table.row();
         }
         
         createStyle();
+        
         restart = new TextButton("Restart", style);
         restart.getLabel().setFontScale(5, 5);
         table.add(restart).width(300);

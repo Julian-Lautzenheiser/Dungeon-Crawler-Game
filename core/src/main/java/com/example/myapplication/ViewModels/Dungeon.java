@@ -84,7 +84,6 @@ public class Dungeon extends Game {
         this.buttonAtlas = buttonAtlas;
     }
 
-
     /*public void setPlayer(int radioId, String name, int spriteId) {
         double difficulty = mainRepo.calcDifficulty(radioId);
         player.setDifficulty(difficulty);

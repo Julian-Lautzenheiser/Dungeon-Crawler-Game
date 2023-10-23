@@ -4,15 +4,41 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
+import com.example.myapplication.Models.Movement;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.Models.PlayerMovement;
 
 import java.util.ArrayList;
 
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
+import com.example.myapplication.ViewModels.MovementViewModel;
+
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Player;
+import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
 /**
@@ -88,73 +114,73 @@ public class UnitTests {
     /**
      * Local test to check if leaderboard updates
      */
-        /*
-        @Test
-        public void leaderboardUpdateTest(){
-            LeaderboardViewModel LBVM = new LeaderboardViewModel();
-            ArrayList<LeaderboardScore> table = LBVM.getTable();
-            assertFalse(LBVM == null);
-            
-            LBVM.addScore(new LeaderboardScore("Andrew", 0));
-            LBVM.addScore(new LeaderboardScore("Nawal", 10));
-            LBVM.addScore(new LeaderboardScore("Jai", 20));
-            LBVM.addScore(new LeaderboardScore("Julian", 30));
-            assertEquals(table.size(), 4);
-            LeaderboardScore[] arr = new LeaderboardScore[table.size()];
-            
-            // Convert ArrayList into an array
-            table.toArray(arr);
-            
-            
-            assertEquals(arr[3].getName(), "Andrew");
-            assertTrue(arr[3].getScore() == 0);
-            assertEquals(arr[2].getName(), "Nawal");
-            assertTrue(arr[2].getScore() == 10);
-            assertEquals(arr[1].getName(), "Jai");
-            assertTrue(arr[1].getScore() == 20);
-            assertEquals(arr[0].getName(), "Julian");
-            assertTrue(arr[0].getScore() == 30);
-        }
-        */
+            /*
+            @Test
+            public void leaderboardUpdateTest(){
+                LeaderboardViewModel LBVM = new LeaderboardViewModel();
+                ArrayList<LeaderboardScore> table = LBVM.getTable();
+                assertFalse(LBVM == null);
+                
+                LBVM.addScore(new LeaderboardScore("Andrew", 0));
+                LBVM.addScore(new LeaderboardScore("Nawal", 10));
+                LBVM.addScore(new LeaderboardScore("Jai", 20));
+                LBVM.addScore(new LeaderboardScore("Julian", 30));
+                assertEquals(table.size(), 4);
+                LeaderboardScore[] arr = new LeaderboardScore[table.size()];
+                
+                // Convert ArrayList into an array
+                table.toArray(arr);
+                
+                
+                assertEquals(arr[3].getName(), "Andrew");
+                assertTrue(arr[3].getScore() == 0);
+                assertEquals(arr[2].getName(), "Nawal");
+                assertTrue(arr[2].getScore() == 10);
+                assertEquals(arr[1].getName(), "Jai");
+                assertTrue(arr[1].getScore() == 20);
+                assertEquals(arr[0].getName(), "Julian");
+                assertTrue(arr[0].getScore() == 30);
+            }
+            */
     /**
      * Local test to check player name for whitespace
      */
-       /*
-        @Test
-        public void playerNameCheck() {
-            Player player1 = Player.getInstance();
-            ConfigViewModel configViewModel = new ConfigViewModel();
-            configViewModel.setPlayer(1,"Andrew", 2);
-            assertTrue(player1.getName() == "Andrew");
-        }
-        
-        @Test
-        public void playerEasyDifficultyCheck() {
-            int id = R.id.easyDifficulty;
-            Player player1 = Player.getInstance();
-            ConfigViewModel configViewModel = new ConfigViewModel();
-            configViewModel.setPlayer(id,"Andrew", 2);
-            assertTrue(player1.getHealth() == 200);
-        }
-        
-        @Test
-        public void playerMediumDifficultyCheck() {
-            int id = R.id.mediumDifficulty;
-            Player player = Player.getInstance();
-            ConfigViewModel configViewModel = new ConfigViewModel();
-            configViewModel.setPlayer(id, "Andrew", 1);
-            assertTrue(player.getHealth() == 133);
-        }
-        
-        @Test
-        public void playerHardDifficultyCheck() {
-            int id = R.id.hardDifficulty;
-            Player player = Player.getInstance();
-            ConfigViewModel configViewModel = new ConfigViewModel();
-            configViewModel.setPlayer(id, "Andrew", 1);
-            assertTrue(player.getHealth() == 100);
-        }
-        */
+    /*
+    @Test
+    public void playerNameCheck() {
+        Player player1 = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(1,"Andrew", 2);
+        assertTrue(player1.getName() == "Andrew");
+    }
+    
+    @Test
+    public void playerEasyDifficultyCheck() {
+        int id = R.id.easyDifficulty;
+        Player player1 = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id,"Andrew", 2);
+        assertTrue(player1.getHealth() == 200);
+    }
+            
+    @Test
+    public void playerMediumDifficultyCheck() {
+        int id = R.id.mediumDifficulty;
+        Player player = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id, "Andrew", 1);
+        assertTrue(player.getHealth() == 133);
+    }
+            
+    @Test
+    public void playerHardDifficultyCheck() {
+        int id = R.id.hardDifficulty;
+        Player player = Player.getInstance();
+        ConfigViewModel configViewModel = new ConfigViewModel();
+        configViewModel.setPlayer(id, "Andrew", 1);
+        assertTrue(player.getHealth() == 100);
+    }
+    */
     
     /**
      * Local test to make sure score can't be set to a negative value
@@ -169,7 +195,7 @@ public class UnitTests {
     }
     
     //Sprint 3 Tests
-  
+    
     /**
      * Local test to make sure you can set player pos
      */
@@ -178,12 +204,11 @@ public class UnitTests {
         Player player1 = Player.getInstance();
         player1.setPlayerX(100);
         player1.setPlayerY(100);
-
-
+        
         assert(player1.getPlayerX() == 100);
         assert(player1.getPlayerY() == 100);
     }
-
+    
     /**
      * Local test to make sure player cant have negative position
      */
@@ -199,7 +224,7 @@ public class UnitTests {
     /**
      * Local test to test wall collision
      */
-
+    
     @Test
     public void WallCollisionTest() {
         Player player1 = Player.getInstance();
@@ -207,20 +232,18 @@ public class UnitTests {
         player1.setPlayerY(100);
         PlayerMovement playerMovement = new PlayerMovement();
         MovementViewModel movement = new MovementViewModel();
-
+        
         //TiledMap map = new TmxMapLoader().load("room1.tmx");
-
+        
         for(int i = 0; i < 500; i++){
-            if (!movement.checkCollision(player1.getPlayerX() - 10,
-                player1.getPlayerY(), "room1.tmx")) {
+            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
                 player1.setPlayerX(player1.getPlayerX() - 10);
             }
         }
         assert(player1.getPlayerX() > 0);
     }
     
-    /**
-     * Local test to make sure player can move left and up
+    /* Local test to make sure score can't be set to a negative value
      */
     @Test
     public void moveUpLeft() {
@@ -240,7 +263,7 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
-
+    
     @Test
     public void moveDownRight() {
         Player player1 = Player.getInstance();
@@ -262,14 +285,37 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
+    
+    @Test
+    public void
+
 
     @Test
+    public void checkInitialLevel() {
+        Player player = Player.getInstance();
+        assertEquals(player.getLevel(), 0);
+    }
+    
+    @Test
+    public void checkLevelOneIncrease() {
+        Player player = Player.getInstance();
+        player.newScreen(0);
+        assertEquals(player.getLevel(), 1);
+    }
+    
+    @Test
+    public void checkLevelTwoIncrease() {
+        Player player = Player.getInstance();
+        player.newScreen(1);
+        assertEquals(player.getLevel(), 2);
+    }
+    
     public void checkLevelThreeIncrease() {
         Player player = Player.getInstance();
         player.newScreen(2);
         assertEquals(player.getLevel(), 3);
     }
-
+    
     @Test
     public void checkLevelFourIncreaseToZero() {
         Player player = Player.getInstance();

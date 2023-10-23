@@ -58,7 +58,7 @@ public class ThirdDungeonScreen implements Screen {
         map = new TmxMapLoader().load("room3.tmx");
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-    /*
+        /*
         Label nameDisplay = new Label("Player: " + name, skin);
         nameDisplay.setFontScale(2, 2);
         nameDisplay.setColor(Color.WHITE);

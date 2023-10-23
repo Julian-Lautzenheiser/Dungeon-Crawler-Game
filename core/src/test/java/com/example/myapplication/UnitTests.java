@@ -237,7 +237,6 @@ public class UnitTests {
         MovementViewModel movement = new MovementViewModel();
 
         //TiledMap map = new TmxMapLoader().load("room1.tmx");
-
         for(int i = 0; i < 500; i++){
             if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
                 player1.setPlayerX(player1.getPlayerX() - 10);
@@ -309,6 +308,7 @@ public class UnitTests {
         assertEquals(player.getLevel(), 2);
     }
 
+    @Test
     public void checkLevelThreeIncrease() {
         Player player = Player.getInstance();
         player.newScreen(2);

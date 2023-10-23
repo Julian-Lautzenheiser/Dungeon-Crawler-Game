@@ -246,7 +246,7 @@ public class UnitTests {
         assert(player1.getPlayerX() > 0);
     }
 
-     * Local test to make sure score can't be set to a negative value
+     /* Local test to make sure score can't be set to a negative value
      */
     @Test
     public void moveUpLeft() {
@@ -290,6 +290,25 @@ public class UnitTests {
     }
 
     @Test
+    public void checkInitialLevel() {
+        Player player = Player.getInstance();
+        assertEquals(player.getLevel(), 0);
+    }
+
+    @Test
+    public void checkLevelOneIncrease() {
+        Player player = Player.getInstance();
+        player.newScreen(0);
+        assertEquals(player.getLevel(), 1);
+    }
+
+    @Test
+    public void checkLevelTwoIncrease() {
+        Player player = Player.getInstance();
+        player.newScreen(1);
+        assertEquals(player.getLevel(), 2);
+    }
+
     public void checkLevelThreeIncrease() {
         Player player = Player.getInstance();
         player.newScreen(2);

@@ -11,11 +11,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
@@ -88,20 +86,19 @@ public class ThirdDungeonScreen implements Screen {
      */
 
         createStyle();
-        next = new TextButton("Next", style);
-        next.getLabel().setFontScale(6, 3);
-        next.setPosition(400, 50);
-
-        next.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new LeaderboardScreen(game));
-                dispose();
-            }
-        });
-        
-        //stage.addActor(table);
-        stage.addActor(next);
+        //        next = new TextButton("Next", style);
+        //        next.getLabel().setFontScale(6, 3);
+        //        next.setPosition(400, 50);
+        //
+        //        next.addListener(new ClickListener() {
+        //            @Override
+        //            public void clicked(InputEvent event, float x, float y) {
+        //                game.setScreen(new LeaderboardScreen(game));
+        //                dispose();
+        //            }
+        //        });
+        //
+        //        stage.addActor(next);
     }
 
     @Override
@@ -125,7 +122,7 @@ public class ThirdDungeonScreen implements Screen {
         }
         */
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), 64, 64);
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 10, 64, 64);
 
         movement.updatePosition("room3.tmx");
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {

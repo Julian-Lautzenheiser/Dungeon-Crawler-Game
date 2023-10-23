@@ -16,9 +16,7 @@ public class MovementViewModel implements Subscriber {
     private Player player = Player.getInstance();
     private PlayerMovement playerMovement = new PlayerMovement();
     private final int velocity = 10;
-
     public MovementViewModel() { };
-
     private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
         @Override
         protected Rectangle newObject() {
@@ -88,12 +86,11 @@ public class MovementViewModel implements Subscriber {
         }
         return false;
     }
-
+    
     public boolean checkExit(int x, int y, String level) {
         TiledMap map = new TmxMapLoader().load(level);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Doors");
         int tileSize = collisionLayer.getTileWidth();
-
         int xScaled = x / tileSize;
         int yScaled = (y + 10) / tileSize;
 
@@ -101,8 +98,7 @@ public class MovementViewModel implements Subscriber {
         if (cell != null && cell.getTile() != null) {
             return true;
         }
-        return false;
-
+        return false;   
     }
 
     public void getTiles(int startX, int startY, int endX, int endY, Array<Rectangle> tiles) {

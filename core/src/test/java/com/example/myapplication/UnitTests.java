@@ -8,6 +8,7 @@ import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.Models.PlayerMovement;
 
 import java.util.ArrayList;
 
@@ -167,4 +168,47 @@ public class UnitTests {
     }
     
     //Sprint 3 Tests
+    /**
+     * Local test to make sure score can't be set to a negative value
+     */
+    @Test
+    public void moveUpLeft() {
+        Player player1 = Player.getInstance();
+        PlayerMovement playerMovement = new PlayerMovement();
+        
+        int expectedX = player1.getPlayerX() - 20;
+        int expectedY = player1.getPlayerY() + 10;
+        
+        playerMovement.left();
+        playerMovement.left();
+        playerMovement.up();
+        
+        int newX = player1.getPlayerX();
+        int newY = player1.getPlayerY();
+        
+        assertEquals(expectedX, newX);
+        assertEquals(expectedY, newY);
+    }
+
+    @Test
+    public void moveDownRight() {
+        Player player1 = Player.getInstance();
+        PlayerMovement playerMovement = new PlayerMovement();
+        
+        int expectedX = player1.getPlayerX() + 20;
+        int expectedY = player1.getPlayerY() - 30;
+        
+        for (int i = 0; i < 3; i++) {
+            playerMovement.down();
+            if (i != 2) {
+                playerMovement.right();
+            }
+        }
+        
+        int newX = player1.getPlayerX();
+        int newY = player1.getPlayerY();
+        
+        assertEquals(expectedX, newX);
+        assertEquals(expectedY, newY);
+    }
 }

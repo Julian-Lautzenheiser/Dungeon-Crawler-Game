@@ -34,6 +34,9 @@ public class SecondDungeonScreen implements Screen {
     private Player player = Player.getInstance();
 
     private MovementViewModel movement = new MovementViewModel();
+    //private float timeSeconds = 0f;
+    //private float period = 1f;
+    //private Label scoreDisplay;
 
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
@@ -47,11 +50,13 @@ public class SecondDungeonScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 13, 10);
         camera.update();
-
+    
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
-
+      
         map = new TmxMapLoader().load("room2-alt.tmx");
+      
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+        
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -69,7 +74,6 @@ public class SecondDungeonScreen implements Screen {
         //
         //        stage.addActor(next);
     }
-
     @Override
     public void show() {
 
@@ -81,6 +85,15 @@ public class SecondDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+
+        /*
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            game.decreaseScore();
+            scoreDisplay.setText("Score: " + player.getScore());
+        }
+         */
 
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX() + 15, player.getPlayerY() - 15, 64, 64);

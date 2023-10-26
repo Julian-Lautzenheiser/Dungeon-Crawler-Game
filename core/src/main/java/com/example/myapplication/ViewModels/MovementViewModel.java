@@ -25,36 +25,28 @@ public class MovementViewModel implements Subscriber {
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
     public void updatePosition(String level) {
+        int velocity;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
                 || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            if (!checkCollision(player.getPlayerX() - velocity, player.getPlayerY(), level)) {
-                playerMovement.left();
-            }
-            return;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)
-                || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            if (!checkCollision(player.getPlayerX() + velocity, player.getPlayerY(), level)) {
-                playerMovement.right();
-            }
-            return;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
-                || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            if (!checkCollision(player.getPlayerX(), player.getPlayerY() - velocity, level)) {
-                playerMovement.down();
-            }
-            return;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)
-                || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if (!checkCollision(player.getPlayerX(), player.getPlayerY() + (velocity), level)) {
-                playerMovement.up();
-            }
-            return;
+            velocity = checkCollision(player.getPlayerX() - player.getMaxVelocity(), player.getPlayerY(), level);
+            playerMovement.left(velocity);
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            velocity = checkCollision(player.getPlayerX() + player.getMaxVelocity(), player.getPlayerY(), level);
+            playerMovement.right(velocity);
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
+                || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
+            velocity = checkCollision(player.getPlayerX(), player.getPlayerY() - player.getMaxVelocity(), level);
+            playerMovement.down(velocity);
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)
+                || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
+            velocity = checkCollision(player.getPlayerX(), player.getPlayerY() + (player.getMaxVelocity()), level);
+            playerMovement.up(velocity);
         }
     }
-    public boolean checkCollision(int playerX, int playerY, String level) {
+    public int checkCollision(int playerX, int playerY, String level) {
         //        int startX, endX, startY, endY;
         //        Rectangle spriteRect = rectPool.obtain();
         //        startX = playerX;
@@ -80,11 +72,10 @@ public class MovementViewModel implements Subscriber {
         int yScaled = playerY / 32;
 
         TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
-        System.out.println(xScaled + " " + yScaled + " " + cell);
         if (cell != null && cell.getTile() != null) {
-            return true;
+            return velocity;
         }
-        return false;
+        return 0;
     }
     
     public boolean checkExit(int x, int y, String level) {

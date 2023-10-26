@@ -60,6 +60,8 @@ public class FirstDungeonScreen implements Screen {
         String difficulty = chosenDifficulty(player.getDifficulty());
         
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        player.setHeight(sprite.getHeight());
+        player.setWidth(sprite.getWidth());
 
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);

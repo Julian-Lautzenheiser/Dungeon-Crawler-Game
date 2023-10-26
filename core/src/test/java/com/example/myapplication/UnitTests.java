@@ -256,9 +256,9 @@ public class UnitTests {
         int expectedX = player1.getPlayerX() - 20;
         int expectedY = player1.getPlayerY() + 10;
         
-        playerMovement.left();
-        playerMovement.left();
-        playerMovement.up();
+        playerMovement.left(player1.getMaxVelocity());
+        playerMovement.left(player1.getMaxVelocity());
+        playerMovement.up(player1.getMaxVelocity());
         
         int newX = player1.getPlayerX();
         int newY = player1.getPlayerY();
@@ -276,9 +276,9 @@ public class UnitTests {
         int expectedY = player1.getPlayerY() - 30;
         
         for (int i = 0; i < 3; i++) {
-            playerMovement.down();
+            playerMovement.down(player1.getMaxVelocity());
             if (i != 2) {
-                playerMovement.right();
+                playerMovement.right(player1.getMaxVelocity());
             }
         }
         

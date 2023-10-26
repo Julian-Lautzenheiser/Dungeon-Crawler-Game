@@ -2,20 +2,19 @@ package com.example.myapplication.Models;
 
 public class PlayerMovement implements Movement {
     private Player player = Player.getInstance();
-    private int velocity = 10;
 
-    public void left() {
+    public void left(int velocity) {
         player.setPlayerX(player.getPlayerX() - velocity);
     }
 
-    public void right() {
+    public void right(int velocity) {
         player.setPlayerX(player.getPlayerX() + velocity);
     }
 
-    public void down() {
+    public void down(int velocity) {
         player.setPlayerY(player.getPlayerY() - velocity);
     }
-    public void up() {
+    public void up(int velocity) {
         player.setPlayerY(player.getPlayerY() + velocity);
     }
 

@@ -13,6 +13,7 @@ public class Player {
     private float width;
     private float height;
 
+    private final int maxVelocity = 10;
     private Player() {
         this.playerX = 300;
         this.playerY = 100;
@@ -102,6 +103,33 @@ public class Player {
     }
 
     public void setWidth(float width) {
+<<<<<<< Updated upstream
         this.width = width;
+=======
+        if (width > 0) {
+            this.width = width;
+        } else {
+            this.width = 5;
+        }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getMaxVelocity() {
+        return maxVelocity;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void newScreen(int level) {
+        this.level = level + 1;
+        if (this.level > 3) {
+            this.level = 0;
+        }
+>>>>>>> Stashed changes
     }
 }

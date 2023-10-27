@@ -239,14 +239,13 @@ public class UnitTests {
         //TiledMap map = new TmxMapLoader().load("room1.tmx");
 
         for(int i = 0; i < 500; i++){
-            if (!movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx")) {
-                player1.setPlayerX(player1.getPlayerX() - 10);
-            }
+            int velocity = movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx");
+            player1.setPlayerX(player1.getPlayerX() - velocity);
         }
         assert(player1.getPlayerX() > 0);
     }
 
-     * Local test to make sure score can't be set to a negative value
+     /* Local test to make sure score can't be set to a negative value
      */
     @Test
     public void moveUpLeft() {

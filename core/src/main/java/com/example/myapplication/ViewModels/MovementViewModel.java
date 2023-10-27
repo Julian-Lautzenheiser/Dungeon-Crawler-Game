@@ -24,7 +24,7 @@ public class MovementViewModel implements Subscriber {
         }
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
-    public void updatePosition(String level) {
+    public void updatePosition(String level) { //Move in the corresponding direction up to a collision object
         int velocity;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
                 || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {

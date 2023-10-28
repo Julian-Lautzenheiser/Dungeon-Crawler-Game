@@ -1,8 +1,10 @@
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.math.Vector2;
+
 public interface Movement {
-    abstract void left(int velocity);
-    abstract void right(int velocity);
-    abstract void down(int velocity);
-    abstract void up(int velocity);
+    abstract void left();
+    abstract void right();
+    abstract void down();
+    abstract void up();
 }

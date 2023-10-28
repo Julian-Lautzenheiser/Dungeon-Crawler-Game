@@ -48,7 +48,7 @@ public class FirstDungeonScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 13, 10);
+        camera.setToOrtho(false, 13, 9);
         camera.update();
     
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
@@ -58,10 +58,12 @@ public class FirstDungeonScreen implements Screen {
         int health = player.getHealth();
         double score = player.getScore();
         String difficulty = chosenDifficulty(player.getDifficulty());
-        
+
+        //Creates the sprite and sets the width and height from pixels into world units
+        // (1 world unit = 32 pixels)
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
-        player.setHeight(sprite.getHeight());
-        player.setWidth(sprite.getWidth());
+        player.setHeight(2 * sprite.getHeight());
+        player.setWidth(2 * sprite.getWidth());
 
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
@@ -133,15 +135,14 @@ public class FirstDungeonScreen implements Screen {
         */
         
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
         movement.updatePosition("room1.tmx");
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().end();
 
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }
-
-        game.getBatch().end();
 
         stage.draw();
         stage.act();

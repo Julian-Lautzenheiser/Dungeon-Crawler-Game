@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.example.myapplication.Models.Player;
@@ -15,7 +16,6 @@ import com.example.myapplication.Models.Subscriber;
 public class MovementViewModel implements Subscriber {
     private Player player = Player.getInstance();
     private PlayerMovement playerMovement = new PlayerMovement();
-    private final int velocity = 10;
     public MovementViewModel() { };
     private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
         @Override
@@ -25,76 +25,111 @@ public class MovementViewModel implements Subscriber {
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
     public void updatePosition(String level) { //Move in the corresponding direction up to a collision object
-        int velocity;
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
-                || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            velocity = checkCollision(player.getPlayerX() - player.getMaxVelocity(), player.getPlayerY(), level);
-            playerMovement.left(velocity);
+        Vector2 velocity = new Vector2(0,0);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            velocity.x = -player.getMaxVelocity();
+            checkCollision(velocity, level);
+            playerMovement.left();
 
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            velocity = checkCollision(player.getPlayerX() + player.getMaxVelocity(), player.getPlayerY(), level);
-            playerMovement.right(velocity);
+            velocity.x = player.getMaxVelocity();
+            checkCollision(velocity, level);
+            playerMovement.right();
 
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
-                || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
-            velocity = checkCollision(player.getPlayerX(), player.getPlayerY() - player.getMaxVelocity(), level);
-            playerMovement.down(velocity);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
+            velocity.y = -player.getMaxVelocity();
+            checkCollision(velocity, level);
+            playerMovement.down();
 
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)
-                || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
-            velocity = checkCollision(player.getPlayerX(), player.getPlayerY() + (player.getMaxVelocity()), level);
-            playerMovement.up(velocity);
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
+            velocity.y = player.getMaxVelocity();
+            checkCollision(velocity, level);
+            playerMovement.up();
         }
     }
-    public int checkCollision(int playerX, int playerY, String level) {
-        //        int startX, endX, startY, endY;
-        //        Rectangle spriteRect = rectPool.obtain();
-        //        startX = playerX;
-        //        endX = (int) (playerX + 64/32f);
-        //        startY = playerY;
-        //        endY = (int) (playerY + 64/32f);
-        //        spriteRect.set(playerX, playerY, 64/32f, 64/32f);
-        //        getTiles(startX, startY, endX, endY, tiles);
-        //
-        //        for (Rectangle tile : tiles) {
-        //            if (spriteRect.overlaps(tile)) {
-        //                return true;
-        //            }
-        //        }
-        //        return false;
+    public void checkCollision(Vector2 velocity, String level) {
+        Vector2 position = player.getPosition();
 
+        Rectangle spriteRect = rectPool.obtain();
+        spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());
+
+        //Perform collision detection and response on each axis separately
+        //If the player is moving right, check the tiles to the right of their
+        //edge box, otherwise check the ones to the left
+        int startX, endX, startY, endY;
+        if (velocity.x > 0) {
+            startX = endX = (int)(position.x + player.getWidth() + velocity.x);
+        } else {
+            startX = endX = (int)(position.x + velocity.x);
+        }
+        startY = (int)(position.y);
+        endY = (int)(position.y + player.getHeight());
+
+        getTiles(startX, startY, endX, endY, tiles, level);
+        spriteRect.x += velocity.x;
+        for (Rectangle tile : tiles) {
+            if (spriteRect.overlaps(tile)) {
+                velocity.x = 0;
+                break;
+            }
+        }
+        spriteRect.x = position.x;
+
+        //If player is moving upwards, check the tiles above its edge box
+        //Otherwise check the ones below
+        if (velocity.y > 0) {
+            startY = endY = (int)(position.y + player.getHeight() + velocity.y);
+        } else {
+            startY = endY = (int)(position.y + velocity.y);
+        }
+        startX = (int)(position.x);
+        endX = (int)(position.x + player.getWidth());
+        getTiles(startX, startY, endX, endY, tiles, level);
+        spriteRect.y += velocity.y;
+        for (Rectangle tile : tiles) {
+            if (spriteRect.overlaps(tile)) {
+                velocity.y = 0;
+                break;
+            }
+        }
+        rectPool.free(spriteRect);
+
+        player.getVelocity().set(velocity);
+
+        /*Vector2 velocity = new Vector2(player.getMaxVelocity(), player.getMaxVelocity());
         TiledMap map = new TmxMapLoader().load(level);
-        TiledMapTileLayer collisionLayer = (TiledMapTileLayer)
-                map.getLayers().get("Walls and Objects");
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer)map.getLayers().get("Walls and Objects");
         int tileSize = collisionLayer.getTileWidth();
 
-        int xScaled = playerX / 32;
-        int yScaled = playerY / 32;
+        float xScaled = playerX / tileSize;
+        float yScaled = playerY / tileSize;
 
-        TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)xScaled, (int)yScaled);
         if (cell != null && cell.getTile() != null) {
             return velocity;
         }
-        return 0;
+        velocity.x = 0;
+        velocity.y = 0;
+        return velocity;*/
     }
     
-    public boolean checkExit(int x, int y, String level) {
+    public boolean checkExit(float x, float y, String level) {
         TiledMap map = new TmxMapLoader().load(level);
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("Doors");
         int tileSize = collisionLayer.getTileWidth();
-        int xScaled = x / tileSize;
-        int yScaled = (y + 10) / tileSize;
+        float xScaled = x / tileSize;
+        float yScaled = (y) / tileSize;
 
-        TiledMapTileLayer.Cell cell = collisionLayer.getCell(xScaled, yScaled);
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)xScaled, (int)yScaled);
         if (cell != null && cell.getTile() != null) {
             return true;
         }
         return false;   
     }
 
-    public void getTiles(int startX, int startY, int endX, int endY, Array<Rectangle> tiles) {
-        TiledMap map = new TmxMapLoader().load("room1.tmx");
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("walls");
+    public void getTiles(int startX, int startY, int endX, int endY, Array<Rectangle> tiles, String level) {
+        TiledMap map = new TmxMapLoader().load(level);
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
         rectPool.freeAll(tiles);
         tiles.clear();
         for (int y = startY; y <= endY; y++) {

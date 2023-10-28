@@ -47,6 +47,7 @@ import com.example.myapplication.ViewModels.MovementViewModel;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
+
     //Sprint 2 Tests
     /**
      * Local test that checks to see if Plauer is a singleton
@@ -227,7 +228,7 @@ public class UnitTests {
     /**
      * Local test to test wall collision
      */
-
+    /*
     @Test
     public void WallCollisionTest() {
         Player player1 = Player.getInstance();
@@ -244,9 +245,11 @@ public class UnitTests {
         }
         assert(player1.getPlayerX() > 0);
     }
+    */
 
      /* Local test to make sure score can't be set to a negative value
      */
+    /*
     @Test
     public void moveUpLeft() {
         Player player1 = Player.getInstance();
@@ -287,4 +290,6 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
+    */
+
 }

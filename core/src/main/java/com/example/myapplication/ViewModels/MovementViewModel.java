@@ -2,9 +2,13 @@ package com.example.myapplication.ViewModels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -53,46 +57,32 @@ public class MovementViewModel implements Subscriber {
         Rectangle spriteRect = rectPool.obtain();
         spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());
 
+        TiledMap map = new TmxMapLoader().load(level);
+        MapLayer layer = map.getLayers().get("Walls");
+        MapObjects objects = layer.getObjects();
+
         //Perform collision detection and response on each axis separately
         //If the player is moving right, check the tiles to the right of their
         //edge box, otherwise check the ones to the left
-        int startX, endX, startY, endY;
-        if (velocity.x > 0) {
-            startX = endX = (int)(position.x + player.getWidth() + velocity.x);
-        } else {
-            startX = endX = (int)(position.x + velocity.x);
-        }
-        startY = (int)(position.y);
-        endY = (int)(position.y + player.getHeight());
-
-        getTiles(startX, startY, endX, endY, tiles, level);
-        spriteRect.x += velocity.x;
-        for (Rectangle tile : tiles) {
-            if (spriteRect.overlaps(tile)) {
+        Vector2 initPos = new Vector2(position);
+        position.x += velocity.x;
+        position.y += velocity.y;
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            if (rectangle.contains(position)) {
                 velocity.x = 0;
-                break;
-            }
-        }
-        spriteRect.x = position.x;
-
-        //If player is moving upwards, check the tiles above its edge box
-        //Otherwise check the ones below
-        if (velocity.y > 0) {
-            startY = endY = (int)(position.y + player.getHeight() + velocity.y);
-        } else {
-            startY = endY = (int)(position.y + velocity.y);
-        }
-        startX = (int)(position.x);
-        endX = (int)(position.x + player.getWidth());
-        getTiles(startX, startY, endX, endY, tiles, level);
-        spriteRect.y += velocity.y;
-        for (Rectangle tile : tiles) {
-            if (spriteRect.overlaps(tile)) {
                 velocity.y = 0;
-                break;
             }
         }
-        rectPool.free(spriteRect);
+        position.set(initPos);
+
+        /*spriteRect.y += velocity.y;
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            if (Intersector.overlaps(rectangle, spriteRect)) {
+                velocity.y = 0;
+            }
+        }*/
 
         player.getVelocity().set(velocity);
 
@@ -127,20 +117,4 @@ public class MovementViewModel implements Subscriber {
         return false;   
     }
 
-    public void getTiles(int startX, int startY, int endX, int endY, Array<Rectangle> tiles, String level) {
-        TiledMap map = new TmxMapLoader().load(level);
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        rectPool.freeAll(tiles);
-        tiles.clear();
-        for (int y = startY; y <= endY; y++) {
-            for (int x = startX; x <= endX; x++) {
-                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                if (cell != null) {
-                    Rectangle rect = rectPool.obtain();
-                    rect.set(x, y, 1, 1);
-                    tiles.add(rect);
-                }
-            }
-        }
-    }
 }

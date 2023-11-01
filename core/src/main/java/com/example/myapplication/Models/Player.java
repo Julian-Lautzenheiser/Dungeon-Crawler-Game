@@ -17,7 +17,7 @@ public class Player {
     private final float maxVelocity = 10f;
 
     private Player() {
-        position = new Vector2(300, 100);
+        position = new Vector2(256, 128);
         velocity = new Vector2(0, 0);
         this.sprite = "";
         this.health = 0;

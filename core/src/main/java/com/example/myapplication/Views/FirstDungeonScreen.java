@@ -40,12 +40,12 @@ public class FirstDungeonScreen implements Screen {
     private float period = 1f;
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setPlayerX(-1);
-        player.setPlayerY(-1);
-
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+
+        float h = Gdx.graphics.getHeight();
+        float w = Gdx.graphics.getWidth();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 13, 9);
@@ -59,8 +59,7 @@ public class FirstDungeonScreen implements Screen {
         double score = player.getScore();
         String difficulty = chosenDifficulty(player.getDifficulty());
 
-        //Creates the sprite and sets the width and height from pixels into world units
-        // (1 world unit = 32 pixels)
+        //Creates the sprite and sets the width and height
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         player.setHeight(2 * sprite.getHeight());
         player.setWidth(2 * sprite.getWidth());

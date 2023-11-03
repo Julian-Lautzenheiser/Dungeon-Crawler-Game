@@ -16,8 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class FirstDungeonScreen implements Screen {
@@ -139,6 +141,16 @@ public class FirstDungeonScreen implements Screen {
         }
 
         game.getBatch().end();
+
+        /*
+        EnemyFactory enemyFactory = new EnemyFactory();
+        Enemy normalEnemy = enemyFactory.createEnemy("Ogre");
+        Enemy fastEnemy = enemyFactory.createEnemy("Demon");
+
+        // Use the created enemies in the game
+        normalEnemy.move();
+        fastEnemy.attack();
+        */
 
         stage.draw();
         stage.act();

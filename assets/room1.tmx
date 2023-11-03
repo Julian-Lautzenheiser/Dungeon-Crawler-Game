@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="12">
  <tileset firstgid="1" source="Tileess.tsx"/>
+ <objectgroup id="4" name="Walls">
+  <object id="7" x="0" y="32" width="32" height="192"/>
+  <object id="8" x="32" y="224" width="352" height="32"/>
+  <object id="9" x="385" y="32" width="32" height="192"/>
+  <object id="11" x="32" y="32" width="352" height="32"/>
+ </objectgroup>
  <layer id="1" name="BaseGround" width="13" height="9">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -17,7 +23,7 @@
  <layer id="2" name="Walls and Objects" width="13" height="9">
   <data encoding="csv">
 18,17,17,17,17,17,17,17,17,17,17,17,19,
-15,9,9,9,9,9,9,9,9,9,9,9,16,
+15,10,10,10,10,10,10,10,10,10,9,9,16,
 15,0,0,0,0,0,0,0,0,0,0,0,16,
 15,0,0,0,0,0,0,0,0,0,0,0,16,
 15,0,0,0,0,0,0,0,0,0,0,0,16,

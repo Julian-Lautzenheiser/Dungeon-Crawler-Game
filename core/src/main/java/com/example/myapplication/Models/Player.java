@@ -24,6 +24,7 @@ public class Player {
         this.score = 200.0;
         this.name = "";
         this.difficulty = 0.0;
+        this.level = 0;
     }
 
     public static Player getInstance() {
@@ -109,11 +110,34 @@ public class Player {
     }
 
     public void setHeight(float height) {
-        this.height = height;
+        if (height > 0) {
+            this.height = height;
+        } else {
+            this.height = 5;
+        }
     }
 
     public void setWidth(float width) {
-        this.width = width;
+        if (width > 0) {
+            this.width = width;
+        } else {
+            this.width = 5;
+        }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void newScreen(int level) {
+        this.level = level + 1;
+        if (this.level > 3) {
+            this.level = 0;
+        }
     }
 
     public float getMaxVelocity() {

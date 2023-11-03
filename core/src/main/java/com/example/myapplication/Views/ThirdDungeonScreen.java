@@ -55,10 +55,10 @@ public class ThirdDungeonScreen implements Screen {
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
     
-        map = new TmxMapLoader().load("room1.tmx");
+        map = new TmxMapLoader().load("room3.tmx");
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-    /*
+        /*
         Label nameDisplay = new Label("Player: " + name, skin);
         nameDisplay.setFontScale(2, 2);
         nameDisplay.setColor(Color.WHITE);
@@ -122,7 +122,7 @@ public class ThirdDungeonScreen implements Screen {
         }
         */
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 10, 64, 64);
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 5, 64, 64);
 
         movement.updatePosition("room3.tmx");
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {

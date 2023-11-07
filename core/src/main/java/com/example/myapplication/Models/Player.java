@@ -1,10 +1,12 @@
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Player {
 
     private static Player player = null;
-    private int playerX;
-    private int playerY;
+    private Vector2 position;
+    private Vector2 velocity;
     private String sprite;
     private int health;
     private double score;
@@ -12,11 +14,11 @@ public class Player {
     private double difficulty;
     private float width;
     private float height;
-    private int level;
+    private final float maxVelocity = 10f;
 
     private Player() {
-        this.playerX = 300;
-        this.playerY = 100;
+        position = new Vector2(256, 128);
+        velocity = new Vector2(0, 0);
         this.sprite = "";
         this.health = 0;
         this.score = 200.0;
@@ -62,22 +64,30 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-    public int getPlayerX() {
-        return playerX;
+    public float getPlayerX() {
+        return position.x;
     }
-    public int getPlayerY() {
-        return playerY;
+    public float getPlayerY() {
+        return position.y;
     }
-    public void setPlayerX(int playerX) {
-        player.playerX = playerX;
-        if (player.playerX < 0) {
-            player.playerX = 300;
+
+    public Vector2 getPosition() {
+        return position;
+    }
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setPlayerX(float playerX) {
+        position.x = playerX;
+        if (position.x < 0) {
+            position.x = 300;
         }
     }
-    public void setPlayerY(int playerY) {
-        player.playerY = playerY;
-        if (player.playerY < 0) {
-            player.playerY = 100;
+    public void setPlayerY(float playerY) {
+        position.y = playerY;
+        if (position.y < 0) {
+            position.y = 100;
         }
     }
 
@@ -128,5 +138,9 @@ public class Player {
         if (this.level > 3) {
             this.level = 0;
         }
+    }
+
+    public float getMaxVelocity() {
+        return maxVelocity;
     }
 }

@@ -39,17 +39,18 @@ public class FirstDungeonScreen implements Screen {
     private Label scoreDisplay;
     private float timeSeconds = 0f;
     private float period = 1f;
+    private String level = "room1.tmx";
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
-        player.setPlayerX(-1);
-        player.setPlayerY(-1);
-
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
+        float h = Gdx.graphics.getHeight();
+        float w = Gdx.graphics.getWidth();
+
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 13, 10);
+        camera.setToOrtho(false, 14, 9);
         camera.update();
     
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
@@ -59,10 +60,13 @@ public class FirstDungeonScreen implements Screen {
         int health = player.getHealth();
         double score = player.getScore();
         String difficulty = chosenDifficulty(player.getDifficulty());
-        
-        sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
 
-        map = new TmxMapLoader().load("room1.tmx");
+        //Creates the sprite and sets the width and height
+        sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        player.setHeight(2 * sprite.getHeight());
+        player.setWidth(2 * sprite.getWidth());
+
+        map = new TmxMapLoader().load(level);
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         
         Label nameDisplay = new Label("Player: " + name, skin);
@@ -132,15 +136,14 @@ public class FirstDungeonScreen implements Screen {
         */
         
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
-        movement.updatePosition("room1.tmx");
+        movement.updatePosition(level);
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().end();
 
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), level)) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }
-
-        game.getBatch().end();
 
         /*
         EnemyFactory enemyFactory = new EnemyFactory();

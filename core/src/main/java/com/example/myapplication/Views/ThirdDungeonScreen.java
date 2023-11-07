@@ -43,7 +43,7 @@ public class ThirdDungeonScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 13, 8);
+        camera.setToOrtho(false, 13, 9);
         camera.update();
         
         /*

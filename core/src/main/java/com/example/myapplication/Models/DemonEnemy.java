@@ -9,8 +9,8 @@ public class DemonEnemy implements Enemy {
     }
 
     @Override
+    // Implement attack logic
     public void attack() {
-        // Implement attack logic
     }
 
     @Override

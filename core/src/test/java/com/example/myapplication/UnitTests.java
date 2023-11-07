@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
 import com.example.myapplication.Models.Player;
@@ -12,6 +13,7 @@ import com.example.myapplication.ViewModels.Dungeon;
 
 import java.util.ArrayList;
 
+import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
 
 
@@ -196,8 +198,6 @@ public class UnitTests {
         assert(player1.getPlayerY() == 100);
     }
     
-
-    
     /* Local test to test wall collision
     //    @Test
     //    public void WallCollisionTest() {
@@ -309,4 +309,6 @@ public class UnitTests {
         
         assertTrue(expectedWidth == player.getWidth());
     }
+    
+    //Sprint 4 Tests
 }

@@ -30,7 +30,9 @@ public class ThirdDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
-
+    private Texture enemy1Sprite;
+    private Texture enemy2Sprite;
+    private Texture enemy3Sprite;
     private Player player = Player.getInstance();
     private MovementViewModel movement = new MovementViewModel();
     public ThirdDungeonScreen(final Dungeon game) {
@@ -54,6 +56,9 @@ public class ThirdDungeonScreen implements Screen {
          */
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
+        enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
+        enemy3Sprite = new Texture(Gdx.files.internal("Demon.png"));
     
         map = new TmxMapLoader().load("room3.tmx");
     
@@ -123,10 +128,18 @@ public class ThirdDungeonScreen implements Screen {
         */
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 5, 64, 64);
-
+        game.getBatch().draw(enemy1Sprite, 300, 250, 64, 64);
+        game.getBatch().draw(enemy2Sprite, 250, 400, 64, 64);
+        game.getBatch().draw(enemy3Sprite, 450, 550, 64, 64);
         movement.updatePosition("room3.tmx");
+    
+        if (player.getHealth() == 0) {
+            game.setScreen(new LosingScreen(game));
+            dispose();
+        }
+        
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {
-            game.setScreen(new LeaderboardScreen(game));
+            game.setScreen(new WinningScreen(game));
             dispose();
         }
 
@@ -161,9 +174,11 @@ public class ThirdDungeonScreen implements Screen {
     public void dispose() {
         map.dispose();
         sprite.dispose();
+        enemy1Sprite.dispose();
+        enemy2Sprite.dispose();
+        enemy3Sprite.dispose();
     }
     
-
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();

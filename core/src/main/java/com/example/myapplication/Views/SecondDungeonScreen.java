@@ -31,6 +31,8 @@ public class SecondDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
+    private Texture enemy1Sprite;
+    private Texture enemy2Sprite;
     private Player player = Player.getInstance();
 
     private MovementViewModel movement = new MovementViewModel();
@@ -52,6 +54,8 @@ public class SecondDungeonScreen implements Screen {
         camera.update();
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        enemy1Sprite = new Texture(Gdx.files.internal("Goblin.png"));
+        enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
       
         map = new TmxMapLoader().load("room2-alt.tmx");
       
@@ -97,8 +101,16 @@ public class SecondDungeonScreen implements Screen {
 
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX() + 15, player.getPlayerY() - 15, 64, 64);
-
+        game.getBatch().draw(enemy1Sprite, 300, 250, 64, 64);
+        game.getBatch().draw(enemy2Sprite, 250, 400, 64, 64);
+        
         movement.updatePosition("room2-alt.tmx");
+    
+        if (player.getHealth() == 0) {
+            game.setScreen(new LosingScreen(game));
+            dispose();
+        }
+        
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2-alt.tmx")) {
             game.setScreen(new ThirdDungeonScreen(game));
             dispose();
@@ -135,6 +147,8 @@ public class SecondDungeonScreen implements Screen {
     public void dispose() {
         map.dispose();
         sprite.dispose();
+        enemy1Sprite.dispose();
+        enemy2Sprite.dispose();
     }
 
     public void createStyle() {

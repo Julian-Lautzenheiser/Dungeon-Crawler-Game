@@ -34,11 +34,11 @@ public class FirstDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
+    private Texture enemy1Sprite;
+    private Texture enemy2Sprite;
     private Player player = Player.getInstance();
     private MovementViewModel movement = new MovementViewModel();
     private Label scoreDisplay;
-    private float timeSeconds = 0f;
-    private float period = 1f;
     public FirstDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -61,6 +61,8 @@ public class FirstDungeonScreen implements Screen {
         String difficulty = chosenDifficulty(player.getDifficulty());
         
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
+        enemy2Sprite = new Texture(Gdx.files.internal("Goblin.png"));
 
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
@@ -121,20 +123,18 @@ public class FirstDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-      
-        /*
-        timeSeconds += Gdx.graphics.getRawDeltaTime();
-        if (timeSeconds > period) {
-            timeSeconds -= period;
-            game.decreaseScore();
-            scoreDisplay.setText("Score: " + player.getScore());
-        }
-        */
         
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
+        game.getBatch().draw(enemy1Sprite, 300, 250, 64, 64);
+        game.getBatch().draw(enemy2Sprite, 250, 400, 64, 64);
         movement.updatePosition("room1.tmx");
-
+        
+        if (player.getHealth() == 0) {
+            game.setScreen(new LosingScreen(game));
+            dispose();
+        }
+        
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
@@ -180,6 +180,8 @@ public class FirstDungeonScreen implements Screen {
     public void dispose() {
         map.dispose();
         sprite.dispose();
+        enemy1Sprite.dispose();
+        enemy2Sprite.dispose();
     }
     
     public String chosenDifficulty(double difficulty) {
@@ -192,6 +194,15 @@ public class FirstDungeonScreen implements Screen {
         }
         return null;
     }
+    
+    /*
+    public void removeEnemy() {
+        if () {
+        
+        }
+    }
+    */
+    
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();

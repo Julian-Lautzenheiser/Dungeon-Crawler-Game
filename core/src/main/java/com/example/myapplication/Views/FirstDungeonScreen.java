@@ -16,10 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
-import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class FirstDungeonScreen implements Screen {
@@ -137,7 +135,8 @@ public class FirstDungeonScreen implements Screen {
         
         game.getBatch().begin();
         movement.updatePosition(level);
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
         game.getBatch().end();
 
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), level)) {

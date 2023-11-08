@@ -17,4 +17,9 @@ public class OgreEnemy implements Enemy {
     public void display() {
         // Implement display logic
     }
+
+    @Override
+    public String toString() {
+        return "Ogre";
+    }
 }

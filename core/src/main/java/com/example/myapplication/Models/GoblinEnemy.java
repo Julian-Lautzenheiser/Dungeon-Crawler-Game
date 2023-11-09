@@ -17,4 +17,9 @@ public class GoblinEnemy implements Enemy {
     public void display() {
         // Implement display logic
     }
+
+    @Override
+    public String toString() {
+        return "Goblin";
+    }
 }

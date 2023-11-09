@@ -14,7 +14,7 @@ public class Player {
     private double difficulty;
     private float width;
     private float height;
-    private final float maxVelocitu = 10f;
+    private final float maxVelocity = 10f;
     private int level;
     private int damage;
 
@@ -44,6 +44,7 @@ public class Player {
     public String getSprite() {
         return sprite;
     }
+  
     public void setSprite(String sprite) {
         this.sprite = sprite;
     }
@@ -51,9 +52,11 @@ public class Player {
     public void setHealth(int health) {
         this.health = health;
     }
+  
     public int getHealth() {
         return health;
     }
+  
     public String getName() {
         return name;
     }
@@ -61,15 +64,19 @@ public class Player {
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
+  
     public double getDifficulty() {
         return difficulty;
     }
+  
     public void setName(String name) {
         this.name = name;
     }
+  
     public float getPlayerX() {
         return position.x;
     }
+  
     public float getPlayerY() {
         return position.y;
     }
@@ -77,10 +84,11 @@ public class Player {
     public Vector2 getPosition() {
         return position;
     }
+  
     public Vector2 getVelocity() {
         return velocity;
     }
-    
+
     public void setPlayerX(float playerX) {
         position.x = playerX;
         if (position.x < 0) {
@@ -90,7 +98,7 @@ public class Player {
     public void setPlayerY(float playerY) {
         position.y = playerY;
         if (position.y < 0) {
-            position.y = 190;
+            position.y = 100;
         }
     }
     public double getScore() {

@@ -28,7 +28,6 @@ public class FirstDungeonScreen implements Screen {
     private Skin skin;
     private TextButton.TextButtonStyle style;
     private Stage stage;
-    private TextButton next;
     private TiledMap map;
     private TiledMapRenderer renderer;
     private float unitScale = 1 / 32f;
@@ -37,13 +36,12 @@ public class FirstDungeonScreen implements Screen {
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
     private Player player = Player.getInstance();
+    private EnemyFactory enemies = new EnemyFactory();
+    private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
+    private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
     private Label scoreDisplay;
     public FirstDungeonScreen(final Dungeon game) {
-        //reset player position
-        player.setPlayerX(-1);
-        player.setPlayerY(-1);
-
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -61,6 +59,9 @@ public class FirstDungeonScreen implements Screen {
         String difficulty = chosenDifficulty(player.getDifficulty());
         
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        player.setHeight(2 * sprite.getHeight());
+        player.setWidth(2 * sprite.getWidth());
+        
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Goblin.png"));
 
@@ -123,12 +124,19 @@ public class FirstDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-        
+    
+        skeletonEnemy.setPositionX(158);
+        skeletonEnemy.setPositionY(100);
+    
+        goblinEnemy.setPositionX(258);
+        goblinEnemy.setPositionY(185);
+    
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 15, 64, 64);
-        game.getBatch().draw(enemy1Sprite, 300, 250, 64, 64);
-        game.getBatch().draw(enemy2Sprite, 250, 400, 64, 64);
         movement.updatePosition("room1.tmx");
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
         
         if (player.getHealth() == 0) {
             game.setScreen(new LosingScreen(game));
@@ -141,16 +149,6 @@ public class FirstDungeonScreen implements Screen {
         }
 
         game.getBatch().end();
-
-        /*
-        EnemyFactory enemyFactory = new EnemyFactory();
-        Enemy normalEnemy = enemyFactory.createEnemy("Ogre");
-        Enemy fastEnemy = enemyFactory.createEnemy("Demon");
-
-        // Use the created enemies in the game
-        normalEnemy.move();
-        fastEnemy.attack();
-        */
 
         stage.draw();
         stage.act();
@@ -194,14 +192,6 @@ public class FirstDungeonScreen implements Screen {
         }
         return null;
     }
-    
-    /*
-    public void removeEnemy() {
-        if () {
-        
-        }
-    }
-    */
     
     public void createStyle() {
         //Creates the style to set how the buttons look

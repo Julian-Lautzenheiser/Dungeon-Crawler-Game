@@ -15,8 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class ThirdDungeonScreen implements Screen {
@@ -24,7 +26,6 @@ public class ThirdDungeonScreen implements Screen {
     private Skin skin;
     private TextButton.TextButtonStyle style;
     private Stage stage;
-    private TextButton next;
     private TiledMap map;
     private TiledMapRenderer renderer;
     private float unitScale = 1 / 32f;
@@ -32,8 +33,10 @@ public class ThirdDungeonScreen implements Screen {
     private Texture sprite;
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
-    private Texture enemy3Sprite;
     private Player player = Player.getInstance();
+    private EnemyFactory enemies = new EnemyFactory();
+    private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
+    private Enemy demonEnemy = enemies.createEnemy("Demon");
     private MovementViewModel movement = new MovementViewModel();
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
@@ -57,8 +60,7 @@ public class ThirdDungeonScreen implements Screen {
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
-        enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
-        enemy3Sprite = new Texture(Gdx.files.internal("Demon.png"));
+        enemy2Sprite = new Texture(Gdx.files.internal("Demon.png"));
     
         map = new TmxMapLoader().load("room3.tmx");
     
@@ -126,13 +128,19 @@ public class ThirdDungeonScreen implements Screen {
             scoreDisplay.setText("Score: " + player.getScore());
         }
         */
+        skeletonEnemy.setPositionX(158);
+        skeletonEnemy.setPositionY(100);
+        
+        demonEnemy.setPositionX(258);
+        demonEnemy.setPositionY(185);
+        
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 5, 64, 64);
-        game.getBatch().draw(enemy1Sprite, 300, 250, 64, 64);
-        game.getBatch().draw(enemy2Sprite, 250, 400, 64, 64);
-        game.getBatch().draw(enemy3Sprite, 450, 550, 64, 64);
         movement.updatePosition("room3.tmx");
-    
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), 38,55);
+        
         if (player.getHealth() == 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
@@ -176,7 +184,6 @@ public class ThirdDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
-        enemy3Sprite.dispose();
     }
     
     public void createStyle() {

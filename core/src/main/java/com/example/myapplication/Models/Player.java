@@ -1,10 +1,12 @@
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Player {
 
     private static Player player = null;
-    private int playerX;
-    private int playerY;
+    private Vector2 position;
+    private Vector2 velocity;
     private String sprite;
     private int health;
     private double score;
@@ -12,17 +14,20 @@ public class Player {
     private double difficulty;
     private float width;
     private float height;
+    private final float maxVelocitu = 10f;
     private int level;
+    private int damage;
 
     private Player() {
-        this.playerX = 300;
-        this.playerY = 100;
+        this.position = new Vector2(62, 182);
+        this.velocity = new Vector2(0,0);
         this.sprite = "";
-        this.health = 0;
-        this.score = 200.0;
+        this.health = 200;
+        this.score = 0.0;
         this.name = "";
         this.difficulty = 0.0;
         this.level = 0;
+        this.damage = 15;
     }
 
     public static Player getInstance() {
@@ -62,25 +67,32 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-    public int getPlayerX() {
-        return playerX;
+    public float getPlayerX() {
+        return position.x;
     }
-    public int getPlayerY() {
-        return playerY;
-    }
-    public void setPlayerX(int playerX) {
-        player.playerX = playerX;
-        if (player.playerX < 0) {
-            player.playerX = 300;
-        }
-    }
-    public void setPlayerY(int playerY) {
-        player.playerY = playerY;
-        if (player.playerY < 0) {
-            player.playerY = 100;
-        }
+    public float getPlayerY() {
+        return position.y;
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+    
+    public void setPlayerX(float playerX) {
+        position.x = playerX;
+        if (position.x < 0) {
+            position.x = 50;
+        }
+    }
+    public void setPlayerY(float playerY) {
+        position.y = playerY;
+        if (position.y < 0) {
+            position.y = 190;
+        }
+    }
     public double getScore() {
         return this.score;
     }
@@ -92,11 +104,11 @@ public class Player {
     }
 
     public float getHeight() {
-        return height;
+        return this.height;
     }
 
     public float getWidth() {
-        return width;
+        return this.width;
     }
 
     public void setHeight(float height) {
@@ -128,5 +140,19 @@ public class Player {
         if (this.level > 3) {
             this.level = 0;
         }
+    }
+    
+    public float getMaxVelocity() {
+        return this.maxVelocitu;
+    }
+    
+    public void damageTaken(int damage) {
+        if (this.health > 0) {
+            this.health -= damage;
+        }
+    }
+    
+    public int getDamage() {
+        return this.damage;
     }
 }

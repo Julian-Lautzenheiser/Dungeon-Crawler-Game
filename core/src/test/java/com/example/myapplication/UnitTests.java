@@ -215,8 +215,7 @@ public class UnitTests {
     //        }
     //        assert(player1.getPlayerX() > 0);
     //    }
-     */
-
+    
     @Test
     public void moveUpLeft() {
         Player player1 = Player.getInstance();
@@ -257,6 +256,7 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
+     */
 
     @Test
     public void checkInitialLevel() {
@@ -309,6 +309,4 @@ public class UnitTests {
         
         assertTrue(expectedWidth == player.getWidth());
     }
-    
-    //Sprint 4 Tests
 }

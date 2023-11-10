@@ -86,4 +86,9 @@ public class DemonEnemy implements Enemy {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Demon";
+    }
 }

@@ -86,4 +86,9 @@ public class SkeletonEnemy implements Enemy {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Skeleton";
+    }
 }

@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -28,24 +27,27 @@ public class MovementViewModel implements Subscriber {
         }
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
-    public void updatePosition(String level) { //Move in the corresponding direction up to a collision object
-        Vector2 velocity = new Vector2(0,0);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+
+    // Move in the corresponding direction up to a collision object
+    public void updatePosition(String level) {
+        Vector2 velocity = new Vector2(0, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
+                || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             velocity.x = -player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.left();
-            
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)
+                || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             velocity.x = player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.right();
-            
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
+                || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
             velocity.y = -player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.down();
-            
-        } else if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)
+                || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
             velocity.y = player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.up();
@@ -53,14 +55,13 @@ public class MovementViewModel implements Subscriber {
     }
     public void checkCollision(Vector2 velocity, String level) {
         Vector2 position = player.getPosition();
-        
         Rectangle spriteRect = rectPool.obtain();
         spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());
-        
+
         TiledMap map = new TmxMapLoader().load(level);
         MapLayer layer = map.getLayers().get("Walls");
         MapObjects objects = layer.getObjects();
-        
+
         //Perform collision detection and response on each axis separately
         //If the player is moving right, check the tiles to the right of their
         //edge box, otherwise check the ones to the left
@@ -75,32 +76,33 @@ public class MovementViewModel implements Subscriber {
             }
         }
         position.set(initPos);
-    
-            /*spriteRect.y += velocity.y;
-            for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
-                Rectangle rectangle = rectangleObject.getRectangle();
-                if (Intersector.overlaps(rectangle, spriteRect)) {
-                    velocity.y = 0;
-                }
-            }*/
-        
-        player.getVelocity().set(velocity);
-    
-            /*Vector2 velocity = new Vector2(player.getMaxVelocity(), player.getMaxVelocity());
-            TiledMap map = new TmxMapLoader().load(level);
-            TiledMapTileLayer collisionLayer = (TiledMapTileLayer)map.getLayers().get("Walls and Objects");
-            int tileSize = collisionLayer.getTileWidth();
-    
-            float xScaled = playerX / tileSize;
-            float yScaled = playerY / tileSize;
-    
-            TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)xScaled, (int)yScaled);
-            if (cell != null && cell.getTile() != null) {
-                return velocity;
+
+        /*spriteRect.y += velocity.y;
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            if (Intersector.overlaps(rectangle, spriteRect)) {
+                velocity.y = 0;
             }
-            velocity.x = 0;
-            velocity.y = 0;
-            return velocity;*/
+        }*/
+
+        player.getVelocity().set(velocity);
+
+        /*Vector2 velocity = new Vector2(player.getMaxVelocity(), player.getMaxVelocity());
+        TiledMap map = new TmxMapLoader().load(level);
+        TiledMapTileLayer collisionLayer =
+            (TiledMapTileLayer)map.getLayers().get("Walls and Objects");
+        int tileSize = collisionLayer.getTileWidth();
+
+        float xScaled = playerX / tileSize;
+        float yScaled = playerY / tileSize;
+
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)xScaled, (int)yScaled);
+        if (cell != null && cell.getTile() != null) {
+            return velocity;
+        }
+        velocity.x = 0;
+        velocity.y = 0;
+        return velocity;*/
     }
     
     public boolean checkExit(float x, float y, String level) {
@@ -109,11 +111,11 @@ public class MovementViewModel implements Subscriber {
         int tileSize = collisionLayer.getTileWidth();
         float xScaled = x / tileSize;
         float yScaled = (y) / tileSize;
-        
-        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int)xScaled, (int)yScaled);
+
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) xScaled, (int) yScaled);
         if (cell != null && cell.getTile() != null) {
             return true;
         }
-        return false;
+        return false;   
     }
 }

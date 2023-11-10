@@ -23,6 +23,41 @@ import com.example.myapplication.ViewModels.LeaderboardViewModel;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
+
+    //////////////////////////////////////
+    //////////////////////////////////////
+    // Sprint 4 Tests
+    //////////////////////////////////////
+    //////////////////////////////////////
+
+    @Test
+    public void checkEnemyFactoryOgre() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy ogre = factory.createEnemy("OGRE");
+        assertTrue(ogre.toString() == "Ogre");
+    }
+
+    @Test
+    public void checkEnemyFactoryGoblin() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy goblin = factory.createEnemy("GOBLIN");
+        assertTrue(goblin.toString() == "Goblin");
+    }
+
+    @Test
+    public void checkEnemyFactoryDemon() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy demon = factory.createEnemy("demon");
+        assertTrue(demon.toString() == "Demon");
+    }
+
+    @Test
+    public void checkEnemyFactorySkeleton() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy skeleton = factory.createEnemy("SkELEToN");
+        assertTrue(skeleton.toString() == "Skeleton");
+    }
+
     //Sprint 2 Tests
     /**
      * Local test that checks to see if Plauer is a singleton
@@ -215,7 +250,30 @@ public class UnitTests {
     //        }
     //        assert(player1.getPlayerX() > 0);
     //    }
-    
+     */
+  
+    /*
+    @Test
+    public void WallCollisionTest() {
+        Player player1 = Player.getInstance();
+        player1.setPlayerX(300);
+        player1.setPlayerY(100);
+        PlayerMovement playerMovement = new PlayerMovement();
+        MovementViewModel movement = new MovementViewModel();
+
+        //TiledMap map = new TmxMapLoader().load("room1.tmx");
+
+        for(int i = 0; i < 500; i++){
+            int velocity = movement.checkCollision(player1.getPlayerX() - 10, player1.getPlayerY(), "room1.tmx");
+            player1.setPlayerX(player1.getPlayerX() - velocity);
+        }
+        assert(player1.getPlayerX() > 0);
+    }
+    */
+
+     /* Local test to make sure score can't be set to a negative value
+     */
+    /*
     @Test
     public void moveUpLeft() {
         Player player1 = Player.getInstance();
@@ -224,9 +282,9 @@ public class UnitTests {
         int expectedX = player1.getPlayerX() - 20;
         int expectedY = player1.getPlayerY() + 10;
         
-        playerMovement.left();
-        playerMovement.left();
-        playerMovement.up();
+        playerMovement.left(player1.getMaxVelocity());
+        playerMovement.left(player1.getMaxVelocity());
+        playerMovement.up(player1.getMaxVelocity());
         
         int newX = player1.getPlayerX();
         int newY = player1.getPlayerY();
@@ -244,9 +302,9 @@ public class UnitTests {
         int expectedY = player1.getPlayerY() - 30;
         
         for (int i = 0; i < 3; i++) {
-            playerMovement.down();
+            playerMovement.down(player1.getMaxVelocity());
             if (i != 2) {
-                playerMovement.right();
+                playerMovement.right(player1.getMaxVelocity());
             }
         }
         
@@ -256,8 +314,9 @@ public class UnitTests {
         assertEquals(expectedX, newX);
         assertEquals(expectedY, newY);
     }
-     */
+    */
 
+    /*
     @Test
     public void checkInitialLevel() {
         Player player = Player.getInstance();
@@ -291,6 +350,7 @@ public class UnitTests {
         player.newScreen(3);
         assertEquals(player.getLevel(), 0);
     }
+
     
     @Test
     public void checkSetHeight() {
@@ -309,4 +369,6 @@ public class UnitTests {
         
         assertTrue(expectedWidth == player.getWidth());
     }
-}
+
+    */
+

@@ -20,7 +20,7 @@ import com.example.myapplication.ViewModels.LeaderboardViewModel;
 
 import java.util.ArrayList;
 
-public class LeaderboardScreen implements Screen {
+public class WinningScreen implements Screen {
     private final Dungeon game;
     private OrthographicCamera camera;
     private LeaderboardViewModel leaderboardViewModel;
@@ -31,7 +31,7 @@ public class LeaderboardScreen implements Screen {
     private Skin buttonSkin;
     private Label winner;
     
-    public LeaderboardScreen(final Dungeon game) {
+    public WinningScreen(final Dungeon game) {
         this.game = game;
         leaderboardViewModel = new LeaderboardViewModel();
         stage = new Stage();

@@ -14,17 +14,21 @@ public class Player {
     private double difficulty;
     private float width;
     private float height;
+    private int level;
     private final float maxVelocity = 10f;
+    private int level;
+    private int damage;
 
     private Player() {
-        position = new Vector2(256, 128);
-        velocity = new Vector2(0, 0);
+        this.position = new Vector2(62, 182);
+        this.velocity = new Vector2(0,0);
         this.sprite = "";
-        this.health = 0;
-        this.score = 200.0;
+        this.health = 200;
+        this.score = 0.0;
         this.name = "";
         this.difficulty = 0.0;
         this.level = 0;
+        this.damage = 15;
     }
 
     public static Player getInstance() {
@@ -41,6 +45,7 @@ public class Player {
     public String getSprite() {
         return sprite;
     }
+  
     public void setSprite(String sprite) {
         this.sprite = sprite;
     }
@@ -48,9 +53,11 @@ public class Player {
     public void setHealth(int health) {
         this.health = health;
     }
+  
     public int getHealth() {
         return health;
     }
+  
     public String getName() {
         return name;
     }
@@ -58,15 +65,19 @@ public class Player {
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
+  
     public double getDifficulty() {
         return difficulty;
     }
+  
     public void setName(String name) {
         this.name = name;
     }
+  
     public float getPlayerX() {
         return position.x;
     }
+  
     public float getPlayerY() {
         return position.y;
     }
@@ -74,6 +85,7 @@ public class Player {
     public Vector2 getPosition() {
         return position;
     }
+  
     public Vector2 getVelocity() {
         return velocity;
     }
@@ -81,7 +93,7 @@ public class Player {
     public void setPlayerX(float playerX) {
         position.x = playerX;
         if (position.x < 0) {
-            position.x = 300;
+            position.x = 50;
         }
     }
     public void setPlayerY(float playerY) {
@@ -90,7 +102,6 @@ public class Player {
             position.y = 100;
         }
     }
-
     public double getScore() {
         return this.score;
     }
@@ -102,11 +113,11 @@ public class Player {
     }
 
     public float getHeight() {
-        return height;
+        return this.height;
     }
 
     public float getWidth() {
-        return width;
+        return this.width;
     }
 
     public void setHeight(float height) {
@@ -139,8 +150,18 @@ public class Player {
             this.level = 0;
         }
     }
-
+    
     public float getMaxVelocity() {
-        return maxVelocity;
+        return this.maxVelocitu;
+    }
+    
+    public void damageTaken(int damage) {
+        if (this.health > 0) {
+            this.health -= damage;
+        }
+    }
+    
+    public int getDamage() {
+        return this.damage;
     }
 }

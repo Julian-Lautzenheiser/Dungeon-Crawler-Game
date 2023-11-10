@@ -7,7 +7,7 @@ import com.example.myapplication.Models.OgreEnemy;
 import com.example.myapplication.Models.SkeletonEnemy;
 
 public class EnemyFactory {
-    public Enemy createEnemy(String enemyType) {
+    public static Enemy createEnemy(String enemyType) {
         if (enemyType.equalsIgnoreCase("Ogre")) {
             return new OgreEnemy();
         } else if (enemyType.equalsIgnoreCase("Skeleton")) {

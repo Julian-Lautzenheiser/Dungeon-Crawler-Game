@@ -20,8 +20,8 @@
   <object id="9" x="128.667" y="32" width="160" height="32"/>
   <object id="10" x="30.6667" y="61.3333" width="95.3333" height="34"/>
   <object id="11" x="-0.666667" y="62.6667" width="30.6667" height="130.667"/>
-  <object id="12" x="32.6667" y="194" width="91.3333" height="31.3333"/>
-  <object id="13" x="127.333" y="228" width="162" height="28.6667"/>
+  <object id="12" x="26.5848" y="194" width="97.4152" height="31.3333"/>
+  <object id="13" x="112.83" y="228" width="188.667" height="28.6667"/>
   <object id="14" x="294" y="194.667" width="91.3333" height="29.3333"/>
  </objectgroup>
  <layer id="2" name="Walls and Objects" width="13" height="9">

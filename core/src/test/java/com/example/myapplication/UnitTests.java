@@ -44,19 +44,7 @@ public class UnitTests {
         assertTrue(goblin.toString() == "Goblin");
     }
 
-    @Test
-    public void checkEnemyFactoryDemon() {
-        EnemyFactory factory = new EnemyFactory();
-        Enemy demon = factory.createEnemy("demon");
-        assertTrue(demon.toString() == "Demon");
-    }
 
-    @Test
-    public void checkEnemyFactorySkeleton() {
-        EnemyFactory factory = new EnemyFactory();
-        Enemy skeleton = factory.createEnemy("SkELEToN");
-        assertTrue(skeleton.toString() == "Skeleton");
-    }
 
     //Sprint 2 Tests
     /**

@@ -14,6 +14,7 @@ public class Player {
     private double difficulty;
     private float width;
     private float height;
+    private int level;
     private final float maxVelocity = 10f;
     private int level;
     private int damage;

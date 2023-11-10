@@ -24,6 +24,40 @@ import com.example.myapplication.ViewModels.LeaderboardViewModel;
  */
 public class UnitTests {
 
+    //////////////////////////////////////
+    //////////////////////////////////////
+    // Sprint 4 Tests
+    //////////////////////////////////////
+    //////////////////////////////////////
+
+    @Test
+    public void checkEnemyFactoryOgre() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy ogre = factory.createEnemy("OGRE");
+        assertTrue(ogre.toString() == "Ogre");
+    }
+
+    @Test
+    public void checkEnemyFactoryGoblin() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy goblin = factory.createEnemy("GOBLIN");
+        assertTrue(goblin.toString() == "Goblin");
+    }
+
+    @Test
+    public void checkEnemyFactoryDemon() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy demon = factory.createEnemy("demon");
+        assertTrue(demon.toString() == "Demon");
+    }
+
+    @Test
+    public void checkEnemyFactorySkeleton() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy skeleton = factory.createEnemy("SkELEToN");
+        assertTrue(skeleton.toString() == "Skeleton");
+    }
+
     //Sprint 2 Tests
     /**
      * Local test that checks to see if Plauer is a singleton
@@ -316,7 +350,7 @@ public class UnitTests {
         player.newScreen(3);
         assertEquals(player.getLevel(), 0);
     }
-    */
+
     
     @Test
     public void checkSetHeight() {
@@ -335,4 +369,6 @@ public class UnitTests {
         
         assertTrue(expectedWidth == player.getWidth());
     }
-}
+
+    */
+

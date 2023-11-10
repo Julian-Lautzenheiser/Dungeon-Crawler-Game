@@ -87,4 +87,9 @@ public class GoblinEnemy implements Enemy {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Goblin";
+    }
 }

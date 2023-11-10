@@ -233,8 +233,6 @@ public class UnitTests {
         assert(player1.getPlayerY() == 100);
     }
     
-
-    
     /* Local test to test wall collision
     //    @Test
     //    public void WallCollisionTest() {
@@ -253,6 +251,7 @@ public class UnitTests {
     //        assert(player1.getPlayerX() > 0);
     //    }
      */
+  
     /*
     @Test
     public void WallCollisionTest() {
@@ -317,7 +316,6 @@ public class UnitTests {
     }
     */
 
-}
     /*
     @Test
     public void checkInitialLevel() {

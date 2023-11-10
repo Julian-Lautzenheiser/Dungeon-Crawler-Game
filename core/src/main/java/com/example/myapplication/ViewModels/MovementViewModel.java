@@ -36,19 +36,16 @@ public class MovementViewModel implements Subscriber {
             velocity.x = -player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.left();
-
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)
                 || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             velocity.x = player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.right();
-
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
                 || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
             velocity.y = -player.getMaxVelocity();
             checkCollision(velocity, level);
             playerMovement.down();
-
         } else if (Gdx.input.isKeyPressed(Input.Keys.UP)
                 || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
             velocity.y = player.getMaxVelocity();
@@ -58,7 +55,6 @@ public class MovementViewModel implements Subscriber {
     }
     public void checkCollision(Vector2 velocity, String level) {
         Vector2 position = player.getPosition();
-
         Rectangle spriteRect = rectPool.obtain();
         spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());
 
@@ -122,5 +118,4 @@ public class MovementViewModel implements Subscriber {
         }
         return false;   
     }
-
 }

@@ -2,6 +2,11 @@ package com.example.myapplication.Models;
 
 public interface Enemy {
     void move();
-    void attack();
-    void display();
+    int attack();
+    void damageTaken();
+    float getPositionX();
+    float getPositionY();
+    void setPositionY(float yCoordinate);
+    void setPositionX(float xCoordinate);
+    String chosenDifficulty(double difficulty);
 }

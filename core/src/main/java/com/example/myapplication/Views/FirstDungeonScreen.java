@@ -12,14 +12,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
-import com.example.myapplication.Models.GoblinEnemy;
 import com.example.myapplication.Models.Player;
-import com.example.myapplication.Models.SkeletonEnemy;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
@@ -45,8 +42,12 @@ public class FirstDungeonScreen implements Screen {
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-    private Label scoreDisplay;
-
+    
+    private double score;
+    private int playerHealth;
+    private String scoreDisplay;
+    private String healthDisplay;
+    BitmapFont statsDisplay;
     public List<Enemy> enemyList = new ArrayList<Enemy>();
 
     public FirstDungeonScreen(final Dungeon game) {
@@ -63,11 +64,6 @@ public class FirstDungeonScreen implements Screen {
     
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
-    
-        String name = player.getName();
-        int health = player.getHealth();
-        double score = player.getScore();
-        String difficulty = chosenDifficulty(player.getDifficulty());
 
         //Creates the sprite and sets the width and height
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
@@ -79,38 +75,10 @@ public class FirstDungeonScreen implements Screen {
       
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        
-        Label nameDisplay = new Label("Player: " + name, skin);
-        nameDisplay.setFontScale(2, 2);
-        nameDisplay.setColor(Color.WHITE);
-        Label hp = new Label("HP: " + health, skin);
-        hp.setFontScale(2, 2);
-        hp.setColor(Color.WHITE);
-        scoreDisplay = new Label("Score: " + score, skin);
-        scoreDisplay.setFontScale(2, 2);
-        scoreDisplay.setColor(Color.WHITE);
-        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
-        difficultyDisplay.setFontScale(2, 2);
-        difficultyDisplay.setColor(Color.WHITE);
 
         //Create list of spawned Enemies to track position/health
         enemyList.add(skeletonEnemy);
         enemyList.add(goblinEnemy);
-
-
-        /*
-        Table table = new Table();
-        table.add(nameDisplay);
-        table.row();
-        table.add(hp);
-        table.row();
-        
-        table.row();
-        table.add(difficultyDisplay);
-        table.row();
-        
-        table.setPosition(250, 100);
-        */
     
         createStyle();
         //        next = new TextButton("Next", style);
@@ -125,8 +93,6 @@ public class FirstDungeonScreen implements Screen {
         //                dispose();
         //            }
         //        });
-        
-        //stage.addActor(table);
         //stage.addActor(next);
     }
 
@@ -142,7 +108,7 @@ public class FirstDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
     
-        skeletonEnemy.setPositionX(188);
+        skeletonEnemy.setPositionX(325);
         skeletonEnemy.setPositionY(180);
     
         goblinEnemy.setPositionX(158);
@@ -151,19 +117,32 @@ public class FirstDungeonScreen implements Screen {
         game.getBatch().begin();
 
         //Check if player runs into enemy
-
-
+        
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        
         movement.updatePosition("room1.tmx", enemyList);
+        skeletonEnemy.move();
+        goblinEnemy.move();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
         game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
         
-        if (player.getHealth() == 0) {
+        /*if () {
+            movement.playerEnemyCollide(skeletonEnemy);
+        } else if () {
+            movement.playerEnemyCollide(goblinEnemy);
+        }
+        
+        */
+        
+        if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
-
+        
         if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
@@ -225,5 +204,11 @@ public class FirstDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+        
+        score = 0;
+        playerHealth = player.getHealth();
+        scoreDisplay = "Score: 0";
+        healthDisplay = "HP: 200";
+        statsDisplay = new BitmapFont();
     }
 }

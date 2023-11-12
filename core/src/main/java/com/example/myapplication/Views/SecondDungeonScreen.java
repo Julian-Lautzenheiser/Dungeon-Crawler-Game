@@ -42,6 +42,11 @@ public class SecondDungeonScreen implements Screen {
     private Enemy ogreEnemy = enemies.createEnemy("Ogre");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
+    private double score;
+    private int playerHealth;
+    private String scoreDisplay;
+    private String healthDisplay;
+    BitmapFont statsDisplay;
     private List<Enemy> enemyList = new ArrayList<Enemy>();
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
@@ -103,6 +108,11 @@ public class SecondDungeonScreen implements Screen {
         goblinEnemy.setPositionY(185);
         
         game.getBatch().begin();
+    
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        
         movement.updatePosition("room2-alt.tmx", enemyList);
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
@@ -165,5 +175,11 @@ public class SecondDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+    
+        score = player.getScore();
+        playerHealth = player.getHealth();
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        statsDisplay = new BitmapFont();
     }
 }

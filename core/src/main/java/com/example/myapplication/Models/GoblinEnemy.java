@@ -21,6 +21,11 @@ public class GoblinEnemy implements Enemy {
     @Override
     public void move() {
         // Implement movement logic
+        if (getPositionY() >= 195) {
+            setPositionY(this.position.y - this.velocity.y);
+        } else if (getPositionY() < 90) {
+            setPositionY(this.position.y - this.velocity.y);
+        }
     }
 
     @Override
@@ -65,19 +70,16 @@ public class GoblinEnemy implements Enemy {
         } else {
             this.position.y = yCoordinate;
         }
-
     }
-    
-    public void setPositionX(float xCoordinate) {
 
-        if (xCoordinate > 200) {
-            this.position.x = 190;
+    public void setPositionX(float xCoordinate) {
+        if (xCoordinate > 340) {
+            this.position.x = 340;
         } else if (xCoordinate < 0) {
             this.position.x = 70;
         } else {
             this.position.x = xCoordinate;
         }
-
     }
     
     public String chosenDifficulty(double difficulty) {

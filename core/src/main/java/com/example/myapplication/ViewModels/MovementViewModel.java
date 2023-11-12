@@ -31,6 +31,7 @@ public class MovementViewModel implements Subscriber {
         }
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
+    private Vector2 prevVelocity = new Vector2();
     public List<Enemy> enemyList = new ArrayList<Enemy>();
     public void addSubscriber(Enemy E) {
         enemyList.add(E);
@@ -68,6 +69,7 @@ public class MovementViewModel implements Subscriber {
             checkPlayerObjectCollision(velocity);
             playerMovement.up();
         }
+        prevVelocity.set(velocity);
     }
     public void checkCollision(Vector2 velocity, String level) {
         Vector2 position = player.getPosition();
@@ -97,7 +99,7 @@ public class MovementViewModel implements Subscriber {
     
     public boolean checkExit(String level) {
         Vector2 position = player.getPosition();
-        position.add(player.getVelocity());
+        position.add(prevVelocity);
 
         Rectangle spriteRect = rectPool.obtain();
         spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());

@@ -88,6 +88,7 @@ public class MovementViewModel implements Subscriber {
     
     public boolean checkExit(String level) {
         Vector2 position = player.getPosition();
+        position.add(player.getVelocity());
 
         Rectangle spriteRect = rectPool.obtain();
         spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());

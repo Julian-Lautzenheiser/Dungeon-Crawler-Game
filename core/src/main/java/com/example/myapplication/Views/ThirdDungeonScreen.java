@@ -139,7 +139,7 @@ public class ThirdDungeonScreen implements Screen {
         demonEnemy.setPositionY(185);
         
         game.getBatch().begin();
-        movement.updatePosition("room3.tmx", enemyList);
+        movement.updatePosition("room3.tmx");
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);

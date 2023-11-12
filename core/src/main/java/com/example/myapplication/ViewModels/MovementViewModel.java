@@ -17,6 +17,7 @@ import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.Models.Subscriber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovementViewModel implements Subscriber {
@@ -30,33 +31,41 @@ public class MovementViewModel implements Subscriber {
         }
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
+    public List<Enemy> enemyList = new ArrayList<Enemy>();
+    public void addSubscriber(Enemy E) {
+        enemyList.add(E);
+    }
+
+    public void removeSubscriber(Enemy E) {
+        enemyList.remove(E);
+    }
 
     // Move in the corresponding direction up to a collision object
-    public void updatePosition(String level,  List<Enemy> EnemyList) {
+    public void updatePosition(String level) {
         Vector2 velocity = new Vector2(0, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)
                 || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             velocity.x = -player.getMaxVelocity();
             checkCollision(velocity, level);
-            checkPlayerObjectCollision(velocity, EnemyList);
+            checkPlayerObjectCollision(velocity);
             playerMovement.left();
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)
                 || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             velocity.x = player.getMaxVelocity();
             checkCollision(velocity, level);
-            checkPlayerObjectCollision(velocity, EnemyList);
+            checkPlayerObjectCollision(velocity);
             playerMovement.right();
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)
                 || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) { //Move player down
             velocity.y = -player.getMaxVelocity();
             checkCollision(velocity, level);
-            checkPlayerObjectCollision(velocity, EnemyList);
+            checkPlayerObjectCollision(velocity);
             playerMovement.down();
         } else if (Gdx.input.isKeyPressed(Input.Keys.UP)
                 || Gdx.input.isKeyJustPressed(Input.Keys.UP)) { //Move player up
             velocity.y = player.getMaxVelocity();
             checkCollision(velocity, level);
-            checkPlayerObjectCollision(velocity, EnemyList);
+            checkPlayerObjectCollision(velocity);
             playerMovement.up();
         }
     }
@@ -127,7 +136,7 @@ public class MovementViewModel implements Subscriber {
         return false;   
     }
 
-    public void checkPlayerObjectCollision(Vector2 velocity, List<Enemy> enemyList) {
+    public void checkPlayerObjectCollision(Vector2 velocity) {
         Vector2 position = player.getPosition();
         Rectangle spriteRect = rectPool.obtain();
 

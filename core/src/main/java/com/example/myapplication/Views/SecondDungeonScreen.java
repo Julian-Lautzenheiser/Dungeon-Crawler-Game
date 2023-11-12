@@ -103,7 +103,7 @@ public class SecondDungeonScreen implements Screen {
         goblinEnemy.setPositionY(185);
         
         game.getBatch().begin();
-        movement.updatePosition("room2-alt.tmx", enemyList);
+        movement.updatePosition("room2-alt.tmx");
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 35, 45);

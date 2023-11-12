@@ -47,7 +47,7 @@ public class FirstDungeonScreen implements Screen {
     private MovementViewModel movement = new MovementViewModel();
     private Label scoreDisplay;
 
-    public List<Enemy> enemyList = new ArrayList<Enemy>();
+
 
     public FirstDungeonScreen(final Dungeon game) {
         this.game = game;
@@ -94,8 +94,9 @@ public class FirstDungeonScreen implements Screen {
         difficultyDisplay.setColor(Color.WHITE);
 
         //Create list of spawned Enemies to track position/health
-        enemyList.add(skeletonEnemy);
-        enemyList.add(goblinEnemy);
+        movement.addSubscriber(skeletonEnemy);
+        movement.addSubscriber(goblinEnemy);
+
 
 
         /*
@@ -153,7 +154,7 @@ public class FirstDungeonScreen implements Screen {
         //Check if player runs into enemy
 
 
-        movement.updatePosition("room1.tmx", enemyList);
+        movement.updatePosition("room1.tmx");
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);

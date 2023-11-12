@@ -38,6 +38,7 @@ public class SecondDungeonScreen implements Screen {
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
     private Player player = Player.getInstance();
+    private String level = "room2-alt.tmx";
     private EnemyFactory enemies = new EnemyFactory();
     private Enemy ogreEnemy = enemies.createEnemy("Ogre");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
@@ -63,7 +64,7 @@ public class SecondDungeonScreen implements Screen {
         enemy1Sprite = new Texture(Gdx.files.internal("Goblin.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
       
-        map = new TmxMapLoader().load("room2-alt.tmx");
+        map = new TmxMapLoader().load(level);
       
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
 
@@ -95,6 +96,17 @@ public class SecondDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+
+        /*
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
+        if (timeSeconds > period) {
+            timeSeconds -= period;
+            game.decreaseScore();
+            scoreDisplay.setText("Score: " + player.getScore());
+        }
+         */
+
+        movement.updatePosition(level, enemyList);
     
         ogreEnemy.setPositionX(158);
         ogreEnemy.setPositionY(100);
@@ -103,23 +115,20 @@ public class SecondDungeonScreen implements Screen {
         goblinEnemy.setPositionY(185);
         
         game.getBatch().begin();
-        movement.updatePosition("room2-alt.tmx", enemyList);
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
-        
         game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 35, 45);
         game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), 40, 50);
+        game.getBatch().end();
     
         if (player.getHealth() == 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
         
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2-alt.tmx")) {
+        if (movement.checkExit(level)) {
             game.setScreen(new ThirdDungeonScreen(game));
             dispose();
         }
-
-        game.getBatch().end();
 
         stage.draw();
         stage.act();

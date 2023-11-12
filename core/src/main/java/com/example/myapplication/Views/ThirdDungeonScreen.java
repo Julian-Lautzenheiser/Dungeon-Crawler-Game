@@ -34,6 +34,7 @@ public class ThirdDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
+    private String level = "room3.tmx";
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
     private Player player = Player.getInstance();
@@ -66,7 +67,7 @@ public class ThirdDungeonScreen implements Screen {
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Demon.png"));
     
-        map = new TmxMapLoader().load("room3.tmx");
+        map = new TmxMapLoader().load(level);
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         /*
@@ -132,6 +133,8 @@ public class ThirdDungeonScreen implements Screen {
             scoreDisplay.setText("Score: " + player.getScore());
         }
         */
+
+        movement.updatePosition(level, enemyList);
         skeletonEnemy.setPositionX(158);
         skeletonEnemy.setPositionY(100);
         
@@ -139,23 +142,21 @@ public class ThirdDungeonScreen implements Screen {
         demonEnemy.setPositionY(185);
         
         game.getBatch().begin();
-        movement.updatePosition("room3.tmx", enemyList);
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
         game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), 38,55);
-        
+        game.getBatch().end();
+
         if (player.getHealth() == 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
         
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {
+        if (movement.checkExit(level)) {
             game.setScreen(new WinningScreen(game));
             dispose();
         }
-
-        game.getBatch().end();
 
         stage.draw();
         stage.act();

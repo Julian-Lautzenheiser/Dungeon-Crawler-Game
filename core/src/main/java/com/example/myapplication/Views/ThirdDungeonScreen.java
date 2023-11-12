@@ -134,7 +134,7 @@ public class ThirdDungeonScreen implements Screen {
         }
         */
 
-        movement.updatePosition(level, enemyList);
+        movement.updatePosition(level);
         skeletonEnemy.setPositionX(158);
         skeletonEnemy.setPositionY(100);
         

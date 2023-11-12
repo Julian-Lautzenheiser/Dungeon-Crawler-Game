@@ -106,7 +106,7 @@ public class SecondDungeonScreen implements Screen {
         }
          */
 
-        movement.updatePosition(level, enemyList);
+        movement.updatePosition(level);
     
         ogreEnemy.setPositionX(158);
         ogreEnemy.setPositionY(100);

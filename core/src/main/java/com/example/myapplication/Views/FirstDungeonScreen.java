@@ -153,7 +153,7 @@ public class FirstDungeonScreen implements Screen {
         }
         */
 
-        movement.updatePosition(level, enemyList);
+        movement.updatePosition(level);
     
         skeletonEnemy.setPositionX(188);
         skeletonEnemy.setPositionY(180);

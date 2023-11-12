@@ -24,8 +24,6 @@ import com.example.myapplication.ViewModels.LeaderboardViewModel;
  */
 public class UnitTests {
 
-    //////////////////////////////////////
-    //////////////////////////////////////
     // Sprint 4 Tests
     //////////////////////////////////////
     //////////////////////////////////////
@@ -36,29 +34,30 @@ public class UnitTests {
         Enemy ogre = factory.createEnemy("OGRE");
         assertTrue(ogre.toString() == "Ogre");
     }
-
+    
     @Test
     public void checkEnemyFactoryGoblin() {
         EnemyFactory factory = new EnemyFactory();
         Enemy goblin = factory.createEnemy("GOBLIN");
         assertTrue(goblin.toString() == "Goblin");
     }
-
+    
     @Test
     public void checkEnemyFactoryDemon() {
         EnemyFactory factory = new EnemyFactory();
         Enemy demon = factory.createEnemy("demon");
         assertTrue(demon.toString() == "Demon");
     }
-
+    
     @Test
     public void checkEnemyFactorySkeleton() {
         EnemyFactory factory = new EnemyFactory();
         Enemy skeleton = factory.createEnemy("SkELEToN");
         assertTrue(skeleton.toString() == "Skeleton");
     }
-
+    
     //Sprint 2 Tests
+    
     /**
      * Local test that checks to see if Plauer is a singleton
      */
@@ -125,73 +124,73 @@ public class UnitTests {
     /**
      * Local test to check if leaderboard updates
      */
-            /*
-            @Test
-            public void leaderboardUpdateTest(){
-                LeaderboardViewModel LBVM = new LeaderboardViewModel();
-                ArrayList<LeaderboardScore> table = LBVM.getTable();
-                assertFalse(LBVM == null);
-                
-                LBVM.addScore(new LeaderboardScore("Andrew", 0));
-                LBVM.addScore(new LeaderboardScore("Nawal", 10));
-                LBVM.addScore(new LeaderboardScore("Jai", 20));
-                LBVM.addScore(new LeaderboardScore("Julian", 30));
-                assertEquals(table.size(), 4);
-                LeaderboardScore[] arr = new LeaderboardScore[table.size()];
-                
-                // Convert ArrayList into an array
-                table.toArray(arr);
-                
-                
-                assertEquals(arr[3].getName(), "Andrew");
-                assertTrue(arr[3].getScore() == 0);
-                assertEquals(arr[2].getName(), "Nawal");
-                assertTrue(arr[2].getScore() == 10);
-                assertEquals(arr[1].getName(), "Jai");
-                assertTrue(arr[1].getScore() == 20);
-                assertEquals(arr[0].getName(), "Julian");
-                assertTrue(arr[0].getScore() == 30);
-            }
-            */
+                /*
+                @Test
+                public void leaderboardUpdateTest(){
+                    LeaderboardViewModel LBVM = new LeaderboardViewModel();
+                    ArrayList<LeaderboardScore> table = LBVM.getTable();
+                    assertFalse(LBVM == null);
+                    
+                    LBVM.addScore(new LeaderboardScore("Andrew", 0));
+                    LBVM.addScore(new LeaderboardScore("Nawal", 10));
+                    LBVM.addScore(new LeaderboardScore("Jai", 20));
+                    LBVM.addScore(new LeaderboardScore("Julian", 30));
+                    assertEquals(table.size(), 4);
+                    LeaderboardScore[] arr = new LeaderboardScore[table.size()];
+                    
+                    // Convert ArrayList into an array
+                    table.toArray(arr);
+                    
+                    
+                    assertEquals(arr[3].getName(), "Andrew");
+                    assertTrue(arr[3].getScore() == 0);
+                    assertEquals(arr[2].getName(), "Nawal");
+                    assertTrue(arr[2].getScore() == 10);
+                    assertEquals(arr[1].getName(), "Jai");
+                    assertTrue(arr[1].getScore() == 20);
+                    assertEquals(arr[0].getName(), "Julian");
+                    assertTrue(arr[0].getScore() == 30);
+                }
+                */
     /**
      * Local test to check player name for whitespace
      */
-    /*
-    @Test
-    public void playerNameCheck() {
-        Player player1 = Player.getInstance();
-        ConfigViewModel configViewModel = new ConfigViewModel();
-        configViewModel.setPlayer(1,"Andrew", 2);
-        assertTrue(player1.getName() == "Andrew");
-    }
-    
-    @Test
-    public void playerEasyDifficultyCheck() {
-        int id = R.id.easyDifficulty;
-        Player player1 = Player.getInstance();
-        ConfigViewModel configViewModel = new ConfigViewModel();
-        configViewModel.setPlayer(id,"Andrew", 2);
-        assertTrue(player1.getHealth() == 200);
-    }
-            
-    @Test
-    public void playerMediumDifficultyCheck() {
-        int id = R.id.mediumDifficulty;
-        Player player = Player.getInstance();
-        ConfigViewModel configViewModel = new ConfigViewModel();
-        configViewModel.setPlayer(id, "Andrew", 1);
-        assertTrue(player.getHealth() == 133);
-    }
-            
-    @Test
-    public void playerHardDifficultyCheck() {
-        int id = R.id.hardDifficulty;
-        Player player = Player.getInstance();
-        ConfigViewModel configViewModel = new ConfigViewModel();
-        configViewModel.setPlayer(id, "Andrew", 1);
-        assertTrue(player.getHealth() == 100);
-    }
-    */
+        /*
+        @Test
+        public void playerNameCheck() {
+            Player player1 = Player.getInstance();
+            ConfigViewModel configViewModel = new ConfigViewModel();
+            configViewModel.setPlayer(1,"Andrew", 2);
+            assertTrue(player1.getName() == "Andrew");
+        }
+        
+        @Test
+        public void playerEasyDifficultyCheck() {
+            int id = R.id.easyDifficulty;
+            Player player1 = Player.getInstance();
+            ConfigViewModel configViewModel = new ConfigViewModel();
+            configViewModel.setPlayer(id,"Andrew", 2);
+            assertTrue(player1.getHealth() == 200);
+        }
+        
+        @Test
+        public void playerMediumDifficultyCheck() {
+            int id = R.id.mediumDifficulty;
+            Player player = Player.getInstance();
+            ConfigViewModel configViewModel = new ConfigViewModel();
+            configViewModel.setPlayer(id, "Andrew", 1);
+            assertTrue(player.getHealth() == 133);
+        }
+        
+        @Test
+        public void playerHardDifficultyCheck() {
+            int id = R.id.hardDifficulty;
+            Player player = Player.getInstance();
+            ConfigViewModel configViewModel = new ConfigViewModel();
+            configViewModel.setPlayer(id, "Andrew", 1);
+            assertTrue(player.getHealth() == 100);
+        }
+        */
     
     /**
      * Local test to make sure score can't be set to a negative value
@@ -217,8 +216,8 @@ public class UnitTests {
         player1.setPlayerY(100);
         
         
-        assert(player1.getPlayerX() == 100);
-        assert(player1.getPlayerY() == 100);
+        assert (player1.getPlayerX() == 100);
+        assert (player1.getPlayerY() == 100);
     }
     
     /**
@@ -229,9 +228,10 @@ public class UnitTests {
         Player player1 = Player.getInstance();
         player1.setPlayerX(-100);
         player1.setPlayerY(-100);
-        assert(player1.getPlayerX() == 300);
-        assert(player1.getPlayerY() == 100);
+        assert (player1.getPlayerX() == 300);
+        assert (player1.getPlayerY() == 100);
     }
+}
     
     /* Local test to test wall collision
     //    @Test

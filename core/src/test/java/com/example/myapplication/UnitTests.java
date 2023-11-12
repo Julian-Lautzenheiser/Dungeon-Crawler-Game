@@ -55,7 +55,7 @@ public class UnitTests {
         Enemy skeleton = factory.createEnemy("SkELEToN");
         assertTrue(skeleton.toString() == "Skeleton");
     }
-    
+
     //Sprint 2 Tests
     
     /**

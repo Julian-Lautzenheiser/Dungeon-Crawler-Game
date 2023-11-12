@@ -19,7 +19,6 @@ public class DemonEnemy implements Enemy {
     @Override
     public void move() {
         // Implement movement logic
-        
     }
 
     @Override

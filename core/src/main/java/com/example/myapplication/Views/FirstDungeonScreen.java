@@ -134,13 +134,13 @@ public class FirstDungeonScreen implements Screen {
             scoreDisplay.setText("Score: " + player.getScore());
         }
         */
-        
-        game.getBatch().begin();
+
         movement.updatePosition(level);
+        game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         game.getBatch().end();
 
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), level)) {
+        if (movement.checkExit(level)) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }

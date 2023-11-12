@@ -32,7 +32,7 @@ public class SecondDungeonScreen implements Screen {
     private OrthographicCamera camera;
     private Texture sprite;
     private Player player = Player.getInstance();
-
+    private String level = "room2-alt.tmx";
     private MovementViewModel movement = new MovementViewModel();
     //private float timeSeconds = 0f;
     //private float period = 1f;
@@ -53,7 +53,7 @@ public class SecondDungeonScreen implements Screen {
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
       
-        map = new TmxMapLoader().load("room2-alt.tmx");
+        map = new TmxMapLoader().load(level);
       
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         
@@ -95,16 +95,14 @@ public class SecondDungeonScreen implements Screen {
         }
          */
 
+        movement.updatePosition(level);
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX() + 15, player.getPlayerY() - 15, 64, 64);
-
-        movement.updatePosition("room2-alt.tmx");
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room2-alt.tmx")) {
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().end();
+        if (movement.checkExit(level)) {
             game.setScreen(new ThirdDungeonScreen(game));
             dispose();
         }
-
-        game.getBatch().end();
 
         stage.draw();
         stage.act();

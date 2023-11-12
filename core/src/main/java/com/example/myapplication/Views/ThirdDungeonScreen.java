@@ -30,7 +30,7 @@ public class ThirdDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
-
+    private String level = "room3.tmx";
     private Player player = Player.getInstance();
     private MovementViewModel movement = new MovementViewModel();
     public ThirdDungeonScreen(final Dungeon game) {
@@ -55,7 +55,7 @@ public class ThirdDungeonScreen implements Screen {
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
     
-        map = new TmxMapLoader().load("room3.tmx");
+        map = new TmxMapLoader().load(level);
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         /*
@@ -121,16 +121,16 @@ public class ThirdDungeonScreen implements Screen {
             scoreDisplay.setText("Score: " + player.getScore());
         }
         */
-        game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY() - 5, 64, 64);
 
-        movement.updatePosition("room3.tmx");
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {
+        movement.updatePosition(level);
+        game.getBatch().begin();
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().end();
+
+        if (movement.checkExit(level)) {
             game.setScreen(new LeaderboardScreen(game));
             dispose();
         }
-
-        game.getBatch().end();
 
         stage.draw();
         stage.act();

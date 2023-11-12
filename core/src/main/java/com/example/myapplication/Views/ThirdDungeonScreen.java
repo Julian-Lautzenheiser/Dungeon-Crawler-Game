@@ -21,6 +21,9 @@ import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ThirdDungeonScreen implements Screen {
     private final Dungeon game;
     private Skin skin;
@@ -38,6 +41,7 @@ public class ThirdDungeonScreen implements Screen {
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy demonEnemy = enemies.createEnemy("Demon");
     private MovementViewModel movement = new MovementViewModel();
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -135,7 +139,7 @@ public class ThirdDungeonScreen implements Screen {
         demonEnemy.setPositionY(185);
         
         game.getBatch().begin();
-        movement.updatePosition("room3.tmx");
+        movement.updatePosition("room3.tmx", enemyList);
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);

@@ -17,10 +17,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.GoblinEnemy;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.SkeletonEnemy;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FirstDungeonScreen implements Screen {
 
@@ -41,6 +46,8 @@ public class FirstDungeonScreen implements Screen {
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
     private Label scoreDisplay;
+
+    public List<Enemy> enemyList = new ArrayList<Enemy>();
 
     public FirstDungeonScreen(final Dungeon game) {
         this.game = game;
@@ -85,7 +92,12 @@ public class FirstDungeonScreen implements Screen {
         Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
         difficultyDisplay.setFontScale(2, 2);
         difficultyDisplay.setColor(Color.WHITE);
-       
+
+        //Create list of spawned Enemies to track position/health
+        enemyList.add(skeletonEnemy);
+        enemyList.add(goblinEnemy);
+
+
         /*
         Table table = new Table();
         table.add(nameDisplay);
@@ -130,15 +142,18 @@ public class FirstDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
     
-        skeletonEnemy.setPositionX(158);
-        skeletonEnemy.setPositionY(100);
+        skeletonEnemy.setPositionX(188);
+        skeletonEnemy.setPositionY(180);
     
-        goblinEnemy.setPositionX(258);
-        goblinEnemy.setPositionY(185);
+        goblinEnemy.setPositionX(158);
+        goblinEnemy.setPositionY(120);
     
         game.getBatch().begin();
 
-        movement.updatePosition("room1.tmx");
+        //Check if player runs into enemy
+
+
+        movement.updatePosition("room1.tmx", enemyList);
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);

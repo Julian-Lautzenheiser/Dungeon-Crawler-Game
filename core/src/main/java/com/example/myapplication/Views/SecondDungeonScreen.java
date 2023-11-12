@@ -21,6 +21,9 @@ import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SecondDungeonScreen implements Screen {
 
     private final Dungeon game;
@@ -39,7 +42,7 @@ public class SecondDungeonScreen implements Screen {
     private Enemy ogreEnemy = enemies.createEnemy("Ogre");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -63,7 +66,7 @@ public class SecondDungeonScreen implements Screen {
         map = new TmxMapLoader().load("room2-alt.tmx");
       
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        
+
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -100,7 +103,7 @@ public class SecondDungeonScreen implements Screen {
         goblinEnemy.setPositionY(185);
         
         game.getBatch().begin();
-        movement.updatePosition("room2-alt.tmx");
+        movement.updatePosition("room2-alt.tmx", enemyList);
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 35, 45);

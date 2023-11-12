@@ -31,7 +31,7 @@ public class MovementViewModel implements Subscriber {
         }
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
-    private List<Enemy> enemyList = new ArrayList<Enemy>();
+    public List<Enemy> enemyList = new ArrayList<Enemy>();
     public void addSubscriber(Enemy E) {
         enemyList.add(E);
     }

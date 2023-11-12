@@ -16,11 +16,7 @@ public class Player {
     private float height;
     private int level;
     private final float maxVelocity = 10f;
-<<<<<<< HEAD
-    private int level;
-=======
     private int damage;
->>>>>>> 94de97941abcd67b434dcf2131d9b4ca86104576
 
     private Player() {
         this.position = new Vector2(62, 182);

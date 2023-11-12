@@ -15,6 +15,7 @@ public class Player {
     private float width;
     private float height;
     private final float maxVelocity = 10f;
+    private int level;
 
     private Player() {
         position = new Vector2(256, 128);

@@ -48,7 +48,7 @@ public class FirstDungeonScreen implements Screen {
     private Label scoreDisplay;
     private String level = "room1.tmx";
 
-    public List<Enemy> enemyList = new ArrayList<Enemy>();
+
 
     public FirstDungeonScreen(final Dungeon game) {
         this.game = game;
@@ -95,8 +95,9 @@ public class FirstDungeonScreen implements Screen {
         difficultyDisplay.setColor(Color.WHITE);
 
         //Create list of spawned Enemies to track position/health
-        enemyList.add(skeletonEnemy);
-        enemyList.add(goblinEnemy);
+        movement.addSubscriber(skeletonEnemy);
+        movement.addSubscriber(goblinEnemy);
+
 
 
         /*
@@ -159,6 +160,7 @@ public class FirstDungeonScreen implements Screen {
     
         goblinEnemy.setPositionX(158);
         goblinEnemy.setPositionY(120);
+
 
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());

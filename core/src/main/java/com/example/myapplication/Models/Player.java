@@ -16,7 +16,6 @@ public class Player {
     private float height;
     private int level;
     private final float maxVelocity = 10f;
-    private int level;
     private int damage;
 
     private Player() {
@@ -152,7 +151,7 @@ public class Player {
     }
     
     public float getMaxVelocity() {
-        return this.maxVelocitu;
+        return this.maxVelocity;
     }
     
     public void damageTaken(int damage) {

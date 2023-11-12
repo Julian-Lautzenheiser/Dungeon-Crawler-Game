@@ -58,16 +58,18 @@ public class GoblinEnemy implements Enemy {
     }
     
     public void setPositionY(float yCoordinate) {
-        if (yCoordinate > 200) {
+        /*if (yCoordinate > 200) {
             this.position.y = 190;
         } else if (yCoordinate < 0) {
             this.position.y = 25;
         } else {
             this.position.y = yCoordinate;
         }
+        */
     }
     
     public void setPositionX(float xCoordinate) {
+        /*
         if (xCoordinate > 200) {
             this.position.x = 190;
         } else if (xCoordinate < 0) {
@@ -75,6 +77,7 @@ public class GoblinEnemy implements Enemy {
         } else {
             this.position.x = xCoordinate;
         }
+        */
     }
     
     public String chosenDifficulty(double difficulty) {

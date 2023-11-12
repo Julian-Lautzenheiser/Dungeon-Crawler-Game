@@ -16,8 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class FirstDungeonScreen implements Screen {
@@ -68,7 +70,7 @@ public class FirstDungeonScreen implements Screen {
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Goblin.png"));
       
-        map = new TmxMapLoader().load(level);
+        map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
         
         Label nameDisplay = new Label("Player: " + name, skin);
@@ -147,7 +149,7 @@ public class FirstDungeonScreen implements Screen {
             dispose();
         }
 
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), level)) {
+        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room1.tmx")) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }

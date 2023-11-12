@@ -15,24 +15,34 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThirdDungeonScreen implements Screen {
     private final Dungeon game;
     private Skin skin;
     private TextButton.TextButtonStyle style;
     private Stage stage;
-    private TextButton next;
     private TiledMap map;
     private TiledMapRenderer renderer;
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
     private String level = "room3.tmx";
+    private Texture enemy1Sprite;
+    private Texture enemy2Sprite;
     private Player player = Player.getInstance();
+    private EnemyFactory enemies = new EnemyFactory();
+    private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
+    private Enemy demonEnemy = enemies.createEnemy("Demon");
     private MovementViewModel movement = new MovementViewModel();
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -54,6 +64,8 @@ public class ThirdDungeonScreen implements Screen {
          */
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
+        enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
+        enemy2Sprite = new Texture(Gdx.files.internal("Demon.png"));
     
         map = new TmxMapLoader().load(level);
     
@@ -122,13 +134,27 @@ public class ThirdDungeonScreen implements Screen {
         }
         */
 
-        movement.updatePosition(level);
+        movement.updatePosition(level, enemyList);
+        skeletonEnemy.setPositionX(158);
+        skeletonEnemy.setPositionY(100);
+        
+        demonEnemy.setPositionX(258);
+        demonEnemy.setPositionY(185);
+        
         game.getBatch().begin();
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), 38,55);
         game.getBatch().end();
 
+        if (player.getHealth() == 0) {
+            game.setScreen(new LosingScreen(game));
+            dispose();
+        }
+        
         if (movement.checkExit(level)) {
-            game.setScreen(new LeaderboardScreen(game));
+            game.setScreen(new WinningScreen(game));
             dispose();
         }
 
@@ -161,9 +187,10 @@ public class ThirdDungeonScreen implements Screen {
     public void dispose() {
         map.dispose();
         sprite.dispose();
+        enemy1Sprite.dispose();
+        enemy2Sprite.dispose();
     }
     
-
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();

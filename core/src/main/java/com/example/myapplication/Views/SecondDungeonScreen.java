@@ -69,6 +69,9 @@ public class SecondDungeonScreen implements Screen {
         enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
       
         map = new TmxMapLoader().load(level);
+    
+        movement.addSubscriber(ogreEnemy);
+        movement.addSubscriber(goblinEnemy);
       
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
 
@@ -174,6 +177,8 @@ public class SecondDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(ogreEnemy);
+        movement.removeSubscriber(goblinEnemy);
     }
 
     public void createStyle() {

@@ -1,5 +1,7 @@
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class GoblinEnemy implements Enemy {
@@ -10,7 +12,7 @@ public class GoblinEnemy implements Enemy {
     Vector2 velocity;
     Vector2 position;
     int health;
-    
+
     public GoblinEnemy() {
         this.velocity = new Vector2(10, 13);
         this.position = new Vector2(0, 0);
@@ -21,10 +23,13 @@ public class GoblinEnemy implements Enemy {
     @Override
     public void move() {
         // Implement movement logic
-        if (getPositionY() >= 195) {
-            setPositionY(this.position.y - this.velocity.y);
-        } else if (getPositionY() < 90) {
-            setPositionY(this.position.y + this.velocity.y);
+        Vector2 tempVelocity = new Vector2(0, 0);
+        if (getPositionY() < 95) {
+            tempVelocity.y = this.velocity.x;
+            this.velocity.add(tempVelocity);
+        } else if (getPositionY() > 190) {
+            tempVelocity.y = -this.velocity.y;
+            this.velocity.add(tempVelocity);
         }
     }
 

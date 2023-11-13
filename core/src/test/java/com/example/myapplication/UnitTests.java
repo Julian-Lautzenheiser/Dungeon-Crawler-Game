@@ -55,17 +55,6 @@ public class UnitTests {
         Enemy skeleton = factory.createEnemy("SkELEToN");
         assertTrue(skeleton.toString() == "Skeleton");
     }
-    
-    @Test
-    public void checkEnemyFactoryDamage_Demon() {
-        int expectedDamage = ;
-        
-    }
-    
-    @Test
-    public void checkEnemyPosition() {
-    
-    }
 
     @Test
     public void checkSubscribers(){

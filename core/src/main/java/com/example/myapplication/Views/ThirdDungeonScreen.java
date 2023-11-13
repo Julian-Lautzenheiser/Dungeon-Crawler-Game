@@ -68,6 +68,9 @@ public class ThirdDungeonScreen implements Screen {
         map = new TmxMapLoader().load(level);
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+        
+        movement.addSubscriber(skeletonEnemy);
+        movement.addSubscriber(demonEnemy);
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -112,7 +115,7 @@ public class ThirdDungeonScreen implements Screen {
         skeletonEnemy.setPositionY(100);
         
         demonEnemy.setPositionX(258);
-        demonEnemy.setPositionY(185);
+        demonEnemy.setPositionY(175);
         
         game.getBatch().begin();
     
@@ -170,6 +173,8 @@ public class ThirdDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(skeletonEnemy);
+        movement.removeSubscriber(demonEnemy);
     }
     
     public void createStyle() {

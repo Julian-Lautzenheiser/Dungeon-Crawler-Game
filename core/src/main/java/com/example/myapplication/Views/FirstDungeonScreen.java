@@ -138,7 +138,7 @@ public class FirstDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),skeletonEnemy.getPositionY(), 35, 45);
         game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
         
         game.getBatch().end();
@@ -212,10 +212,10 @@ public class FirstDungeonScreen implements Screen {
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
         
-        score = 0;
+        score = player.getScore();
         playerHealth = player.getHealth();
-        scoreDisplay = "Score: 0";
-        healthDisplay = "HP: 200";
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
         statsDisplay = new BitmapFont();
     }
 }

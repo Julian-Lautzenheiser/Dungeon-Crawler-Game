@@ -50,10 +50,17 @@ public class Player {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        if (health <= 0) {
+            this.health = 200;
+        } else {
+            this.health = health;
+        }
     }
   
     public int getHealth() {
+        if (this.health <= 0) {
+            this.health = 200;
+        }
         return health;
     }
   

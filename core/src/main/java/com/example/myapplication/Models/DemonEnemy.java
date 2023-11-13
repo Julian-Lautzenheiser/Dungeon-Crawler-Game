@@ -20,6 +20,7 @@ public class DemonEnemy implements Enemy {
     public void move() {
         // Implement movement logic
         if (getPositionY() >= 195) {
+            
             setPositionY(this.position.y - this.velocity.y);
         } else if (getPositionY() < 90) {
             setPositionY(this.position.y - this.velocity.y);

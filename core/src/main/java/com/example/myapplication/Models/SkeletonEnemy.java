@@ -8,7 +8,6 @@ public class SkeletonEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
-
     private boolean direction;
     private Player player = Player.getInstance();
 
@@ -35,7 +34,7 @@ public class SkeletonEnemy implements Enemy {
             }
         }
     }
-
+    
     @Override
     public int attack() {
         switch (chosenDifficulty(player.getDifficulty())) {

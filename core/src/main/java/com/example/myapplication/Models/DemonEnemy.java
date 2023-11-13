@@ -8,9 +8,11 @@ public class DemonEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
+
+    private boolean direction = true;
     Player player = Player.getInstance();
     public DemonEnemy() {
-        this.velocity = new Vector2(25,30);
+        this.velocity = new Vector2(25,2);
         this.position = new Vector2(0, 0);
         this.damage = 0;
         this.health = 180;
@@ -19,11 +21,17 @@ public class DemonEnemy implements Enemy {
     @Override
     public void move() {
         // Implement movement logic
-        if (getPositionY() >= 195) {
-            
+        if(getPositionY() > 190) {
+            direction = false;
+        }
+        if(direction){
+            setPositionY(this.position.y + this.velocity.y);
+            return;
+        } else {
             setPositionY(this.position.y - this.velocity.y);
-        } else if (getPositionY() < 90) {
-            setPositionY(this.position.y - this.velocity.y);
+            if(getPositionY() < 80) {
+                direction = true;
+            }
         }
     }
 

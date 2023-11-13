@@ -81,6 +81,48 @@ public class UnitTests {
         assert(movement.enemyList.size() == 0);
     }
 
+    @Test
+    public void setGoblinPos(){
+        EnemyFactory factory = new EnemyFactory();
+        Enemy goblin = factory.createEnemy("Goblin");
+        goblin.setPositionX(150);
+        goblin.setPositionY(150);
+        assert(goblin.getPositionY() == 150);
+        assert(goblin.getPositionX() == 150);
+
+    }
+
+    @Test
+    public void setOgrePos(){
+        EnemyFactory factory = new EnemyFactory();
+        Enemy ogre = factory.createEnemy("Ogre");
+
+        ogre.setPositionX(150);
+        ogre.setPositionY(150);
+        assert(ogre.getPositionY() == (float) 150);
+        assert(ogre.getPositionX() == (float) 150);
+    }
+    @Test
+    public void setSkelePos(){
+        EnemyFactory factory = new EnemyFactory();
+        Enemy skeleton = factory.createEnemy("Skeleton");
+
+        skeleton.setPositionX(150);
+        skeleton.setPositionY(150);
+        assert(skeleton.getPositionX() == (float) 150);
+        assert(skeleton.getPositionY() ==  (float) 150);
+    }
+
+    @Test
+    public void setEnemyDiff(){
+        EnemyFactory factory = new EnemyFactory();
+        Enemy skeleton = factory.createEnemy("Skeleton");
+        assert(skeleton.chosenDifficulty(0.5) == "Easy");
+
+    }
+
+
+
     //Sprint 2 Tests
     
     /**

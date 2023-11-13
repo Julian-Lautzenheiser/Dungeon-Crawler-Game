@@ -80,6 +80,12 @@ public class FirstDungeonScreen implements Screen {
         //Create list of spawned Enemies to track position/health
         movement.addSubscriber(skeletonEnemy);
         movement.addSubscriber(goblinEnemy);
+
+        skeletonEnemy.setPositionX(290);
+        skeletonEnemy.setPositionY(120);
+
+        goblinEnemy.setPositionX(158);
+        goblinEnemy.setPositionY(180);
         
         createStyle();
         //        next = new TextButton("Next", style);
@@ -120,11 +126,7 @@ public class FirstDungeonScreen implements Screen {
 
         movement.updatePosition(level);
     
-        skeletonEnemy.setPositionX(290);
-        skeletonEnemy.setPositionY(120);
-    
-        goblinEnemy.setPositionX(158);
-        goblinEnemy.setPositionY(180);
+
     
         skeletonEnemy.move();
         goblinEnemy.move();

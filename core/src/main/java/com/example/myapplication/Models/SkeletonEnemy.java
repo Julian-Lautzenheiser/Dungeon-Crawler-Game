@@ -10,6 +10,8 @@ public class SkeletonEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
+
+    private boolean direction;
     Player player = Player.getInstance();
     
     public SkeletonEnemy() {
@@ -21,11 +23,17 @@ public class SkeletonEnemy implements Enemy {
     
     @Override
     public void move() {
-        // Implement movement logic
-        if (getPositionY() >= 195) {
+        if(getPositionY() > 190) {
+            direction = false;
+        }
+        if(direction){
+            setPositionY(this.position.y + this.velocity.y);
+            return;
+        } else {
             setPositionY(this.position.y - this.velocity.y);
-        } else if (getPositionY() < 90) {
-            setPositionY(this.position.y - this.velocity.y);
+            if(getPositionY() < 80) {
+                direction = true;
+            }
         }
     }
 

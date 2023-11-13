@@ -11,10 +11,10 @@ public class OgreEnemy implements Enemy {
     Player player = Player.getInstance();
     
     public OgreEnemy() {
-        this.velocity = new Vector2(15, 20);
+        this.velocity = new Vector2(18, 20);
         this.position = new Vector2(0,0);
         this.damage = 15;
-        this.health = 175;
+        this.health = 130;
     }
     @Override
     public void move() {
@@ -30,13 +30,13 @@ public class OgreEnemy implements Enemy {
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 8;
+                this.damage = 9;
                 break;
             case "Medium":
-                this.damage = 16;
+                this.damage = 15;
                 break;
             case "Hard":
-                this.damage = 24;
+                this.damage = 21;
                 break;
         }
         return this.damage;

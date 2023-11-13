@@ -8,13 +8,13 @@ import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
 import com.example.myapplication.Models.Player;
-import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.ViewModels.Dungeon;
 
 import java.util.ArrayList;
 
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
+import com.example.myapplication.ViewModels.MovementViewModel;
 
 
 /**
@@ -54,6 +54,42 @@ public class UnitTests {
         EnemyFactory factory = new EnemyFactory();
         Enemy skeleton = factory.createEnemy("SkELEToN");
         assertTrue(skeleton.toString() == "Skeleton");
+    }
+    
+    @Test
+    public void checkEnemyFactoryDamage_Demon() {
+        int expectedDamage = ;
+        
+    }
+    
+    @Test
+    public void checkEnemyPosition() {
+    
+    }
+
+    @Test
+    public void checkSubscribers(){
+        EnemyFactory factory = new EnemyFactory();
+        Enemy skeleton = factory.createEnemy("Skeleton");
+
+        MovementViewModel movement = new MovementViewModel();
+        movement.addSubscriber(skeleton);
+
+        movement.enemyList.get(0).equals(skeleton);
+
+    }
+    @Test
+    public void checkRemoveSubscribers(){
+        EnemyFactory factory = new EnemyFactory();
+        Enemy skeleton = factory.createEnemy("Skeleton");
+
+        MovementViewModel movement = new MovementViewModel();
+        movement.addSubscriber(skeleton);
+        movement.enemyList.get(0).equals(skeleton);
+
+        movement.removeSubscriber(skeleton);
+
+        assert(movement.enemyList.size() == 0);
     }
 
     //Sprint 2 Tests
@@ -203,12 +239,13 @@ public class UnitTests {
         double newScore = player1.getScore();
         assertTrue(expectedScore == newScore);
     }
-    
+}
+
     //Sprint 3 Tests
     
     /**
      * Local test to make sure you can set player pos
-     */
+
     @Test
     public void playerSetPosTest() {
         Player player1 = Player.getInstance();
@@ -219,10 +256,16 @@ public class UnitTests {
         assert (player1.getPlayerX() == 100);
         assert (player1.getPlayerY() == 100);
     }
-    
+
+
+
+}
+
+
+
     /**
      * Local test to make sure player cant have negative position
-     */
+
     @Test
     public void playerBoundsTest() {
         Player player1 = Player.getInstance();
@@ -231,9 +274,8 @@ public class UnitTests {
         assert (player1.getPlayerX() == 300);
         assert (player1.getPlayerY() == 100);
     }
-}
-    
-    /* Local test to test wall collision
+
+     Local test to test wall collision
     //    @Test
     //    public void WallCollisionTest() {
     //        Player player1 = Player.getInstance();

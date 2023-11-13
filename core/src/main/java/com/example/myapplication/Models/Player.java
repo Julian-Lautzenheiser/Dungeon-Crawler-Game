@@ -92,13 +92,13 @@ public class Player {
     public void setPlayerX(float playerX) {
         position.x = playerX;
         if (position.x < 0) {
-            position.x = 50;
+            position.x = 62;
         }
     }
     public void setPlayerY(float playerY) {
         position.y = playerY;
         if (position.y < 0) {
-            position.y = 100;
+            position.y = 182;
         }
     }
     public double getScore() {

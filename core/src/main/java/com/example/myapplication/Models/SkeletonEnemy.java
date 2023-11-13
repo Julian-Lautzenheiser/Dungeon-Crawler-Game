@@ -1,5 +1,7 @@
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 public class SkeletonEnemy implements Enemy {
     // Implement attributes and behaviors for the Skeleton
@@ -12,7 +14,7 @@ public class SkeletonEnemy implements Enemy {
     
     public SkeletonEnemy() {
         this.position = new Vector2(0, 0);
-        this.velocity = new Vector2(8, 13);
+        this.velocity = new Vector2(3, 5);
         this.damage = 0;
         this.health = 60;
     }
@@ -31,13 +33,13 @@ public class SkeletonEnemy implements Enemy {
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 4;
+                this.damage = 3;
                 break;
             case "Medium":
-                this.damage = 8;
+                this.damage = 7;
                 break;
             case "Hard":
-                this.damage = 12;
+                this.damage = 11;
                 break;
         }
         return this.damage;

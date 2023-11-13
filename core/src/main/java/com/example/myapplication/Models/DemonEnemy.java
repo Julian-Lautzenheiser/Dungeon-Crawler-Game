@@ -10,10 +10,10 @@ public class DemonEnemy implements Enemy {
     private int health;
     Player player = Player.getInstance();
     public DemonEnemy() {
-        this.velocity = new Vector2(25,20);
+        this.velocity = new Vector2(25,30);
         this.position = new Vector2(0, 0);
         this.damage = 0;
-        this.health = 200;
+        this.health = 180;
     }
     
     @Override
@@ -31,10 +31,10 @@ public class DemonEnemy implements Enemy {
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 10;
+                this.damage = 15;
                 break;
             case "Medium":
-                this.damage = 20;
+                this.damage = 25;
                 break;
             case "Hard":
                 this.damage = 35;

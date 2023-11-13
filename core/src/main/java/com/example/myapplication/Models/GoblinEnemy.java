@@ -12,10 +12,10 @@ public class GoblinEnemy implements Enemy {
     int health;
     
     public GoblinEnemy() {
-        this.velocity = new Vector2(5, 3);
+        this.velocity = new Vector2(10, 13);
         this.position = new Vector2(0, 0);
         this.damage = 0;
-        this.health = 80;
+        this.health = 90;
     }
     
     @Override
@@ -24,7 +24,7 @@ public class GoblinEnemy implements Enemy {
         if (getPositionY() >= 195) {
             setPositionY(this.position.y - this.velocity.y);
         } else if (getPositionY() < 90) {
-            setPositionY(this.position.y - this.velocity.y);
+            setPositionY(this.position.y + this.velocity.y);
         }
     }
 
@@ -32,13 +32,13 @@ public class GoblinEnemy implements Enemy {
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 3;
+                this.damage = 9;
                 break;
             case "Medium":
-                this.damage = 7;
+                this.damage = 13;
                 break;
             case "Hard":
-                this.damage = 11;
+                this.damage = 15;
                 break;
         }
         return this.damage;

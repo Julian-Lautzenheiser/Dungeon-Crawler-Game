@@ -42,6 +42,11 @@ public class ThirdDungeonScreen implements Screen {
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy demonEnemy = enemies.createEnemy("Demon");
     private MovementViewModel movement = new MovementViewModel();
+    private double score;
+    private int playerHealth;
+    private String scoreDisplay;
+    private String healthDisplay;
+    BitmapFont statsDisplay;
     private List<Enemy> enemyList = new ArrayList<Enemy>();
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
@@ -55,13 +60,6 @@ public class ThirdDungeonScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 13, 9);
         camera.update();
-        
-        /*
-        String name = player.getName();
-        int health = player.getHealth();
-        double score = player.getScore();
-        String difficulty = chosenDifficulty(player.getDifficulty());
-         */
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
@@ -70,32 +68,9 @@ public class ThirdDungeonScreen implements Screen {
         map = new TmxMapLoader().load(level);
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        /*
-        Label nameDisplay = new Label("Player: " + name, skin);
-        nameDisplay.setFontScale(2, 2);
-        nameDisplay.setColor(Color.WHITE);
-        Label hp = new Label("HP: " + health, skin);
-        hp.setFontScale(2, 2);
-        hp.setColor(Color.WHITE);
-        scoreDisplay = new Label("Score: " + score, skin);
-        scoreDisplay.setFontScale(2, 2);
-        scoreDisplay.setColor(Color.WHITE);
-        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
-        difficultyDisplay.setFontScale(2, 2);
-        difficultyDisplay.setColor(Color.WHITE);
-    
-        Table table = new Table();
-        table.add(nameDisplay);
-        table.row();
-        table.add(hp);
-        table.row();
-    
-        table.row();
-        table.add(difficultyDisplay);
-        table.row();
-    
-        table.setPosition(250, 100);
-     */
+        
+        movement.addSubscriber(skeletonEnemy);
+        movement.addSubscriber(demonEnemy);
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -135,20 +110,29 @@ public class ThirdDungeonScreen implements Screen {
         */
 
         movement.updatePosition(level);
+        
         skeletonEnemy.setPositionX(158);
         skeletonEnemy.setPositionY(100);
         
         demonEnemy.setPositionX(258);
-        demonEnemy.setPositionY(185);
+        demonEnemy.setPositionY(175);
         
         game.getBatch().begin();
+    
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
         game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), 38,55);
         game.getBatch().end();
-
-        if (player.getHealth() == 0) {
+    
+        healthDisplay = "HP: " + player.getHealth();
+    
+    
+        if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
@@ -189,6 +173,8 @@ public class ThirdDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(skeletonEnemy);
+        movement.removeSubscriber(demonEnemy);
     }
     
     public void createStyle() {
@@ -202,5 +188,11 @@ public class ThirdDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+    
+        score = player.getScore();
+        playerHealth = player.getHealth();
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        statsDisplay = new BitmapFont();
     }
 }

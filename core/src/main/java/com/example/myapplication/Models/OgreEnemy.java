@@ -11,27 +11,32 @@ public class OgreEnemy implements Enemy {
     Player player = Player.getInstance();
     
     public OgreEnemy() {
-        this.velocity = new Vector2(15, 20);
+        this.velocity = new Vector2(18, 20);
         this.position = new Vector2(0,0);
         this.damage = 15;
-        this.health = 175;
+        this.health = 130;
     }
     @Override
     public void move() {
         // Implement movement logic
+        if (getPositionY() >= 195) {
+            setPositionY(this.position.y - this.velocity.y);
+        } else if (getPositionY() < 90) {
+            setPositionY(this.position.y - this.velocity.y);
+        }
     }
 
     @Override
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 8;
+                this.damage = 9;
                 break;
             case "Medium":
-                this.damage = 16;
+                this.damage = 15;
                 break;
             case "Hard":
-                this.damage = 24;
+                this.damage = 21;
                 break;
         }
         return this.damage;
@@ -64,16 +69,17 @@ public class OgreEnemy implements Enemy {
             this.position.y = yCoordinate;
         }
     }
-    
+
     public void setPositionX(float xCoordinate) {
-        if (xCoordinate > 200) {
-            this.position.x = 190;
+        if (xCoordinate > 340) {
+            this.position.x = 340;
         } else if (xCoordinate < 0) {
             this.position.x = 70;
         } else {
             this.position.x = xCoordinate;
         }
     }
+    
     public String chosenDifficulty(double difficulty) {
         if (difficulty == 0.5) {
             return "Easy";

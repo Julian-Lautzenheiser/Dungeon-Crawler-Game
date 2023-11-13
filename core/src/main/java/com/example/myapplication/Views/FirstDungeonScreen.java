@@ -12,14 +12,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
-import com.example.myapplication.Models.GoblinEnemy;
 import com.example.myapplication.Models.Player;
-import com.example.myapplication.Models.SkeletonEnemy;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
@@ -45,12 +42,16 @@ public class FirstDungeonScreen implements Screen {
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-    private Label scoreDisplay;
+    private double score;
+    private int playerHealth;
+    private String scoreDisplay;
+    private String healthDisplay;
+    BitmapFont statsDisplay;
     private String level = "room1.tmx";
-
-
-
     public FirstDungeonScreen(final Dungeon game) {
+        player.setPlayerX(-1);
+        player.setPlayerY(-1);
+        
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -64,11 +65,6 @@ public class FirstDungeonScreen implements Screen {
     
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
-    
-        String name = player.getName();
-        int health = player.getHealth();
-        double score = player.getScore();
-        String difficulty = chosenDifficulty(player.getDifficulty());
 
         //Creates the sprite and sets the width and height
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
@@ -80,40 +76,11 @@ public class FirstDungeonScreen implements Screen {
       
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        
-        Label nameDisplay = new Label("Player: " + name, skin);
-        nameDisplay.setFontScale(2, 2);
-        nameDisplay.setColor(Color.WHITE);
-        Label hp = new Label("HP: " + health, skin);
-        hp.setFontScale(2, 2);
-        hp.setColor(Color.WHITE);
-        scoreDisplay = new Label("Score: " + score, skin);
-        scoreDisplay.setFontScale(2, 2);
-        scoreDisplay.setColor(Color.WHITE);
-        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
-        difficultyDisplay.setFontScale(2, 2);
-        difficultyDisplay.setColor(Color.WHITE);
 
         //Create list of spawned Enemies to track position/health
         movement.addSubscriber(skeletonEnemy);
         movement.addSubscriber(goblinEnemy);
-
-
-
-        /*
-        Table table = new Table();
-        table.add(nameDisplay);
-        table.row();
-        table.add(hp);
-        table.row();
         
-        table.row();
-        table.add(difficultyDisplay);
-        table.row();
-        
-        table.setPosition(250, 100);
-        */
-    
         createStyle();
         //        next = new TextButton("Next", style);
         //        next.getLabel().setFontScale(6, 3);
@@ -127,8 +94,6 @@ public class FirstDungeonScreen implements Screen {
         //                dispose();
         //            }
         //        });
-        
-        //stage.addActor(table);
         //stage.addActor(next);
     }
 
@@ -155,28 +120,41 @@ public class FirstDungeonScreen implements Screen {
 
         movement.updatePosition(level);
     
-        skeletonEnemy.setPositionX(188);
-        skeletonEnemy.setPositionY(180);
+        skeletonEnemy.setPositionX(290);
+        skeletonEnemy.setPositionY(120);
     
         goblinEnemy.setPositionX(158);
-        goblinEnemy.setPositionY(120);
-
-
+        goblinEnemy.setPositionY(180);
+    
+        skeletonEnemy.move();
+        goblinEnemy.move();
+        
         game.getBatch().begin();
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
-        game.getBatch().end();
 
-        if (player.getHealth() == 0) {
+        //Check if player runs into enemy
+        
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),skeletonEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
+        
+        game.getBatch().end();
+        
+        healthDisplay = "HP: " + player.getHealth();
+        
+        if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
-
+        
         if (movement.checkExit(level)) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }
+        
         stage.draw();
         stage.act();
     }
@@ -207,6 +185,8 @@ public class FirstDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(skeletonEnemy);
+        movement.removeSubscriber(goblinEnemy);
     }
     
     public String chosenDifficulty(double difficulty) {
@@ -231,5 +211,11 @@ public class FirstDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+        
+        score = player.getScore();
+        playerHealth = player.getHealth();
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        statsDisplay = new BitmapFont();
     }
 }

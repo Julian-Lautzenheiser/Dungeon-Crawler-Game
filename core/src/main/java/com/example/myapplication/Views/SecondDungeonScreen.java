@@ -43,7 +43,11 @@ public class SecondDungeonScreen implements Screen {
     private Enemy ogreEnemy = enemies.createEnemy("Ogre");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-    private List<Enemy> enemyList = new ArrayList<Enemy>();
+    private double score;
+    private int playerHealth;
+    private String scoreDisplay;
+    private String healthDisplay;
+    BitmapFont statsDisplay;
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -65,6 +69,9 @@ public class SecondDungeonScreen implements Screen {
         enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
       
         map = new TmxMapLoader().load(level);
+    
+        movement.addSubscriber(ogreEnemy);
+        movement.addSubscriber(goblinEnemy);
       
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
 
@@ -115,12 +122,21 @@ public class SecondDungeonScreen implements Screen {
         goblinEnemy.setPositionY(185);
         
         game.getBatch().begin();
+    
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        
         game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 35, 45);
         game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), 40, 50);
         game.getBatch().end();
     
-        if (player.getHealth() == 0) {
+        healthDisplay = "HP: " + player.getHealth();
+    
+    
+        if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
@@ -161,6 +177,8 @@ public class SecondDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(ogreEnemy);
+        movement.removeSubscriber(goblinEnemy);
     }
 
     public void createStyle() {
@@ -174,5 +192,11 @@ public class SecondDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+    
+        score = player.getScore();
+        playerHealth = player.getHealth();
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        statsDisplay = new BitmapFont();
     }
 }

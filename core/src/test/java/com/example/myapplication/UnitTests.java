@@ -8,7 +8,6 @@ import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
 import com.example.myapplication.Models.Player;
-import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.ViewModels.Dungeon;
 
 import java.util.ArrayList;
@@ -80,7 +79,6 @@ public class UnitTests {
         movement.removeSubscriber(skeleton);
 
         assert(movement.enemyList.size() == 0);
-
     }
 
     //Sprint 2 Tests

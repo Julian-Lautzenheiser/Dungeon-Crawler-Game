@@ -1,5 +1,7 @@
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class GoblinEnemy implements Enemy {
@@ -10,30 +12,38 @@ public class GoblinEnemy implements Enemy {
     Vector2 velocity;
     Vector2 position;
     int health;
-    
+
     public GoblinEnemy() {
-        this.velocity = new Vector2(5, 3);
+        this.velocity = new Vector2(10, 13);
         this.position = new Vector2(0, 0);
         this.damage = 0;
-        this.health = 80;
+        this.health = 90;
     }
     
     @Override
     public void move() {
         // Implement movement logic
+        Vector2 tempVelocity = new Vector2(0, 0);
+        if (getPositionY() < 95) {
+            tempVelocity.y = this.velocity.x;
+            this.velocity.add(tempVelocity);
+        } else if (getPositionY() > 190) {
+            tempVelocity.y = -this.velocity.y;
+            this.velocity.add(tempVelocity);
+        }
     }
 
     @Override
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 3;
+                this.damage = 9;
                 break;
             case "Medium":
-                this.damage = 7;
+                this.damage = 13;
                 break;
             case "Hard":
-                this.damage = 11;
+                this.damage = 15;
                 break;
         }
         return this.damage;
@@ -65,19 +75,16 @@ public class GoblinEnemy implements Enemy {
         } else {
             this.position.y = yCoordinate;
         }
-
     }
-    
-    public void setPositionX(float xCoordinate) {
 
-        if (xCoordinate > 200) {
-            this.position.x = 190;
+    public void setPositionX(float xCoordinate) {
+        if (xCoordinate > 340) {
+            this.position.x = 340;
         } else if (xCoordinate < 0) {
             this.position.x = 70;
         } else {
             this.position.x = xCoordinate;
         }
-
     }
     
     public String chosenDifficulty(double difficulty) {

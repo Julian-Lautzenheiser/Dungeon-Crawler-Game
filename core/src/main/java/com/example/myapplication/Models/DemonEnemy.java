@@ -10,15 +10,21 @@ public class DemonEnemy implements Enemy {
     private int health;
     Player player = Player.getInstance();
     public DemonEnemy() {
-        this.velocity = new Vector2(25,20);
+        this.velocity = new Vector2(25,30);
         this.position = new Vector2(0, 0);
         this.damage = 0;
-        this.health = 200;
+        this.health = 180;
     }
     
     @Override
     public void move() {
         // Implement movement logic
+        if (getPositionY() >= 195) {
+            
+            setPositionY(this.position.y - this.velocity.y);
+        } else if (getPositionY() < 90) {
+            setPositionY(this.position.y - this.velocity.y);
+        }
     }
 
     @Override
@@ -26,10 +32,10 @@ public class DemonEnemy implements Enemy {
     public int attack() {
         switch(chosenDifficulty(player.getDifficulty())) {
             case "Easy":
-                this.damage = 10;
+                this.damage = 15;
                 break;
             case "Medium":
-                this.damage = 20;
+                this.damage = 25;
                 break;
             case "Hard":
                 this.damage = 35;
@@ -65,10 +71,10 @@ public class DemonEnemy implements Enemy {
             this.position.y = yCoordinate;
         }
     }
-    
+
     public void setPositionX(float xCoordinate) {
-        if (xCoordinate > 200) {
-            this.position.x = 190;
+        if (xCoordinate > 340) {
+            this.position.x = 340;
         } else if (xCoordinate < 0) {
             this.position.x = 70;
         } else {

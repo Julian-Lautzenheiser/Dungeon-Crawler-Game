@@ -8,11 +8,11 @@ public class OgreEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
-    Player player = Player.getInstance();
+    private Player player = Player.getInstance();
     
     public OgreEnemy() {
         this.velocity = new Vector2(18, 20);
-        this.position = new Vector2(0,0);
+        this.position = new Vector2(0, 0);
         this.damage = 15;
         this.health = 130;
     }
@@ -28,16 +28,19 @@ public class OgreEnemy implements Enemy {
 
     @Override
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 9;
-                break;
-            case "Medium":
-                this.damage = 15;
-                break;
-            case "Hard":
-                this.damage = 21;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 9;
+            break;
+        case "Medium":
+            this.damage = 15;
+            break;
+        case "Hard":
+            this.damage = 21;
+            break;
+        default:
+            this.damage = 9;
+            break;
         }
         return this.damage;
     }

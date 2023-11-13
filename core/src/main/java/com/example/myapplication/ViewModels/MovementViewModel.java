@@ -31,13 +31,13 @@ public class MovementViewModel implements Subscriber {
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
     private Vector2 prevVelocity = new Vector2();
-    public List<Enemy> enemyList = new ArrayList<Enemy>();
-    public void addSubscriber(Enemy E) {
-        enemyList.add(E);
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
+    public void addSubscriber(Enemy e) {
+        getEnemyList().add(e);
     }
 
-    public void removeSubscriber(Enemy E) {
-        enemyList.remove(E);
+    public void removeSubscriber(Enemy e) {
+        getEnemyList().remove(e);
     }
 
     // Move in the corresponding direction up to a collision object
@@ -132,12 +132,14 @@ public class MovementViewModel implements Subscriber {
 
         //CHECK FOR ENEMY COLLISION
         Rectangle enemyRect = rectPool.obtain();
-        for (Enemy E : enemyList) {
-                if(position.x < (E.getPositionX() + 5) && (position.x + player.getWidth()/2) > E.getPositionX() &&
-                        position.y <  (E.getPositionY() + 10) && (position.y + player.getHeight()/2) > E.getPositionY()) {
-                            playerEnemyCollide(E);
-                            velocity.x = -velocity.x;
-                            velocity.y = -velocity.y;
+        for (Enemy e : getEnemyList()) {
+            if (position.x < (e.getPositionX() + 5) && (position.x + player.getWidth() / 2)
+                    > e.getPositionX()
+                    && position.y <  (e.getPositionY() + 10)
+                    && (position.y + player.getHeight() / 2) > e.getPositionY()) {
+                playerEnemyCollide(e);
+                velocity.x = -velocity.x;
+                velocity.y = -velocity.y;
             }
         }
         position.set(initPos);
@@ -145,7 +147,15 @@ public class MovementViewModel implements Subscriber {
     }
 
 
-    public void playerEnemyCollide(Enemy E) {
-        player.setHealth(player.getHealth() - E.attack());
+    public void playerEnemyCollide(Enemy enemy) {
+        player.setHealth(player.getHealth() - enemy.attack());
+    }
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
+    }
+
+    public void setEnemyList(List<Enemy> enemyList) {
+        this.enemyList = enemyList;
     }
 }

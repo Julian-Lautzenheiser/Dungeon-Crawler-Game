@@ -1,17 +1,15 @@
 package com.example.myapplication.Models;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 public class GoblinEnemy implements Enemy {
     // Implement attributes and behaviors for the Goblin
     // e.g., sprite, speed, size
-    Player player = Player.getInstance();
-    int damage;
-    Vector2 velocity;
-    Vector2 position;
-    int health;
+    private Player player = Player.getInstance();
+    private int damage;
+    private Vector2 velocity;
+    private Vector2 position;
+    private int health;
 
     public GoblinEnemy() {
         this.velocity = new Vector2(10, 13);
@@ -35,16 +33,19 @@ public class GoblinEnemy implements Enemy {
 
     @Override
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 9;
-                break;
-            case "Medium":
-                this.damage = 13;
-                break;
-            case "Hard":
-                this.damage = 15;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 9;
+            break;
+        case "Medium":
+            this.damage = 13;
+            break;
+        case "Hard":
+            this.damage = 15;
+            break;
+        default:
+            this.damage = 9;
+            break;
         }
         return this.damage;
     }

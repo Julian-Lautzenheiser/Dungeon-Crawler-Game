@@ -21,8 +21,6 @@ import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SecondDungeonScreen implements Screen {
 
@@ -47,7 +45,7 @@ public class SecondDungeonScreen implements Screen {
     private int playerHealth;
     private String scoreDisplay;
     private String healthDisplay;
-    BitmapFont statsDisplay;
+    private BitmapFont statsDisplay;
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -127,10 +125,13 @@ public class SecondDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
         
-        game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), 40, 50);
+        game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(),
+                goblinEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(),
+                ogreEnemy.getPositionY(), 40, 50);
         game.getBatch().end();
     
         healthDisplay = "HP: " + player.getHealth();

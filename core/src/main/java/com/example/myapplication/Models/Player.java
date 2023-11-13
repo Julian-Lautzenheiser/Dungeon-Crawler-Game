@@ -20,7 +20,7 @@ public class Player {
 
     private Player() {
         this.position = new Vector2(62, 182);
-        this.velocity = new Vector2(0,0);
+        this.velocity = new Vector2(0, 0);
         this.sprite = "";
         this.health = 200;
         this.score = 0.0;

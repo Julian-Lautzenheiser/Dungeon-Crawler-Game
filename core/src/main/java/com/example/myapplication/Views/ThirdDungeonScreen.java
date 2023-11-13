@@ -71,6 +71,12 @@ public class ThirdDungeonScreen implements Screen {
         
         movement.addSubscriber(skeletonEnemy);
         movement.addSubscriber(demonEnemy);
+    
+        skeletonEnemy.setPositionX(158);
+        skeletonEnemy.setPositionY(100);
+    
+        demonEnemy.setPositionX(258);
+        demonEnemy.setPositionY(175);
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -111,11 +117,8 @@ public class ThirdDungeonScreen implements Screen {
 
         movement.updatePosition(level);
         
-        skeletonEnemy.setPositionX(158);
-        skeletonEnemy.setPositionY(100);
-        
-        demonEnemy.setPositionX(258);
-        demonEnemy.setPositionY(175);
+        skeletonEnemy.move();
+        demonEnemy.move();
         
         game.getBatch().begin();
     

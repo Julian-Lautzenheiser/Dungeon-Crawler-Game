@@ -8,21 +8,29 @@ public class OgreEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
+
+
+    private boolean direction = true;
     private Player player = Player.getInstance();
-    
     public OgreEnemy() {
-        this.velocity = new Vector2(18, 20);
-        this.position = new Vector2(0, 0);
+        this.velocity = new Vector2(18, 1);
+        this.position = new Vector2(0,0);
         this.damage = 15;
         this.health = 130;
     }
     @Override
     public void move() {
-        // Implement movement logic
-        if (getPositionY() >= 195) {
+        if(getPositionY() > 150) {
+            direction = false;
+        }
+        if(direction){
+            setPositionY(this.position.y + this.velocity.y);
+            return;
+        } else {
             setPositionY(this.position.y - this.velocity.y);
-        } else if (getPositionY() < 90) {
-            setPositionY(this.position.y - this.velocity.y);
+            if(getPositionY() < 80) {
+                direction = true;
+            }
         }
     }
 

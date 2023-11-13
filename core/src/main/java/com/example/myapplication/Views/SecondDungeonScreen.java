@@ -70,8 +70,14 @@ public class SecondDungeonScreen implements Screen {
     
         movement.addSubscriber(ogreEnemy);
         movement.addSubscriber(goblinEnemy);
-      
+
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+
+        ogreEnemy.setPositionX(158);
+        ogreEnemy.setPositionY(100);
+
+        goblinEnemy.setPositionX(258);
+        goblinEnemy.setPositionY(185);
 
 
         createStyle();
@@ -112,12 +118,9 @@ public class SecondDungeonScreen implements Screen {
          */
 
         movement.updatePosition(level);
-    
-        ogreEnemy.setPositionX(158);
-        ogreEnemy.setPositionY(100);
-    
-        goblinEnemy.setPositionX(258);
-        goblinEnemy.setPositionY(185);
+
+        ogreEnemy.move();
+        goblinEnemy.move();
         
         game.getBatch().begin();
     

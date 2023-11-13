@@ -11,7 +11,7 @@ public class GoblinEnemy implements Enemy {
     private Vector2 position;
     private int health;
 
-    boolean direction = true;
+    private boolean direction = true;
     public GoblinEnemy() {
         this.velocity = new Vector2(1, 13);
         this.position = new Vector2(0, 0);
@@ -22,15 +22,15 @@ public class GoblinEnemy implements Enemy {
     @Override
     public void move() {
         // Implement movement logic
-        if(getPositionX() > 190) {
+        if (getPositionX() > 190) {
             direction = false;
         }
-        if(direction){
+        if (direction) {
             setPositionX(this.position.x + this.velocity.x);
             return;
         } else {
             setPositionX(this.position.x - this.velocity.x);
-            if(getPositionX() < 150) {
+            if (getPositionX() < 150) {
                 direction = true;
             }
         }

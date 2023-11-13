@@ -14,21 +14,21 @@ public class OgreEnemy implements Enemy {
     private Player player = Player.getInstance();
     public OgreEnemy() {
         this.velocity = new Vector2(18, 1);
-        this.position = new Vector2(0,0);
+        this.position = new Vector2(0, 0);
         this.damage = 15;
         this.health = 130;
     }
     @Override
     public void move() {
-        if(getPositionY() > 150) {
+        if (getPositionY() > 150) {
             direction = false;
         }
-        if(direction){
+        if (direction) {
             setPositionY(this.position.y + this.velocity.y);
             return;
         } else {
             setPositionY(this.position.y - this.velocity.y);
-            if(getPositionY() < 80) {
+            if (getPositionY() < 80) {
                 direction = true;
             }
         }

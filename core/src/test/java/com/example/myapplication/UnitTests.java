@@ -64,7 +64,7 @@ public class UnitTests {
         MovementViewModel movement = new MovementViewModel();
         movement.addSubscriber(skeleton);
 
-        movement.enemyList.get(0).equals(skeleton);
+        movement.getEnemyList().get(0).equals(skeleton);
 
     }
     @Test
@@ -74,11 +74,11 @@ public class UnitTests {
 
         MovementViewModel movement = new MovementViewModel();
         movement.addSubscriber(skeleton);
-        movement.enemyList.get(0).equals(skeleton);
+        movement.getEnemyList().get(0).equals(skeleton);
 
         movement.removeSubscriber(skeleton);
 
-        assert(movement.enemyList.size() == 0);
+        assert(movement.getEnemyList().size() == 0);
     }
 
     @Test

@@ -52,7 +52,7 @@ public class LosingScreen implements Screen {
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
         
-        lost = new Label("YOU LOSE!" , skin);
+        lost = new Label("YOU LOSE!", skin);
         lost.setFontScale(8, 7);
         Label recent = new Label("New Score: " + display, skin);
         recent.setFontScale(2, 2);

@@ -20,7 +20,7 @@ public class Player {
 
     private Player() {
         this.position = new Vector2(62, 182);
-        this.velocity = new Vector2(0,0);
+        this.velocity = new Vector2(0, 0);
         this.sprite = "";
         this.health = 200;
         this.score = 0.0;
@@ -50,18 +50,11 @@ public class Player {
     }
 
     public void setHealth(int health) {
-        if (health <= 0) {
-            this.health = 200;
-        } else {
-            this.health = health;
-        }
+        this.health = health;
     }
   
     public int getHealth() {
-        if (this.health <= 0) {
-            this.health = 200;
-        }
-        return health;
+        return this.health;
     }
   
     public String getName() {

@@ -46,7 +46,7 @@ public class ThirdDungeonScreen implements Screen {
     private int playerHealth;
     private String scoreDisplay;
     private String healthDisplay;
-    BitmapFont statsDisplay;
+    private BitmapFont statsDisplay;
     private List<Enemy> enemyList = new ArrayList<Enemy>();
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
@@ -123,10 +123,13 @@ public class ThirdDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
         
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), 38,55);
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                skeletonEnemy.getPositionY(), 35, 45);
+        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
+                demonEnemy.getPositionY(), 38, 55);
         game.getBatch().end();
     
         healthDisplay = "HP: " + player.getHealth();

@@ -8,9 +8,9 @@ public class DemonEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
-    Player player = Player.getInstance();
+    private Player player = Player.getInstance();
     public DemonEnemy() {
-        this.velocity = new Vector2(25,30);
+        this.velocity = new Vector2(25, 30);
         this.position = new Vector2(0, 0);
         this.damage = 0;
         this.health = 180;
@@ -30,16 +30,17 @@ public class DemonEnemy implements Enemy {
     @Override
     // Implement attack logic -> return damage count of the enemy.
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 15;
-                break;
-            case "Medium":
-                this.damage = 25;
-                break;
-            case "Hard":
-                this.damage = 35;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 15;
+            break;
+        case "Medium":
+            this.damage = 25;
+            break;
+        case "Hard":
+            this.damage = 35;
+            break;
+        default:
         }
         return this.damage;
     }

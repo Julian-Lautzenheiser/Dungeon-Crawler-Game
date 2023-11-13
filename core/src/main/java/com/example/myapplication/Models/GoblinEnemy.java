@@ -27,7 +27,6 @@ public class GoblinEnemy implements Enemy {
         }
         if (direction) {
             setPositionX(this.position.x + this.velocity.x);
-            return;
         } else {
             setPositionX(this.position.x - this.velocity.x);
             if (getPositionX() < 150) {

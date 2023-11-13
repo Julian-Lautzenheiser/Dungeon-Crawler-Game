@@ -25,7 +25,6 @@ public class OgreEnemy implements Enemy {
         }
         if (direction) {
             setPositionY(this.position.y + this.velocity.y);
-            return;
         } else {
             setPositionY(this.position.y - this.velocity.y);
             if (getPositionY() < 80) {

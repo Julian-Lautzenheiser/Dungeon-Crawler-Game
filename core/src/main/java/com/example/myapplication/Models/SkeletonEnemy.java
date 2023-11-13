@@ -22,15 +22,15 @@ public class SkeletonEnemy implements Enemy {
     
     @Override
     public void move() {
-        if(getPositionY() > 190) {
+        if (getPositionY() > 190) {
             direction = false;
         }
-        if(direction){
+        if (direction) {
             setPositionY(this.position.y + this.velocity.y);
             return;
         } else {
             setPositionY(this.position.y - this.velocity.y);
-            if(getPositionY() < 80) {
+            if (getPositionY() < 80) {
                 direction = true;
             }
         }

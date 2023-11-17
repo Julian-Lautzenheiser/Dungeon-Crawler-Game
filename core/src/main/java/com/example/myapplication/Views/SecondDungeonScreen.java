@@ -72,6 +72,16 @@ public class SecondDungeonScreen implements Screen {
     
         movement.addSubscriber(ogreEnemy);
         movement.addSubscriber(goblinEnemy);
+
+        ogreEnemy.setPositionX(158);
+        ogreEnemy.setPositionY(100);
+        ogreEnemy.setHeight(45);
+        ogreEnemy.setWidth(40);
+
+        goblinEnemy.setPositionX(258);
+        goblinEnemy.setPositionY(185);
+        goblinEnemy.setHeight(50);
+        goblinEnemy.setWidth(40);
       
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
 
@@ -114,12 +124,8 @@ public class SecondDungeonScreen implements Screen {
          */
 
         movement.updatePosition(level);
-    
-        ogreEnemy.setPositionX(158);
-        ogreEnemy.setPositionY(100);
-    
-        goblinEnemy.setPositionX(258);
-        goblinEnemy.setPositionY(185);
+        ogreEnemy.move(level);
+        goblinEnemy.move(level);
         
         game.getBatch().begin();
     
@@ -129,8 +135,8 @@ public class SecondDungeonScreen implements Screen {
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         
-        game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), 40, 50);
+        game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
+        game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
         game.getBatch().end();
     
         healthDisplay = "HP: " + player.getHealth();

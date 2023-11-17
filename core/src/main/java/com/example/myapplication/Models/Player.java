@@ -40,6 +40,10 @@ public class Player {
         }
         return player;
     }
+    public void resetPlayer() {
+        this.health = 200;
+        this.score = 0.0;
+    }
 
     public String getSprite() {
         return sprite;
@@ -50,17 +54,10 @@ public class Player {
     }
 
     public void setHealth(int health) {
-        if (health <= 0) {
-            this.health = 200;
-        } else {
-            this.health = health;
-        }
+        this.health = health;
     }
   
     public int getHealth() {
-        if (this.health <= 0) {
-            this.health = 200;
-        }
         return health;
     }
   
@@ -162,9 +159,7 @@ public class Player {
     }
     
     public void damageTaken(int damage) {
-        if (this.health > 0) {
             this.health -= damage;
-        }
     }
     
     public int getDamage() {

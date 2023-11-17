@@ -2,34 +2,55 @@ package com.example.myapplication.Models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class GoblinEnemy implements Enemy {
     // Implement attributes and behaviors for the Goblin
     // e.g., sprite, speed, size
     Player player = Player.getInstance();
+    MovementViewModel movement = new MovementViewModel();
     int damage;
     Vector2 velocity;
     Vector2 position;
     int health;
+    int width;
+    int height;
 
     public GoblinEnemy() {
-        this.velocity = new Vector2(10, 13);
+        this.velocity = new Vector2(0, 4);
         this.position = new Vector2(0, 0);
-        this.damage = 0;
+        this.damage = (int)(5 * player.getDifficulty());
         this.health = 90;
     }
     
     @Override
-    public void move() {
-        // Implement movement logic
-        Vector2 tempVelocity = new Vector2(0, 0);
-        if (getPositionY() < 95) {
-            tempVelocity.y = this.velocity.x;
-            this.velocity.add(tempVelocity);
-        } else if (getPositionY() > 190) {
-            tempVelocity.y = -this.velocity.y;
-            this.velocity.add(tempVelocity);
+    public void move(String level) {
+        TiledMap map = new TmxMapLoader().load(level);
+        MapLayer layer = map.getLayers().get("Walls");
+        MapObjects objects = layer.getObjects();
+
+        //Perform collision detection
+        Vector2 newPos = position;
+        newPos.x += velocity.x;
+        newPos.y += velocity.y;
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            if (rectangle.contains(newPos)) {
+                velocity.x = velocity.x * -1;
+                velocity.y = velocity.y * -1;
+            }
+        }
+        position.add(velocity);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        if (enemyRectangle.contains(player.getPosition())) {
+            player.damageTaken(damage);
         }
     }
 
@@ -96,6 +117,21 @@ public class GoblinEnemy implements Enemy {
             return "Hard";
         }
         return null;
+    }
+    public int getWidth() {
+        return this.width;
+    }
+    public int getHeight() {
+        return this.height;
+    }
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     @Override

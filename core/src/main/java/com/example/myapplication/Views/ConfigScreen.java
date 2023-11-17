@@ -254,6 +254,7 @@ public class ConfigScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (game.getPlayerName() != null && game.getPlayerName() != "") {
+                    game.resetPlayer();
                     game.setScreen(new FirstDungeonScreen(game));
                     dispose();
                 }

@@ -80,7 +80,17 @@ public class FirstDungeonScreen implements Screen {
         //Create list of spawned Enemies to track position/health
         movement.addSubscriber(skeletonEnemy);
         movement.addSubscriber(goblinEnemy);
-        
+
+        skeletonEnemy.setPositionX(290);
+        skeletonEnemy.setPositionY(120);
+        skeletonEnemy.setWidth(35);
+        skeletonEnemy.setHeight(45);
+
+        goblinEnemy.setPositionX(158);
+        goblinEnemy.setPositionY(180);
+        goblinEnemy.setWidth(40);
+        goblinEnemy.setHeight(50);
+
         createStyle();
         //        next = new TextButton("Next", style);
         //        next.getLabel().setFontScale(6, 3);
@@ -120,14 +130,8 @@ public class FirstDungeonScreen implements Screen {
 
         movement.updatePosition(level);
     
-        skeletonEnemy.setPositionX(290);
-        skeletonEnemy.setPositionY(120);
-    
-        goblinEnemy.setPositionX(158);
-        goblinEnemy.setPositionY(180);
-    
-        skeletonEnemy.move();
-        goblinEnemy.move();
+        skeletonEnemy.move(level);
+        goblinEnemy.move(level);
         
         game.getBatch().begin();
 
@@ -138,8 +142,8 @@ public class FirstDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),skeletonEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
         
         game.getBatch().end();
         

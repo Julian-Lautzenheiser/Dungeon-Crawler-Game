@@ -119,7 +119,7 @@ public class MovementViewModel implements Subscriber {
 
     public void checkPlayerObjectCollision(Vector2 velocity) {
         Vector2 position = player.getPosition();
-        Rectangle spriteRect = rectPool.obtain();
+        Rectangle spriteRect = new Rectangle(player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
 
 
         //Perform collision detection and response on each axis separately
@@ -132,14 +132,12 @@ public class MovementViewModel implements Subscriber {
 
         //CHECK FOR ENEMY COLLISION
         Rectangle enemyRect = rectPool.obtain();
-        for (Enemy e : getEnemyList()) {
-            if (position.x < (e.getPositionX() + 5) && (position.x + player.getWidth() / 2)
-                    > e.getPositionX()
-                    && position.y <  (e.getPositionY() + 10)
-                    && (position.y + player.getHeight() / 2) > e.getPositionY()) {
-                playerEnemyCollide(e);
-                velocity.x = -velocity.x;
-                velocity.y = -velocity.y;
+        for (Enemy E : enemyList) {
+            Rectangle enemyRectangle = new Rectangle(E.getPositionX(), E.getPositionY(), E.getWidth(), E.getHeight());
+                if(enemyRectangle.contains(position)) {
+                            playerEnemyCollide(E);
+                            velocity.x = -velocity.x;
+                            velocity.y = -velocity.y;
             }
         }
         position.set(initPos);

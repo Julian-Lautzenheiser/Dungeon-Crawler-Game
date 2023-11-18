@@ -71,12 +71,16 @@ public class ThirdDungeonScreen implements Screen {
         
         movement.addSubscriber(skeletonEnemy);
         movement.addSubscriber(demonEnemy);
-    
+
         skeletonEnemy.setPositionX(158);
         skeletonEnemy.setPositionY(100);
-    
+        skeletonEnemy.setWidth(35);
+        skeletonEnemy.setHeight(45);
+
         demonEnemy.setPositionX(258);
         demonEnemy.setPositionY(175);
+        demonEnemy.setWidth(38);
+        demonEnemy.setHeight(55);
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -116,9 +120,8 @@ public class ThirdDungeonScreen implements Screen {
         */
 
         movement.updatePosition(level);
-        
-        skeletonEnemy.move();
-        demonEnemy.move();
+        skeletonEnemy.move(level);
+        demonEnemy.move(level);
         
         game.getBatch().begin();
     
@@ -129,10 +132,8 @@ public class ThirdDungeonScreen implements Screen {
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
         
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
-                skeletonEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
-                demonEnemy.getPositionY(), 38, 55);
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), demonEnemy.getWidth(),demonEnemy.getHeight());
         game.getBatch().end();
     
         healthDisplay = "HP: " + player.getHealth();

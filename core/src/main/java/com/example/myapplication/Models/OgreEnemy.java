@@ -14,9 +14,9 @@ public class OgreEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
-    int width;
-    int height;
-    Player player = Player.getInstance();
+    private int width;
+    private int height;
+    private Player player = Player.getInstance();
     
     public OgreEnemy() {
         this.velocity = new Vector2(6, 0);
@@ -45,21 +45,23 @@ public class OgreEnemy implements Enemy {
         Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
-        }
     }
 
     @Override
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 9;
-                break;
-            case "Medium":
-                this.damage = 15;
-                break;
-            case "Hard":
-                this.damage = 21;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 9;
+            break;
+        case "Medium":
+            this.damage = 15;
+            break;
+        case "Hard":
+            this.damage = 21;
+            break;
+        default:
+            this.damage = 9;
+            break;
         }
         return this.damage;
     }

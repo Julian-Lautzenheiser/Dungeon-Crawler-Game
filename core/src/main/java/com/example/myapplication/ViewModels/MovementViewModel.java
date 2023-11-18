@@ -31,13 +31,13 @@ public class MovementViewModel implements Subscriber {
     };
     private Array<Rectangle> tiles = new Array<Rectangle>();
     private Vector2 prevVelocity = new Vector2();
-    public List<Enemy> enemyList = new ArrayList<Enemy>();
-    public void addSubscriber(Enemy E) {
-        enemyList.add(E);
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
+    public void addSubscriber(Enemy e) {
+        getEnemyList().add(e);
     }
 
-    public void removeSubscriber(Enemy E) {
-        enemyList.remove(E);
+    public void removeSubscriber(Enemy e) {
+        getEnemyList().remove(e);
     }
 
     // Move in the corresponding direction up to a collision object
@@ -145,7 +145,15 @@ public class MovementViewModel implements Subscriber {
     }
 
 
-    public void playerEnemyCollide(Enemy E) {
-        player.setHealth(player.getHealth() - E.attack());
+    public void playerEnemyCollide(Enemy enemy) {
+        player.setHealth(player.getHealth() - enemy.attack());
+    }
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
+    }
+
+    public void setEnemyList(List<Enemy> enemyList) {
+        this.enemyList = enemyList;
     }
 }

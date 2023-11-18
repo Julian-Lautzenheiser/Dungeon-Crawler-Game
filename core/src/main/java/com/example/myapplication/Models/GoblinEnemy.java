@@ -14,15 +14,16 @@ import com.example.myapplication.ViewModels.MovementViewModel;
 public class GoblinEnemy implements Enemy {
     // Implement attributes and behaviors for the Goblin
     // e.g., sprite, speed, size
-    Player player = Player.getInstance();
     MovementViewModel movement = new MovementViewModel();
-    int damage;
-    Vector2 velocity;
-    Vector2 position;
-    int health;
-    int width;
-    int height;
+    private int width;
+    private int height;
+    private Player player = Player.getInstance();
+    private int damage;
+    private Vector2 velocity;
+    private Vector2 position;
+    private int health;
 
+    private boolean direction = true;
     public GoblinEnemy() {
         this.velocity = new Vector2(0, 4);
         this.position = new Vector2(0, 0);
@@ -56,16 +57,19 @@ public class GoblinEnemy implements Enemy {
 
     @Override
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 9;
-                break;
-            case "Medium":
-                this.damage = 13;
-                break;
-            case "Hard":
-                this.damage = 15;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 9;
+            break;
+        case "Medium":
+            this.damage = 13;
+            break;
+        case "Hard":
+            this.damage = 15;
+            break;
+        default:
+            this.damage = 9;
+            break;
         }
         return this.damage;
     }

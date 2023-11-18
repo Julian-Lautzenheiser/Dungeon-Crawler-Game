@@ -17,8 +17,11 @@ public class DemonEnemy implements Enemy {
     int width;
     int height;
     Player player = Player.getInstance();
+    private boolean direction = true;
+    private Player player = Player.getInstance();
+  
     public DemonEnemy() {
-        this.velocity = new Vector2(0,7);
+        this.velocity = new Vector2(0, 7);
         this.position = new Vector2(0, 0);
         this.damage = (int)(8 * player.getDifficulty());
         this.health = 180;
@@ -45,22 +48,24 @@ public class DemonEnemy implements Enemy {
         Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
+
         }
     }
 
     @Override
     // Implement attack logic -> return damage count of the enemy.
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 15;
-                break;
-            case "Medium":
-                this.damage = 25;
-                break;
-            case "Hard":
-                this.damage = 35;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 15;
+            break;
+        case "Medium":
+            this.damage = 25;
+            break;
+        case "Hard":
+            this.damage = 35;
+            break;
+        default:
         }
         return this.damage;
     }

@@ -21,8 +21,6 @@ import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class FirstDungeonScreen implements Screen {
 
@@ -46,7 +44,7 @@ public class FirstDungeonScreen implements Screen {
     private int playerHealth;
     private String scoreDisplay;
     private String healthDisplay;
-    BitmapFont statsDisplay;
+    private BitmapFont statsDisplay;
     private String level = "room1.tmx";
     public FirstDungeonScreen(final Dungeon game) {
         player.setPlayerX(-1);

@@ -16,9 +16,11 @@ public class SkeletonEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private int health;
-    int width;
-    int height;
-    Player player = Player.getInstance();
+    private int width;
+    private int height;
+
+    private boolean direction;
+    private Player player = Player.getInstance();
     
     public SkeletonEnemy() {
         this.position = new Vector2(0, 0);
@@ -48,21 +50,23 @@ public class SkeletonEnemy implements Enemy {
         Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
-        }
     }
 
     @Override
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 3;
-                break;
-            case "Medium":
-                this.damage = 7;
-                break;
-            case "Hard":
-                this.damage = 11;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 3;
+            break;
+        case "Medium":
+            this.damage = 7;
+            break;
+        case "Hard":
+            this.damage = 11;
+            break;
+        default:
+            this.damage = 3;
+            break;
         }
         return this.damage;
     }

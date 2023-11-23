@@ -145,6 +145,8 @@ public class FirstDungeonScreen implements Screen {
         
         game.getBatch().end();
         
+        scoreDisplay = "Score " + player.getScore();
+        
         healthDisplay = "HP: " + player.getHealth();
         
         if (player.getHealth() <= 0) {

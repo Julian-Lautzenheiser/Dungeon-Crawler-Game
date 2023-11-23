@@ -17,13 +17,16 @@ public class OgreEnemy implements Enemy {
     private int width;
     private int height;
     private Player player = Player.getInstance();
+    private double score;
     
     public OgreEnemy() {
         this.velocity = new Vector2(6, 0);
         this.position = new Vector2(0,0);
         this.damage = (int)(10 * player.getDifficulty());
         this.health = 130;
+        this.score = 125 * player.getDifficulty();
     }
+    
     @Override
     public void move(String level) {
         TiledMap map = new TmxMapLoader().load(level);
@@ -42,9 +45,11 @@ public class OgreEnemy implements Enemy {
             }
         }
         position.add(velocity);
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(),
+            getHeight()-5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
+        }
     }
 
     @Override
@@ -138,5 +143,9 @@ public class OgreEnemy implements Enemy {
     @Override
     public String toString() {
         return "Ogre";
+    }
+    
+    public double getScore() {
+        return this.score;
     }
 }

@@ -14,7 +14,7 @@ import com.example.myapplication.ViewModels.MovementViewModel;
 public class GoblinEnemy implements Enemy {
     // Implement attributes and behaviors for the Goblin
     // e.g., sprite, speed, size
-    MovementViewModel movement = new MovementViewModel();
+    private MovementViewModel movement = new MovementViewModel();
     private int width;
     private int height;
     private Player player = Player.getInstance();
@@ -22,13 +22,14 @@ public class GoblinEnemy implements Enemy {
     private Vector2 velocity;
     private Vector2 position;
     private int health;
-
     private boolean direction = true;
+    private double score;
     public GoblinEnemy() {
         this.velocity = new Vector2(0, 4);
         this.position = new Vector2(0, 0);
         this.damage = (int)(5 * player.getDifficulty());
         this.health = 90;
+        this.score = 50 * player.getDifficulty();
     }
     
     @Override
@@ -141,5 +142,9 @@ public class GoblinEnemy implements Enemy {
     @Override
     public String toString() {
         return "Goblin";
+    }
+
+    public double getScore() {
+        return this.score;
     }
 }

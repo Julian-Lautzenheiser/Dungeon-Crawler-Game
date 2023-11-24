@@ -41,8 +41,8 @@ public class SecondDungeonScreen implements Screen {
     private Enemy ogreEnemy = enemies.createEnemy("Ogre");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-    private double score;
-    private int playerHealth;
+    private String nameDisplay;
+    private String difficultyDisplay;
     private String scoreDisplay;
     private String healthDisplay;
     private BitmapFont statsDisplay;
@@ -111,15 +111,6 @@ public class SecondDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        /*
-        timeSeconds += Gdx.graphics.getRawDeltaTime();
-        if (timeSeconds > period) {
-            timeSeconds -= period;
-            game.decreaseScore();
-            scoreDisplay.setText("Score: " + player.getScore());
-        }
-         */
-
         movement.updatePosition(level);
         ogreEnemy.move(level);
         goblinEnemy.move(level);
@@ -127,8 +118,10 @@ public class SecondDungeonScreen implements Screen {
         game.getBatch().begin();
     
         statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
-        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
+        statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
@@ -186,6 +179,17 @@ public class SecondDungeonScreen implements Screen {
         movement.removeSubscriber(goblinEnemy);
     }
 
+    public String chosenDifficulty(double difficulty) {
+        if (difficulty == 0.5) {
+            return "Easy";
+        } else if (difficulty == 0.75) {
+            return "Medium";
+        } else if (difficulty == 1.0) {
+            return "Hard";
+        }
+        return null;
+    }
+    
     public void createStyle() {
         //Creates the style to set how the buttons look
         style = new TextButton.TextButtonStyle();
@@ -197,11 +201,11 @@ public class SecondDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
-    
-        score = player.getScore();
-        playerHealth = player.getHealth();
+        
         scoreDisplay = "Score: " + player.getScore();
         healthDisplay = "HP: " + player.getHealth();
+        nameDisplay = "Username: " + player.getName();
+        difficultyDisplay = "Difficulty: " + chosenDifficulty(player.getDifficulty());
         statsDisplay = new BitmapFont();
     }
 }

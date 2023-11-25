@@ -17,6 +17,7 @@ public class Player {
     private int level;
     private final float maxVelocity = 10f;
     private int damage;
+    private boolean attacking;
 
     private Player() {
         this.position = new Vector2(62, 182);
@@ -28,6 +29,7 @@ public class Player {
         this.difficulty = 0.0;
         this.level = 0;
         this.damage = 15;
+        this.attacking = false;
     }
 
     public static Player getInstance() {
@@ -161,8 +163,10 @@ public class Player {
     public void damageTaken(int damage) {
             this.health -= damage;
     }
-    
-    public int getDamage() {
-        return this.damage;
+    public boolean isAttacking() {
+        return attacking;
+    }
+    public void setAttacking(boolean isAttacking) {
+        attacking = isAttacking;
     }
 }

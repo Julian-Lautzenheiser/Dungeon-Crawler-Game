@@ -18,6 +18,7 @@ private Player player = Player.getInstance();
             player.setAttacking(true);
             attack(enemyList);
         } else {
+            Gdx.input.setOnscreenKeyboardVisible(false);
             player.setAttacking(false);
         }
     }

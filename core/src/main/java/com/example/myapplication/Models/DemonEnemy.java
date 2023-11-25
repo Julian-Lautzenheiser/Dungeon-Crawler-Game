@@ -13,10 +13,9 @@ public class DemonEnemy implements Enemy {
     private Vector2 velocity;
     private Vector2 position;
     private int damage;
-    private int health;
+    private boolean alive;
     int width;
     int height;
-    Player player = Player.getInstance();
     private boolean direction = true;
     private Player player = Player.getInstance();
   
@@ -24,7 +23,7 @@ public class DemonEnemy implements Enemy {
         this.velocity = new Vector2(0, 7);
         this.position = new Vector2(0, 0);
         this.damage = (int)(8 * player.getDifficulty());
-        this.health = 180;
+        this.alive = true;
     }
     
     @Override
@@ -46,9 +45,8 @@ public class DemonEnemy implements Enemy {
         }
         position.add(velocity);
         Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
-        if (enemyRectangle.contains(player.getPosition())) {
+        if (enemyRectangle.contains(player.getPosition()) && alive) {
             player.damageTaken(damage);
-
         }
     }
 
@@ -73,9 +71,11 @@ public class DemonEnemy implements Enemy {
     @Override
     public void damageTaken() {
         //Implement hp logic
-        if (this.health > 0) {
-            this.health -= player.getDamage();
-        }
+        alive = false;
+    }
+    @Override
+    public boolean getAlive() {
+        return alive;
     }
 
     @Override

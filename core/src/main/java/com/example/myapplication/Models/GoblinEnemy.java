@@ -21,14 +21,14 @@ public class GoblinEnemy implements Enemy {
     private int damage;
     private Vector2 velocity;
     private Vector2 position;
-    private int health;
+    private boolean alive;
     private boolean direction = true;
     private double score;
     public GoblinEnemy() {
         this.velocity = new Vector2(0, 4);
         this.position = new Vector2(0, 0);
         this.damage = (int)(5 * player.getDifficulty());
-        this.health = 90;
+        this.alive = true;
         this.score = 50 * player.getDifficulty();
     }
     
@@ -51,7 +51,7 @@ public class GoblinEnemy implements Enemy {
         }
         position.add(velocity);
         Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
-        if (enemyRectangle.contains(player.getPosition())) {
+        if (enemyRectangle.contains(player.getPosition()) && alive) {
             player.damageTaken(damage);
         }
     }
@@ -77,10 +77,12 @@ public class GoblinEnemy implements Enemy {
 
     @Override
     public void damageTaken() {
-        //Implement hp logic
-        if (this.health > 0) {
-            this.health -= player.getDamage();
-        }
+        alive = false;
+    }
+
+    @Override
+    public boolean getAlive() {
+        return alive;
     }
 
     @Override

@@ -22,9 +22,7 @@ import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
-
 public class FirstDungeonScreen implements Screen {
-
     private final Dungeon game;
     private Skin skin;
     private TextButton.TextButtonStyle style;
@@ -45,6 +43,8 @@ public class FirstDungeonScreen implements Screen {
     private AttackingViewModel attacking = new AttackingViewModel();
     private double score;
     private int playerHealth;
+    private String nameDisplay;
+    private String difficultyDisplay;
     private String scoreDisplay;
     private String healthDisplay;
     private BitmapFont statsDisplay;
@@ -122,15 +122,6 @@ public class FirstDungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        /*
-        timeSeconds += Gdx.graphics.getRawDeltaTime();
-        if (timeSeconds > period) {
-            timeSeconds -= period;
-            game.decreaseScore();
-            scoreDisplay.setText("Score: " + player.getScore());
-        }
-        */
-
         movement.updatePosition(level);
     
         skeletonEnemy.move(level);
@@ -143,8 +134,10 @@ public class FirstDungeonScreen implements Screen {
         //Check if player runs into enemy
         
         statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
-        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
+        statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
         if (player.isAttacking()) {
@@ -158,7 +151,8 @@ public class FirstDungeonScreen implements Screen {
         }
 
         game.getBatch().end();
-
+      
+        scoreDisplay = "Score " + player.getScore();
         healthDisplay = "HP: " + player.getHealth();
         
         if (player.getHealth() <= 0) {
@@ -229,10 +223,10 @@ public class FirstDungeonScreen implements Screen {
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
         
-        score = player.getScore();
-        playerHealth = player.getHealth();
         scoreDisplay = "Score: " + player.getScore();
         healthDisplay = "HP: " + player.getHealth();
+        nameDisplay = "Username: " + player.getName();
+        difficultyDisplay = "Difficulty: " + chosenDifficulty(player.getDifficulty());
         statsDisplay = new BitmapFont();
     }
 }

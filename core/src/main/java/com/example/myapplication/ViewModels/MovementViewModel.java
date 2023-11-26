@@ -25,6 +25,7 @@ public class MovementViewModel implements Subscriber {
     public MovementViewModel() { };
     private Vector2 prevVelocity = new Vector2();
     private List<Enemy> enemyList = new ArrayList<Enemy>();
+    private double exitScore = 150 * player.getDifficulty();
     public void addSubscriber(Enemy e) {
         getEnemyList().add(e);
     }
@@ -84,7 +85,6 @@ public class MovementViewModel implements Subscriber {
         position.set(initPos);
 
         player.getVelocity().set(velocity);
-
     }
     
     public boolean checkExit(String level) {
@@ -99,6 +99,8 @@ public class MovementViewModel implements Subscriber {
         for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
             Rectangle rectangle = rectangleObject.getRectangle();
             if (rectangle.contains(position)) {
+                double newScore = player.getScore() + exitScore;
+                player.setScore(newScore);
                 return true;
             }
         }
@@ -107,7 +109,8 @@ public class MovementViewModel implements Subscriber {
 
     public void checkPlayerObjectCollision(Vector2 velocity) {
         Vector2 position = player.getPosition();
-
+        Rectangle spriteRect = new Rectangle(player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        
         //Perform collision detection and response on each axis separately
         //If the player is moving right, check the tiles to the right of their
         //edge box, otherwise check the ones to the left
@@ -128,8 +131,7 @@ public class MovementViewModel implements Subscriber {
         position.set(initPos);
         player.getVelocity().set(velocity);
     }
-
-
+    
     public void playerEnemyCollide(Enemy enemy) {
         player.setHealth(player.getHealth() - enemy.attack());
     }
@@ -140,5 +142,9 @@ public class MovementViewModel implements Subscriber {
 
     public void setEnemyList(List<Enemy> enemyList) {
         this.enemyList = enemyList;
+    }
+    
+    public double getExitScore() {
+        return this.exitScore;
     }
 }

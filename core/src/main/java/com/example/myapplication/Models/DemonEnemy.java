@@ -14,9 +14,10 @@ public class DemonEnemy implements Enemy {
     private Vector2 position;
     private int damage;
     private boolean alive;
-    int width;
-    int height;
+    private int width;
+    private int height;
     private boolean direction = true;
+    private double score;
     private Player player = Player.getInstance();
   
     public DemonEnemy() {
@@ -24,6 +25,7 @@ public class DemonEnemy implements Enemy {
         this.position = new Vector2(0, 0);
         this.damage = (int)(8 * player.getDifficulty());
         this.alive = true;
+        this.score = 200 * player.getDifficulty();
     }
     
     @Override
@@ -141,5 +143,9 @@ public class DemonEnemy implements Enemy {
     @Override
     public String toString() {
         return "Demon";
+    }
+    
+    public double getScore() {
+        return this.score;
     }
 }

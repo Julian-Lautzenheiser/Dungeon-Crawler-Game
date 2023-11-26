@@ -23,7 +23,6 @@ import com.example.myapplication.ViewModels.MovementViewModel;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
-
     // Sprint 4 Tests
     //////////////////////////////////////
     //////////////////////////////////////
@@ -120,9 +119,7 @@ public class UnitTests {
         assert(skeleton.chosenDifficulty(0.5) == "Easy");
 
     }
-
-
-
+    
     //Sprint 2 Tests
     
     /**

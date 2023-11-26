@@ -18,6 +18,7 @@ public class SkeletonEnemy implements Enemy {
     private boolean alive;
     private int width;
     private int height;
+    private double score;
     private boolean direction;
     private Player player = Player.getInstance();
     
@@ -26,6 +27,7 @@ public class SkeletonEnemy implements Enemy {
         this.velocity = new Vector2(3, 0);
         this.damage = (int)(4 * player.getDifficulty());
         this.alive = true;
+        this.score = 75 * player.getDifficulty();
     }
     
     @Override
@@ -144,5 +146,9 @@ public class SkeletonEnemy implements Enemy {
     @Override
     public String toString() {
         return "Skeleton";
+    }
+    
+    public double getScore() {
+        return this.score;
     }
 }

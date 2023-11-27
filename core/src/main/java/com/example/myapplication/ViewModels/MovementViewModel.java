@@ -23,6 +23,13 @@ public class MovementViewModel implements Subscriber {
     private Player player = Player.getInstance();
     private PlayerMovement playerMovement = new PlayerMovement();
     public MovementViewModel() { };
+    private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
+        @Override
+        protected Rectangle newObject() {
+            return new Rectangle();
+        }
+    };
+    private Array<Rectangle> tiles = new Array<Rectangle>();
     private Vector2 prevVelocity = new Vector2();
     private List<Enemy> enemyList = new ArrayList<Enemy>();
     private double exitScore = 150 * player.getDifficulty();
@@ -66,6 +73,8 @@ public class MovementViewModel implements Subscriber {
     }
     public void checkCollision(Vector2 velocity, String level) {
         Vector2 position = player.getPosition();
+        Rectangle spriteRect = rectPool.obtain();
+        spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());
 
         TiledMap map = new TmxMapLoader().load(level);
         MapLayer layer = map.getLayers().get("Walls");
@@ -90,6 +99,9 @@ public class MovementViewModel implements Subscriber {
     public boolean checkExit(String level) {
         Vector2 position = player.getPosition();
         position.add(prevVelocity);
+
+        Rectangle spriteRect = rectPool.obtain();
+        spriteRect.set(position.x, position.y, player.getWidth(), player.getHeight());
 
         TiledMap map = new TmxMapLoader().load(level);
         MapLayer layer = map.getLayers().get("ExitDoor");
@@ -121,7 +133,6 @@ public class MovementViewModel implements Subscriber {
         position.y += velocity.y;
 
         //CHECK FOR ENEMY COLLISION
-<<<<<<< HEAD
         Rectangle enemyRect = rectPool.obtain();
         for (Enemy enemy : enemyList) {
             Rectangle enemyRectangle = new Rectangle(enemy.getPositionX(),
@@ -130,14 +141,6 @@ public class MovementViewModel implements Subscriber {
                 playerEnemyCollide(enemy);
                 velocity.x = -velocity.x;
                 velocity.y = -velocity.y;
-=======
-        for (Enemy E : enemyList) {
-            Rectangle enemyRectangle = new Rectangle(E.getPositionX(), E.getPositionY(), E.getWidth(), E.getHeight());
-                if(enemyRectangle.contains(position) && E.getAlive()) {
-                            playerEnemyCollide(E);
-                            velocity.x = -velocity.x;
-                            velocity.y = -velocity.y;
->>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
             }
         }
         position.set(initPos);

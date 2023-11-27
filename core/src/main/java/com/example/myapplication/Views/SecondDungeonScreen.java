@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
-import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
@@ -34,7 +33,6 @@ public class SecondDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
-    private Texture weapon;
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
     private Player player = Player.getInstance();
@@ -43,9 +41,6 @@ public class SecondDungeonScreen implements Screen {
     private Enemy ogreEnemy = enemies.createEnemy("Ogre");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-    private AttackingViewModel attacking = new AttackingViewModel();
-    private double score;
-    private int playerHealth;
     private String nameDisplay;
     private String difficultyDisplay;
     private String scoreDisplay;
@@ -67,9 +62,7 @@ public class SecondDungeonScreen implements Screen {
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         player.setHeight(2 * sprite.getHeight());
         player.setWidth(2 * sprite.getWidth());
-
-        weapon = new Texture(Gdx.files.internal("sword.png"));
-
+        
         enemy1Sprite = new Texture(Gdx.files.internal("Goblin.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
       
@@ -121,9 +114,7 @@ public class SecondDungeonScreen implements Screen {
         movement.updatePosition(level);
         ogreEnemy.move(level);
         goblinEnemy.move(level);
-
-        attacking.checkAttack(movement.getEnemyList());
-
+        
         game.getBatch().begin();
     
         statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -132,7 +123,6 @@ public class SecondDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-<<<<<<< HEAD
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
         
@@ -140,18 +130,6 @@ public class SecondDungeonScreen implements Screen {
                 goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
         game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(),
                 ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
-=======
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
-        if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
-        }
-        if (goblinEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
-        }
-        if (ogreEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
-        }
->>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
         game.getBatch().end();
         
         scoreDisplay = "Score: " + player.getScore();

@@ -26,7 +26,6 @@ import com.example.myapplication.ViewModels.MovementViewModel;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
-
     // Sprint 5 Tests
     //////////////////////////////////////
     //////////////////////////////////////
@@ -61,22 +60,6 @@ public class UnitTests {
         assert(finalLevel == initLevel + 2);
     }
 
-    @Test
-    public void checkOgreScore() {
-        EnemyFactory factory = new EnemyFactory();
-        Enemy ogre = factory.createEnemy("Ogre");
-        
-        Player player = Player.getInstance();
-        player.setDifficulty(0.75);
-        
-        double finalScore = ogre.getScore() * player.getDifficulty();
-        
-        ogre.setScore(player.getDifficulty());
-        
-        double expectedScore = ogre.getScore();
-        
-        assertEquals(finalScore, expectedScore, 0.5);
-    }
 
 
     // Sprint 4 Tests

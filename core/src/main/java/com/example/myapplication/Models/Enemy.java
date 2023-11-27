@@ -4,7 +4,6 @@ public interface Enemy {
     void move(String level);
     int attack();
     void damageTaken();
-    boolean getAlive();
     float getPositionX();
     float getPositionY();
     int getWidth();
@@ -14,6 +13,4 @@ public interface Enemy {
     String chosenDifficulty(double difficulty);
     void setWidth(int width);
     void setHeight(int height);
-    double getScore();
-    void setScore(double difficulty);
 }

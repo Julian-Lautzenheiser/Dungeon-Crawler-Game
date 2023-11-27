@@ -13,7 +13,7 @@ public class SkeletonEnemy implements Enemy {
     private Vector2 velocity;
     private Vector2 position;
     private int damage;
-    private boolean alive;
+    private int health;
     private int width;
     private int height;
     private double score;
@@ -23,15 +23,9 @@ public class SkeletonEnemy implements Enemy {
     public SkeletonEnemy() {
         this.position = new Vector2(0, 0);
         this.velocity = new Vector2(3, 0);
-<<<<<<< HEAD
         this.damage = (int) (4 * player.getDifficulty());
         this.health = 60;
         this.score = 75 * player.getDifficulty();
-=======
-        this.damage = (int)(4 * player.getDifficulty());
-        this.alive = true;
-        this.score = 75;
->>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
     }
     
     @Override
@@ -52,14 +46,9 @@ public class SkeletonEnemy implements Enemy {
             }
         }
         position.add(velocity);
-<<<<<<< HEAD
         Rectangle enemyRectangle = new Rectangle(position.x, position.y,
                 getWidth(), getHeight() - 5);
         if (enemyRectangle.contains(player.getPosition())) {
-=======
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
-        if (enemyRectangle.contains(player.getPosition()) && alive) {
->>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
             player.damageTaken(damage);
         }
     }
@@ -86,11 +75,9 @@ public class SkeletonEnemy implements Enemy {
     @Override
     public void damageTaken() {
         //Implement hp logic
-        alive = false;
-    }
-    @Override
-    public boolean getAlive() {
-        return alive;
+        if (this.health > 0) {
+            this.health -= player.getDamage();
+        }
     }
     
     @Override
@@ -160,9 +147,5 @@ public class SkeletonEnemy implements Enemy {
     
     public double getScore() {
         return this.score;
-    }
-
-    public void setScore(double difficulty) {
-        this.score *= difficulty;
     }
 }

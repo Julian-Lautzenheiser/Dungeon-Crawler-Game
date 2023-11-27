@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.ScorePowerUp;
-import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
@@ -142,13 +141,18 @@ public class ThirdDungeonScreen implements Screen {
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
         if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
         }
         if (skeletonEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                    skeletonEnemy.getPositionY(),
+                    skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
         }
         if (demonEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), demonEnemy.getWidth(),demonEnemy.getHeight());
+            game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
+                    demonEnemy.getPositionY(),
+                    demonEnemy.getWidth(), demonEnemy.getHeight());
         }
         if (scorePowerup.isVisible()) {
             game.getBatch().draw(scorePowerupSprite, 360, 140, 32, 32);

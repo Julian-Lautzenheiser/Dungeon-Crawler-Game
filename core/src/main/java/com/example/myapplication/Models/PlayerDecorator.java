@@ -1,7 +1,5 @@
 package com.example.myapplication.Models;
 
-import com.badlogic.gdx.math.Vector2;
-
 abstract class PlayerDecorator {
     protected Player decoratedPlayer;
 

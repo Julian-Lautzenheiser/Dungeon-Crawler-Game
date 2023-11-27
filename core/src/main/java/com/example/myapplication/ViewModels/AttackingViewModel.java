@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.List;
 
 public class AttackingViewModel {
-private Player player = Player.getInstance();
+    private Player player = Player.getInstance();
 
     public void checkAttack(List<Enemy> enemyList) {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)

@@ -9,14 +9,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.Models.Subscriber;
-
-import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +129,8 @@ public class MovementViewModel implements Subscriber {
 
     public void checkPlayerObjectCollision(Vector2 velocity) {
         Vector2 position = player.getPosition();
-        Rectangle spriteRect = new Rectangle(player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        Rectangle spriteRect = new Rectangle(player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
         
         //Perform collision detection and response on each axis separately
         //If the player is moving right, check the tiles to the right of their
@@ -144,12 +141,13 @@ public class MovementViewModel implements Subscriber {
         position.y += velocity.y;
 
         //CHECK FOR ENEMY COLLISION
-        for (Enemy E : enemyList) {
-            Rectangle enemyRectangle = new Rectangle(E.getPositionX(), E.getPositionY(), E.getWidth(), E.getHeight());
-                if(enemyRectangle.contains(position) && E.getAlive()) {
-                            playerEnemyCollide(E);
-                            velocity.x = -velocity.x;
-                            velocity.y = -velocity.y;
+        for (Enemy enemy : enemyList) {
+            Rectangle enemyRectangle = new Rectangle(enemy.getPositionX(),
+                    enemy.getPositionY(), enemy.getWidth(), enemy.getHeight());
+            if (enemyRectangle.contains(position) && enemy.getAlive()) {
+                playerEnemyCollide(enemy);
+                velocity.x = -velocity.x;
+                velocity.y = -velocity.y;
             }
         }
         position.set(initPos);

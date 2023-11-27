@@ -13,7 +13,7 @@ public class OgreEnemy implements Enemy {
     private Vector2 velocity;
     private Vector2 position;
     private int damage;
-    private int health;
+    private boolean alive;
     private int width;
     private int height;
     private Player player = Player.getInstance();
@@ -23,8 +23,8 @@ public class OgreEnemy implements Enemy {
         this.velocity = new Vector2(6, 0);
         this.position = new Vector2(0,0);
         this.damage = (int)(10 * player.getDifficulty());
-        this.health = 130;
-        this.score = 125 * player.getDifficulty();
+        this.alive = true;
+        this.score = 125;
     }
     
     @Override
@@ -45,9 +45,8 @@ public class OgreEnemy implements Enemy {
             }
         }
         position.add(velocity);
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(),
-            getHeight()-5);
-        if (enemyRectangle.contains(player.getPosition())) {
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        if (enemyRectangle.contains(player.getPosition()) && alive) {
             player.damageTaken(damage);
         }
     }
@@ -74,9 +73,11 @@ public class OgreEnemy implements Enemy {
     @Override
     public void damageTaken() {
         //Implement hp logic
-        if (this.health > 0) {
-            this.health -= player.getDamage();
-        }
+        alive = false;
+    }
+    @Override
+    public boolean getAlive() {
+        return alive;
     }
 
     @Override
@@ -147,5 +148,9 @@ public class OgreEnemy implements Enemy {
     
     public double getScore() {
         return this.score;
+    }
+    
+    public void setScore(double difficulty) {
+        this.score *= difficulty;
     }
 }

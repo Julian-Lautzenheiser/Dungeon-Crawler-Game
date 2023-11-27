@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.Player;
-import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
@@ -147,15 +146,20 @@ public class FirstDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(),
+                player.getPlayerY(), player.getWidth(), player.getHeight());
         if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
         }
         if (skeletonEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                    skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(),
+                    skeletonEnemy.getHeight());
         }
         if (goblinEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
+            game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(),
+                    goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
         }
         if (healthPowerup.isVisible()) {
             game.getBatch().draw(healthPowerupSprite, 380, 100, 32, 32);

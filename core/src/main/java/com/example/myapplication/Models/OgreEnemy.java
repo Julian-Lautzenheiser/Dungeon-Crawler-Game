@@ -24,7 +24,7 @@ public class OgreEnemy implements Enemy {
         this.position = new Vector2(0,0);
         this.damage = (int)(10 * player.getDifficulty());
         this.alive = true;
-        this.score = 125 * player.getDifficulty();
+        this.score = 125;
     }
     
     @Override
@@ -148,5 +148,9 @@ public class OgreEnemy implements Enemy {
     
     public double getScore() {
         return this.score;
+    }
+    
+    public void setScore(double difficulty) {
+        this.score *= difficulty;
     }
 }

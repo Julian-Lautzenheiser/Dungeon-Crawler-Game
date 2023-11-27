@@ -29,7 +29,7 @@ public class GoblinEnemy implements Enemy {
         this.position = new Vector2(0, 0);
         this.damage = (int)(5 * player.getDifficulty());
         this.alive = true;
-        this.score = 50 * player.getDifficulty();
+        this.score = 50;
     }
     
     @Override
@@ -148,5 +148,9 @@ public class GoblinEnemy implements Enemy {
 
     public double getScore() {
         return this.score;
+    }
+    
+    public void setScore(double difficulty) {
+        this.score *= difficulty;
     }
 }

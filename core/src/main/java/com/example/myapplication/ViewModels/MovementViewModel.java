@@ -16,6 +16,8 @@ import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
 import com.example.myapplication.Models.Subscriber;
 
+import org.w3c.dom.css.Rect;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +105,24 @@ public class MovementViewModel implements Subscriber {
                 player.setScore(newScore);
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean checkPowerup(String level) {
+        Vector2 position = player.getPosition();
+
+        Rectangle powerupRectangle;
+        if (level == "room1.tmx") {
+            powerupRectangle = new Rectangle(350, 70, 32, 32);
+        } else if (level == "room2.tmx") {
+            powerupRectangle = new Rectangle(350, 70, 32, 32);
+        } else {
+            powerupRectangle = new Rectangle(350, 70, 32, 32);
+        }
+
+        if (powerupRectangle.contains(position)) {
+            return true;
         }
         return false;
     }

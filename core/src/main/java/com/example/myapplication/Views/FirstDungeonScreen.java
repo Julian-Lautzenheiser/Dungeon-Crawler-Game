@@ -16,7 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
@@ -49,6 +51,10 @@ public class FirstDungeonScreen implements Screen {
     private String healthDisplay;
     private BitmapFont statsDisplay;
     private String level = "room1.tmx";
+    private HealthPowerUp healthPowerup = new HealthPowerUp(player);
+    private Texture healthPowerupSprite;
+
+
     public FirstDungeonScreen(final Dungeon game) {
         player.setPlayerX(-1);
         player.setPlayerY(-1);
@@ -76,6 +82,8 @@ public class FirstDungeonScreen implements Screen {
 
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Goblin.png"));
+
+        healthPowerupSprite = new Texture(Gdx.files.internal("ui_heart_full.png"));
       
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
@@ -149,6 +157,10 @@ public class FirstDungeonScreen implements Screen {
         if (goblinEnemy.getAlive()) {
             game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
         }
+        if (healthPowerup.isVisible()) {
+            game.getBatch().draw(healthPowerupSprite, 380, 100, 32, 32);
+        }
+
 
         game.getBatch().end();
       
@@ -163,6 +175,10 @@ public class FirstDungeonScreen implements Screen {
         if (movement.checkExit(level)) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
+        }
+
+        if (movement.checkPowerup(level, healthPowerup.isVisible())) {
+            healthPowerup.play();
         }
 
 

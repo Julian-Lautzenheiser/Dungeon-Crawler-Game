@@ -5,9 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.ScorePowerUp;
+import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.Dungeon;
 
 import java.util.ArrayList;
@@ -23,7 +26,39 @@ import com.example.myapplication.ViewModels.MovementViewModel;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
-    //Sprint 5 Tests
+    // Sprint 5 Tests
+    //////////////////////////////////////
+    //////////////////////////////////////
+
+    @Test
+    public void checkHealthPowerupDecorator() {
+        Player player = Player.getInstance();
+        int initHealth = player.getHealth();
+        HealthPowerUp hpu = new HealthPowerUp(player);
+        hpu.play();
+        int finalHealth = player.getHealth();
+        assert(finalHealth == initHealth + 50);
+    }
+
+    @Test
+    public void checkScorePowerupDecorator() {
+        Player player = Player.getInstance();
+        double initScore = player.getScore();
+        ScorePowerUp spu = new ScorePowerUp(player);
+        spu.play();
+        double finalScore = player.getScore();
+        assert(finalScore == initScore + 10.0);
+    }
+
+    @Test
+    public void checkSkipScreenPowerupDecorator() {
+        Player player = Player.getInstance();
+        double initLevel = player.getLevel();
+        SkipScreenPowerUp sspu = new SkipScreenPowerUp(player);
+        sspu.play();
+        double finalLevel = player.getLevel();
+        assert(finalLevel == initLevel + 2);
+    }
 
     @Test
     public void checkOgreScore() {

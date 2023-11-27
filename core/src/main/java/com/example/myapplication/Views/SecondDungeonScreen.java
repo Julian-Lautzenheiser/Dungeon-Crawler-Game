@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
-import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.AttackingViewModel;
@@ -138,15 +137,19 @@ public class SecondDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(),
+                player.getPlayerY(), player.getWidth(), player.getHeight());
         if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
         }
         if (goblinEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
+            game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(),
+                    goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
         }
         if (ogreEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
+            game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(),
+                    ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
         }
         if (skipScreenPowerUp.isVisible()) {
             game.getBatch().draw(skipPowerupSprite, 300, 80, 32, 32);
@@ -168,7 +171,8 @@ public class SecondDungeonScreen implements Screen {
             dispose();
         }
 
-        if (movement.checkPowerup(level, skipScreenPowerUp.isVisible()) && player.getHealth() > 20) {
+        if (movement.checkPowerup(level,
+                skipScreenPowerUp.isVisible()) && player.getHealth() > 20) {
             skipScreenPowerUp.play();
             game.setScreen(new ThirdDungeonScreen(game));
             dispose();

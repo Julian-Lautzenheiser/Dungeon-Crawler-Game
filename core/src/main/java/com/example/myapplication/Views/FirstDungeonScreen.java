@@ -177,7 +177,7 @@ public class FirstDungeonScreen implements Screen {
             dispose();
         }
 
-        if (movement.checkPowerup(level)) {
+        if (movement.checkPowerup(level, healthPowerup.isVisible())) {
             healthPowerup.play();
         }
 

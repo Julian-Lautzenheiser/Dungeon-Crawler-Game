@@ -109,14 +109,18 @@ public class MovementViewModel implements Subscriber {
         return false;
     }
 
-    public boolean checkPowerup(String level) {
+    public boolean checkPowerup(String level, boolean isActive) {
+        if (!isActive) {
+            return false;
+        }
+
         Vector2 position = player.getPosition();
 
         Rectangle powerupRectangle;
         if (level == "room1.tmx") {
             powerupRectangle = new Rectangle(350, 70, 32, 32);
-        } else if (level == "room2.tmx") {
-            powerupRectangle = new Rectangle(350, 70, 32, 32);
+        } else if (level == "room2-alt.tmx") {
+            powerupRectangle = new Rectangle(270, 80, 32, 32);
         } else {
             powerupRectangle = new Rectangle(350, 70, 32, 32);
         }

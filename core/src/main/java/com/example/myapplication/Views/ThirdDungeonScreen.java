@@ -126,8 +126,11 @@ public class ThirdDungeonScreen implements Screen {
         game.getBatch().begin();
     
         statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
-        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
+
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
+        statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
@@ -141,11 +144,6 @@ public class ThirdDungeonScreen implements Screen {
             game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), demonEnemy.getWidth(),demonEnemy.getHeight());
         }
         game.getBatch().end();
-        
-        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
-        statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
-        statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
-        statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
         if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));

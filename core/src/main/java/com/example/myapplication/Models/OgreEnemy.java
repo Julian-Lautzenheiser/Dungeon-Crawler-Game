@@ -21,8 +21,8 @@ public class OgreEnemy implements Enemy {
     
     public OgreEnemy() {
         this.velocity = new Vector2(6, 0);
-        this.position = new Vector2(0,0);
-        this.damage = (int)(10 * player.getDifficulty());
+        this.position = new Vector2(0, 0);
+        this.damage = (int) (10 * player.getDifficulty());
         this.alive = true;
         this.score = 125;
     }
@@ -45,7 +45,8 @@ public class OgreEnemy implements Enemy {
             }
         }
         position.add(velocity);
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y,
+                getWidth(), getHeight() - 5);
         if (enemyRectangle.contains(player.getPosition()) && alive) {
             player.damageTaken(damage);
         }

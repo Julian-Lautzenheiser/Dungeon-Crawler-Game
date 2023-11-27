@@ -126,8 +126,10 @@ public class SecondDungeonScreen implements Screen {
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
         
-        game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
-        game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
+        game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(),
+                goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
+        game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(),
+                ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
         game.getBatch().end();
         
         scoreDisplay = "Score: " + player.getScore();

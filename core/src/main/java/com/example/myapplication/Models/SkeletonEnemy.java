@@ -1,7 +1,5 @@
 package com.example.myapplication.Models;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -25,7 +23,7 @@ public class SkeletonEnemy implements Enemy {
     public SkeletonEnemy() {
         this.position = new Vector2(0, 0);
         this.velocity = new Vector2(3, 0);
-        this.damage = (int)(4 * player.getDifficulty());
+        this.damage = (int) (4 * player.getDifficulty());
         this.health = 60;
         this.score = 75 * player.getDifficulty();
     }
@@ -48,7 +46,8 @@ public class SkeletonEnemy implements Enemy {
             }
         }
         position.add(velocity);
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y,
+                getWidth(), getHeight() - 5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
         }

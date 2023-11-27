@@ -1,7 +1,5 @@
 package com.example.myapplication.Models;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -27,7 +25,7 @@ public class GoblinEnemy implements Enemy {
     public GoblinEnemy() {
         this.velocity = new Vector2(0, 4);
         this.position = new Vector2(0, 0);
-        this.damage = (int)(5 * player.getDifficulty());
+        this.damage = (int) (5 * player.getDifficulty());
         this.health = 90;
         this.score = 50 * player.getDifficulty();
     }
@@ -50,7 +48,8 @@ public class GoblinEnemy implements Enemy {
             }
         }
         position.add(velocity);
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y,
+                getWidth(), getHeight() - 5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
         }

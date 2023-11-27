@@ -159,7 +159,7 @@ public class Player implements PlayerInterface {
     }
     
     public void damageTaken(int damage) {
-            this.health -= damage;
+        this.health -= damage;
     }
     
     public int getDamage() {

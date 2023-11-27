@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
@@ -44,6 +45,7 @@ public class FirstDungeonScreen implements Screen {
     private String healthDisplay;
     private BitmapFont statsDisplay;
     private String level = "room1.tmx";
+    private SkipScreenPowerUp skipPowerup = new SkipScreenPowerUp(player);
     public FirstDungeonScreen(final Dungeon game) {
         player.setPlayerX(-1);
         player.setPlayerY(-1);
@@ -130,9 +132,12 @@ public class FirstDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
-        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(),
+                goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
         
         game.getBatch().end();
         

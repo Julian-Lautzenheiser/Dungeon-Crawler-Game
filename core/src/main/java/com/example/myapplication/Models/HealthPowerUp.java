@@ -1,7 +1,5 @@
 package com.example.myapplication.Models;
 
-import com.example.myapplication.Models.PlayerDecorator;
-
 public class HealthPowerUp extends PlayerDecorator {
 
     public HealthPowerUp(Player decoratedPlayer) {

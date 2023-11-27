@@ -23,7 +23,7 @@ public class DemonEnemy implements Enemy {
     public DemonEnemy() {
         this.velocity = new Vector2(0, 7);
         this.position = new Vector2(0, 0);
-        this.damage = (int)(8 * player.getDifficulty());
+        this.damage = (int) (8 * player.getDifficulty());
         this.health = 180;
         this.score = 200 * player.getDifficulty();
     }
@@ -46,7 +46,8 @@ public class DemonEnemy implements Enemy {
             }
         }
         position.add(velocity);
-        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y,
+                getWidth(), getHeight() - 5);
         if (enemyRectangle.contains(player.getPosition())) {
             player.damageTaken(damage);
         }

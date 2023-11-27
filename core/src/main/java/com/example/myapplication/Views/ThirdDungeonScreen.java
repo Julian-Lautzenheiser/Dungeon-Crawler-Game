@@ -123,8 +123,10 @@ public class ThirdDungeonScreen implements Screen {
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
         
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
-        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), demonEnemy.getWidth(),demonEnemy.getHeight());
+        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
+                demonEnemy.getPositionY(), demonEnemy.getWidth(), demonEnemy.getHeight());
         game.getBatch().end();
         
         statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);

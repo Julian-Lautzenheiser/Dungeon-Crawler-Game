@@ -35,6 +35,8 @@ private Player player = Player.getInstance();
             enemy.set(e.getPositionX(), e.getPositionY(), e.getWidth(), e.getHeight());
             if (enemy.overlaps(weapon)) {
                 e.damageTaken();
+                enemyList.remove(e);
+                player.setScore(player.getScore() + 500);
             }
         }
     }

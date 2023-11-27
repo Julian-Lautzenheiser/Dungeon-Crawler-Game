@@ -13,6 +13,7 @@ public class SkipScreenPowerUp extends PlayerDecorator {
         this.decoratedPlayer.newScreen(0);
         this.decoratedPlayer.newScreen(1);
         this.decoratedPlayer.setHealth(this.decoratedPlayer.getHealth() - 20);
+        isVis = false;
     }
 
     public boolean isVisible() {

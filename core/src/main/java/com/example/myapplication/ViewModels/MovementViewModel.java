@@ -122,7 +122,7 @@ public class MovementViewModel implements Subscriber {
         } else if (level == "room2-alt.tmx") {
             powerupRectangle = new Rectangle(270, 80, 32, 32);
         } else {
-            powerupRectangle = new Rectangle(350, 70, 32, 32);
+            powerupRectangle = new Rectangle(330, 150, 32, 32);
         }
 
         if (powerupRectangle.contains(position)) {

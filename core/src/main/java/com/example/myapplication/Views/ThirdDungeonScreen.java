@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
@@ -34,6 +35,7 @@ public class ThirdDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
+    private Texture weapon;
     private String level = "room3.tmx";
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
@@ -42,6 +44,9 @@ public class ThirdDungeonScreen implements Screen {
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy demonEnemy = enemies.createEnemy("Demon");
     private MovementViewModel movement = new MovementViewModel();
+    private AttackingViewModel attacking = new AttackingViewModel();
+    private double score;
+    private int playerHealth;
     private String nameDisplay;
     private String difficultyDisplay;
     private String scoreDisplay;
@@ -64,7 +69,9 @@ public class ThirdDungeonScreen implements Screen {
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Demon.png"));
-    
+
+        weapon = new Texture(Gdx.files.internal("sword.png"));
+
         map = new TmxMapLoader().load(level);
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
@@ -113,7 +120,9 @@ public class ThirdDungeonScreen implements Screen {
         movement.updatePosition(level);
         skeletonEnemy.move(level);
         demonEnemy.move(level);
-        
+
+        attacking.checkAttack(movement.getEnemyList());
+
         game.getBatch().begin();
     
         statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -122,11 +131,23 @@ public class ThirdDungeonScreen implements Screen {
         
         game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
                 player.getWidth(), player.getHeight());
+<<<<<<< HEAD
         
         game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
                 skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
         game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
                 demonEnemy.getPositionY(), demonEnemy.getWidth(), demonEnemy.getHeight());
+=======
+        if (player.isAttacking()) {
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
+        }
+        if (skeletonEnemy.getAlive()) {
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        }
+        if (demonEnemy.getAlive()) {
+            game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), demonEnemy.getWidth(),demonEnemy.getHeight());
+        }
+>>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
         game.getBatch().end();
         
         statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);

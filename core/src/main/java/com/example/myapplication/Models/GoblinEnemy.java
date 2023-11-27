@@ -19,15 +19,21 @@ public class GoblinEnemy implements Enemy {
     private int damage;
     private Vector2 velocity;
     private Vector2 position;
-    private int health;
+    private boolean alive;
     private boolean direction = true;
     private double score;
     public GoblinEnemy() {
         this.velocity = new Vector2(0, 4);
         this.position = new Vector2(0, 0);
+<<<<<<< HEAD
         this.damage = (int) (5 * player.getDifficulty());
         this.health = 90;
         this.score = 50 * player.getDifficulty();
+=======
+        this.damage = (int)(5 * player.getDifficulty());
+        this.alive = true;
+        this.score = 50;
+>>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
     }
     
     @Override
@@ -48,9 +54,14 @@ public class GoblinEnemy implements Enemy {
             }
         }
         position.add(velocity);
+<<<<<<< HEAD
         Rectangle enemyRectangle = new Rectangle(position.x, position.y,
                 getWidth(), getHeight() - 5);
         if (enemyRectangle.contains(player.getPosition())) {
+=======
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y, getWidth(), getHeight()-5);
+        if (enemyRectangle.contains(player.getPosition()) && alive) {
+>>>>>>> 2e1b5ec375da03d4c72efae318a72189e6c270b4
             player.damageTaken(damage);
         }
     }
@@ -76,10 +87,12 @@ public class GoblinEnemy implements Enemy {
 
     @Override
     public void damageTaken() {
-        //Implement hp logic
-        if (this.health > 0) {
-            this.health -= player.getDamage();
-        }
+        alive = false;
+    }
+
+    @Override
+    public boolean getAlive() {
+        return alive;
     }
 
     @Override
@@ -145,5 +158,9 @@ public class GoblinEnemy implements Enemy {
 
     public double getScore() {
         return this.score;
+    }
+    
+    public void setScore(double difficulty) {
+        this.score *= difficulty;
     }
 }

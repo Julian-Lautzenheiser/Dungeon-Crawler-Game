@@ -5,9 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.ScorePowerUp;
+import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.Dungeon;
 
 import java.util.ArrayList;
@@ -23,6 +26,90 @@ import com.example.myapplication.ViewModels.MovementViewModel;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class UnitTests {
+    // Sprint 5 Tests
+    //////////////////////////////////////
+    //////////////////////////////////////
+
+    @Test
+    public void checkHealthPowerupDecorator() {
+        Player player = Player.getInstance();
+        int initHealth = player.getHealth();
+        HealthPowerUp hpu = new HealthPowerUp(player);
+        hpu.play();
+        int finalHealth = player.getHealth();
+        assert(finalHealth == initHealth + 50);
+    }
+
+    @Test
+    public void checkScorePowerupDecorator() {
+        Player player = Player.getInstance();
+        double initScore = player.getScore();
+        ScorePowerUp spu = new ScorePowerUp(player);
+        spu.play();
+        double finalScore = player.getScore();
+        assert(finalScore == initScore + 10.0);
+    }
+
+    @Test
+    public void checkSkipScreenPowerupDecorator() {
+        Player player = Player.getInstance();
+        double initLevel = player.getLevel();
+        SkipScreenPowerUp sspu = new SkipScreenPowerUp(player);
+        sspu.play();
+        double finalLevel = player.getLevel();
+        assert(finalLevel == initLevel + 2);
+    }
+
+    @Test
+    public void checkGoblinEasyScore() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy goblin = factory.createEnemy("Goblin");
+        
+        Player player = Player.getInstance();
+        player.setDifficulty(0.5);
+        
+        double finalScore = goblin.getScore() * player.getDifficulty();
+        
+        goblin.setScore(player.getDifficulty());
+        
+        double expectedScore = goblin.getScore();
+        
+        assertEquals(finalScore, expectedScore, 0.5);
+    }
+    @Test
+    public void checkOgreMediumScore() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy ogre = factory.createEnemy("Ogre");
+        
+        Player player = Player.getInstance();
+        player.setDifficulty(0.75);
+        
+        double finalScore = ogre.getScore() * player.getDifficulty();
+        
+        ogre.setScore(player.getDifficulty());
+        
+        double expectedScore = ogre.getScore();
+        
+        assertEquals(finalScore, expectedScore, 0.5);
+    }
+
+    @Test
+    public void checkDemonHardScore() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy demon = factory.createEnemy("Demon");
+        
+        Player player = Player.getInstance();
+        player.setDifficulty(1);
+        
+        double finalScore = demon.getScore() * player.getDifficulty();
+        
+        demon.setScore(player.getDifficulty());
+        
+        double expectedScore = demon.getScore();
+        
+        assertEquals(finalScore, expectedScore, 0.5);
+    }
+    
     // Sprint 4 Tests
     //////////////////////////////////////
     //////////////////////////////////////

@@ -2,7 +2,7 @@ package com.example.myapplication.Models;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {
+public class Player implements PlayerInterface {
 
     private static Player player = null;
     private Vector2 position;
@@ -161,7 +161,7 @@ public class Player {
     }
     
     public void damageTaken(int damage) {
-            this.health -= damage;
+        this.health -= damage;
     }
     public boolean isAttacking() {
         return attacking;

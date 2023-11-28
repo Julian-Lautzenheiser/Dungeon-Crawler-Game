@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
@@ -49,6 +50,10 @@ public class FirstDungeonScreen implements Screen {
     private String healthDisplay;
     private BitmapFont statsDisplay;
     private String level = "room1.tmx";
+    private HealthPowerUp healthPowerup = new HealthPowerUp(player);
+    private Texture healthPowerupSprite;
+
+
     public FirstDungeonScreen(final Dungeon game) {
         player.setPlayerX(-1);
         player.setPlayerY(-1);
@@ -76,6 +81,8 @@ public class FirstDungeonScreen implements Screen {
 
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Goblin.png"));
+
+        healthPowerupSprite = new Texture(Gdx.files.internal("ui_heart_full.png"));
       
         map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
@@ -139,16 +146,25 @@ public class FirstDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(),
+                player.getPlayerY(), player.getWidth(), player.getHeight());
         if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
         }
         if (skeletonEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                    skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(),
+                    skeletonEnemy.getHeight());
         }
         if (goblinEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
+            game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(),
+                    goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
         }
+        if (healthPowerup.isVisible()) {
+            game.getBatch().draw(healthPowerupSprite, 380, 100, 32, 32);
+        }
+
 
         game.getBatch().end();
       
@@ -163,6 +179,10 @@ public class FirstDungeonScreen implements Screen {
         if (movement.checkExit(level)) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
+        }
+
+        if (movement.checkPowerup(level, healthPowerup.isVisible())) {
+            healthPowerup.play();
         }
 
 

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.ScorePowerUp;
 import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
@@ -53,6 +54,8 @@ public class ThirdDungeonScreen implements Screen {
     private String healthDisplay;
     private BitmapFont statsDisplay;
     private List<Enemy> enemyList = new ArrayList<Enemy>();
+    private ScorePowerUp scorePowerup = new ScorePowerUp(player);
+    private Texture scorePowerupSprite;
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -69,6 +72,8 @@ public class ThirdDungeonScreen implements Screen {
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Demon.png"));
+
+        scorePowerupSprite = new Texture(Gdx.files.internal("coin_anim_f0.png"));
 
         weapon = new Texture(Gdx.files.internal("sword.png"));
 
@@ -116,6 +121,7 @@ public class ThirdDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+        System.out.println(player.getPlayerX() + "" + player.getPlayerY());
 
         movement.updatePosition(level);
         skeletonEnemy.move(level);
@@ -126,26 +132,36 @@ public class ThirdDungeonScreen implements Screen {
         game.getBatch().begin();
     
         statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 50);
-        statsDisplay.draw(game.getBatch(), healthDisplay, 400, 50);
-        
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
-                player.getWidth(), player.getHeight());
-        if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
-        }
-        if (skeletonEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
-        }
-        if (demonEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), demonEnemy.getWidth(),demonEnemy.getHeight());
-        }
-        game.getBatch().end();
-        
+
         statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
         statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
+        
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
+        if (player.isAttacking()) {
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
+        }
+        if (skeletonEnemy.getAlive()) {
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                    skeletonEnemy.getPositionY(),
+                    skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        }
+        if (demonEnemy.getAlive()) {
+            game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
+                    demonEnemy.getPositionY(),
+                    demonEnemy.getWidth(), demonEnemy.getHeight());
+        }
+        if (scorePowerup.isVisible()) {
+            game.getBatch().draw(scorePowerupSprite, 360, 140, 32, 32);
+        }
+
+        game.getBatch().end();
+    
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
         
         if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
@@ -155,6 +171,10 @@ public class ThirdDungeonScreen implements Screen {
         if (movement.checkExit(level)) {
             game.setScreen(new WinningScreen(game));
             dispose();
+        }
+
+        if (movement.checkPowerup(level, scorePowerup.isVisible())) {
+            scorePowerup.play();
         }
 
         stage.draw();

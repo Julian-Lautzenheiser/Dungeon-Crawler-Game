@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.PlayerMovement;
@@ -107,9 +105,32 @@ public class MovementViewModel implements Subscriber {
         return false;
     }
 
+    public boolean checkPowerup(String level, boolean isActive) {
+        if (!isActive) {
+            return false;
+        }
+
+        Vector2 position = player.getPosition();
+
+        Rectangle powerupRectangle;
+        if (level == "room1.tmx") {
+            powerupRectangle = new Rectangle(350, 70, 32, 32);
+        } else if (level == "room2-alt.tmx") {
+            powerupRectangle = new Rectangle(270, 80, 32, 32);
+        } else {
+            powerupRectangle = new Rectangle(330, 150, 32, 32);
+        }
+
+        if (powerupRectangle.contains(position)) {
+            return true;
+        }
+        return false;
+    }
+
     public void checkPlayerObjectCollision(Vector2 velocity) {
         Vector2 position = player.getPosition();
-        Rectangle spriteRect = new Rectangle(player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        Rectangle spriteRect = new Rectangle(player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
         
         //Perform collision detection and response on each axis separately
         //If the player is moving right, check the tiles to the right of their
@@ -120,12 +141,13 @@ public class MovementViewModel implements Subscriber {
         position.y += velocity.y;
 
         //CHECK FOR ENEMY COLLISION
-        for (Enemy E : enemyList) {
-            Rectangle enemyRectangle = new Rectangle(E.getPositionX(), E.getPositionY(), E.getWidth(), E.getHeight());
-                if(enemyRectangle.contains(position) && E.getAlive()) {
-                            playerEnemyCollide(E);
-                            velocity.x = -velocity.x;
-                            velocity.y = -velocity.y;
+        for (Enemy enemy : enemyList) {
+            Rectangle enemyRectangle = new Rectangle(enemy.getPositionX(),
+                    enemy.getPositionY(), enemy.getWidth(), enemy.getHeight());
+            if (enemyRectangle.contains(position) && enemy.getAlive()) {
+                playerEnemyCollide(enemy);
+                velocity.x = -velocity.x;
+                velocity.y = -velocity.y;
             }
         }
         position.set(initPos);

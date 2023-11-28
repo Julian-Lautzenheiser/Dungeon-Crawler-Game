@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.SkipScreenPowerUp;
 import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
@@ -51,6 +52,8 @@ public class SecondDungeonScreen implements Screen {
     private String scoreDisplay;
     private String healthDisplay;
     private BitmapFont statsDisplay;
+    private SkipScreenPowerUp skipScreenPowerUp = new SkipScreenPowerUp(player);
+    private Texture skipPowerupSprite;
     public SecondDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -72,6 +75,8 @@ public class SecondDungeonScreen implements Screen {
 
         enemy1Sprite = new Texture(Gdx.files.internal("Goblin.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Ogre.png"));
+
+        skipPowerupSprite = new Texture(Gdx.files.internal("hole.png"));
       
         map = new TmxMapLoader().load(level);
     
@@ -132,16 +137,24 @@ public class SecondDungeonScreen implements Screen {
         statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
         statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        game.getBatch().draw(sprite, player.getPlayerX(),
+                player.getPlayerY(), player.getWidth(), player.getHeight());
         if (player.isAttacking()) {
-            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth()-16, player.getPlayerY() + player.getHeight() / 4, 32, 16);
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
         }
         if (goblinEnemy.getAlive()) {
-            game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
+            game.getBatch().draw(enemy1Sprite, goblinEnemy.getPositionX(),
+                    goblinEnemy.getPositionY(), goblinEnemy.getWidth(), goblinEnemy.getHeight());
         }
         if (ogreEnemy.getAlive()) {
-            game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(), ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
+            game.getBatch().draw(enemy2Sprite, ogreEnemy.getPositionX(),
+                    ogreEnemy.getPositionY(), ogreEnemy.getWidth(), ogreEnemy.getHeight());
         }
+        if (skipScreenPowerUp.isVisible()) {
+            game.getBatch().draw(skipPowerupSprite, 300, 80, 32, 32);
+        }
+
         game.getBatch().end();
         
         scoreDisplay = "Score: " + player.getScore();
@@ -154,6 +167,13 @@ public class SecondDungeonScreen implements Screen {
         }
         
         if (movement.checkExit(level)) {
+            game.setScreen(new ThirdDungeonScreen(game));
+            dispose();
+        }
+
+        if (movement.checkPowerup(level,
+                skipScreenPowerUp.isVisible()) && player.getHealth() > 20) {
+            skipScreenPowerUp.play();
             game.setScreen(new ThirdDungeonScreen(game));
             dispose();
         }

@@ -117,6 +117,12 @@ public class Player implements PlayerInterface {
         }
     }
 
+    public void addScore(double points) {
+        if (score + points >= 0) {
+            score += points;
+        }
+    }
+
     public float getHeight() {
         return this.height;
     }

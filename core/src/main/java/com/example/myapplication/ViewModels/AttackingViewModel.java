@@ -9,9 +9,9 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.List;
 
 public class AttackingViewModel {
-    private Player player = Player.getInstance();
 
     public void checkAttack(List<Enemy> enemyList) {
+        Player player = Player.getInstance();
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)
                 || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             Gdx.input.setOnscreenKeyboardVisible(false);
@@ -23,7 +23,8 @@ public class AttackingViewModel {
         }
     }
 
-    private void attack(List<Enemy> enemyList) {
+    public void attack(List<Enemy> enemyList) {
+        Player player = Player.getInstance();
         Rectangle enemy = new Rectangle();
         Rectangle weapon = new Rectangle();
 
@@ -36,8 +37,8 @@ public class AttackingViewModel {
             if (enemy.overlaps(weapon)) {
                 e.damageTaken();
                 e.setScore(player.getDifficulty());
-                player.setScore(e.getScore() + player.getScore());
-                enemyList.remove(e);
+                player.addScore(e.getScore());
+                //enemyList.remove(e);
             }
         }
     }

@@ -4,16 +4,23 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.myapplication.Models.DemonEnemy;
 import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.GoblinEnemy;
 import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.LeaderBoard;
 import com.example.myapplication.Models.LeaderboardScore;
+import com.example.myapplication.Models.OgreEnemy;
 import com.example.myapplication.Models.Player;
 import com.example.myapplication.Models.ScorePowerUp;
+import com.example.myapplication.Models.SkeletonEnemy;
 import com.example.myapplication.Models.SkipScreenPowerUp;
+import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 
+import java.rmi.server.Skeleton;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.LeaderboardViewModel;
@@ -108,6 +115,118 @@ public class UnitTests {
         double expectedScore = demon.getScore();
         
         assertEquals(finalScore, expectedScore, 0.5);
+    }
+
+    @Test
+    public void checkGoblinDies() {
+        List<Enemy> enemyList = new ArrayList<Enemy>();
+        Enemy goblin = new GoblinEnemy();
+        goblin.setPositionX(20);
+        goblin.setPositionY(20);
+        goblin.setWidth(40);
+        goblin.setHeight(50);
+        enemyList.add(goblin);
+
+        Player player = Player.getInstance();
+        player.setPlayerX(10);
+        player.setPlayerY(20);
+
+        AttackingViewModel attackingViewModel = new AttackingViewModel();
+        attackingViewModel.attack(enemyList);
+
+        assertFalse(goblin.getAlive());
+    }
+
+    @Test
+    public void checkOgreDeathPoints() {
+        List<Enemy> enemyList = new ArrayList<Enemy>();
+        Enemy ogre = new OgreEnemy();
+        ogre.setPositionX(20);
+        ogre.setPositionY(20);
+        ogre.setWidth(40);
+        ogre.setHeight(50);
+        enemyList.add(ogre);
+
+        Player player = Player.getInstance();
+        player.setPlayerX(10);
+        player.setPlayerY(20);
+
+        player.setDifficulty(1.0);
+        double expectedScore = player.getScore() + ogre.getScore();
+
+        AttackingViewModel attackingViewModel = new AttackingViewModel();
+        attackingViewModel.attack(enemyList);
+
+        assertEquals(expectedScore, player.getScore(), 0.5);
+    }
+
+    @Test
+    public void checkDemonDeathPoints() {
+        List<Enemy> enemyList = new ArrayList<Enemy>();
+        Enemy demon = new DemonEnemy();
+        demon.setPositionX(20);
+        demon.setPositionY(20);
+        demon.setWidth(40);
+        demon.setHeight(50);
+        enemyList.add(demon);
+
+        Player player = Player.getInstance();
+        player.setPlayerX(10);
+        player.setPlayerY(20);
+
+        player.setDifficulty(1.0);
+        double expectedScore = player.getScore() + demon.getScore();
+
+        AttackingViewModel attackingViewModel = new AttackingViewModel();
+        attackingViewModel.attack(enemyList);
+
+        assertEquals(expectedScore, player.getScore(), 0.5);
+    }
+
+    @Test
+    public void checkGoblinDeathPoints() {
+        List<Enemy> enemyList = new ArrayList<Enemy>();
+        Enemy goblin = new GoblinEnemy();
+        goblin.setPositionX(20);
+        goblin.setPositionY(20);
+        goblin.setWidth(40);
+        goblin.setHeight(50);
+        enemyList.add(goblin);
+
+        Player player = Player.getInstance();
+        player.setPlayerX(10);
+        player.setPlayerY(20);
+
+        player.setDifficulty(1.0);
+        double expectedScore = player.getScore() + goblin.getScore();
+
+        AttackingViewModel attackingViewModel = new AttackingViewModel();
+        attackingViewModel.attack(enemyList);
+
+        assertEquals(expectedScore, player.getScore(), 0.5);
+    }
+
+    @Test
+    public void checkSkeletonDeathPoints() {
+        List<Enemy> enemyList = new ArrayList<Enemy>();
+        Enemy skeleton = new SkeletonEnemy();
+        skeleton.setPositionX(20);
+        skeleton.setPositionY(20);
+        skeleton.setWidth(40);
+        skeleton.setHeight(50);
+        enemyList.add(skeleton);
+
+        Player player = Player.getInstance();
+        player.setPlayerX(10);
+        player.setPlayerY(20);
+
+        player.setDifficulty(1.0);
+        double expectedScore = player.getScore() + skeleton.getScore();
+
+        AttackingViewModel attackingViewModel = new AttackingViewModel();
+        attackingViewModel.attack(enemyList);
+
+        assertEquals(expectedScore, player.getScore(), 0.5);
     }
     
     // Sprint 4 Tests

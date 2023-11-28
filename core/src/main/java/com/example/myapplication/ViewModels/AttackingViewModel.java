@@ -34,7 +34,7 @@ public class AttackingViewModel {
 
         for (Enemy e: enemyList) {
             enemy.set(e.getPositionX(), e.getPositionY(), e.getWidth(), e.getHeight());
-            if (enemy.overlaps(weapon)) {
+            if (e.getAlive() && enemy.overlaps(weapon)) {
                 e.damageTaken();
                 e.setScore(player.getDifficulty());
                 player.addScore(e.getScore());

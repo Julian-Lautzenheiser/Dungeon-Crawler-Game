@@ -159,6 +159,9 @@ public class ThirdDungeonScreen implements Screen {
         }
 
         game.getBatch().end();
+    
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
         
         if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));

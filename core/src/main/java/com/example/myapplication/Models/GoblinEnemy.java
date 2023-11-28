@@ -27,7 +27,7 @@ public class GoblinEnemy implements Enemy {
         this.position = new Vector2(0, 0);
         this.damage = (int) (5 * player.getDifficulty());
         this.alive = true;
-        this.score = 50;
+        this.score = 75;
     }
     
     @Override

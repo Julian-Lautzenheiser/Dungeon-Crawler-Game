@@ -35,8 +35,9 @@ public class AttackingViewModel {
             enemy.set(e.getPositionX(), e.getPositionY(), e.getWidth(), e.getHeight());
             if (enemy.overlaps(weapon)) {
                 e.damageTaken();
+                e.setScore(player.getDifficulty());
+                player.setScore(e.getScore() + player.getScore());
                 enemyList.remove(e);
-                player.setScore(player.getScore() + 500);
             }
         }
     }

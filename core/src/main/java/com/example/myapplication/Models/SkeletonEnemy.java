@@ -25,7 +25,7 @@ public class SkeletonEnemy implements Enemy {
         this.velocity = new Vector2(3, 0);
         this.damage = (int) (4 * player.getDifficulty());
         this.alive = true;
-        this.score = 75;
+        this.score = 100;
     }
     
     @Override

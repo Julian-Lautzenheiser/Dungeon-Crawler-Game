@@ -61,7 +61,23 @@ public class UnitTests {
     }
 
     @Test
-    public void checkOgreScore() {
+    public void checkGoblinEasyScore() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy goblin = factory.createEnemy("Goblin");
+        
+        Player player = Player.getInstance();
+        player.setDifficulty(0.5);
+        
+        double finalScore = goblin.getScore() * player.getDifficulty();
+        
+        goblin.setScore(player.getDifficulty());
+        
+        double expectedScore = goblin.getScore();
+        
+        assertEquals(finalScore, expectedScore, 0.5);
+    }
+    @Test
+    public void checkOgreMediumScore() {
         EnemyFactory factory = new EnemyFactory();
         Enemy ogre = factory.createEnemy("Ogre");
         
@@ -73,6 +89,23 @@ public class UnitTests {
         ogre.setScore(player.getDifficulty());
         
         double expectedScore = ogre.getScore();
+        
+        assertEquals(finalScore, expectedScore, 0.5);
+    }
+
+    @Test
+    public void checkDemonHardScore() {
+        EnemyFactory factory = new EnemyFactory();
+        Enemy demon = factory.createEnemy("Demon");
+        
+        Player player = Player.getInstance();
+        player.setDifficulty(1);
+        
+        double finalScore = demon.getScore() * player.getDifficulty();
+        
+        demon.setScore(player.getDifficulty());
+        
+        double expectedScore = demon.getScore();
         
         assertEquals(finalScore, expectedScore, 0.5);
     }

@@ -17,9 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.myapplication.Models.Enemy;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.Models.ScorePowerUp;
+import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
 import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThirdDungeonScreen implements Screen {
     private final Dungeon game;
@@ -31,6 +36,8 @@ public class ThirdDungeonScreen implements Screen {
     private float unitScale = 1 / 32f;
     private OrthographicCamera camera;
     private Texture sprite;
+    private Texture weapon;
+    private String level = "room3.tmx";
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
     private Player player = Player.getInstance();
@@ -38,6 +45,17 @@ public class ThirdDungeonScreen implements Screen {
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy demonEnemy = enemies.createEnemy("Demon");
     private MovementViewModel movement = new MovementViewModel();
+    private AttackingViewModel attacking = new AttackingViewModel();
+    private double score;
+    private int playerHealth;
+    private String nameDisplay;
+    private String difficultyDisplay;
+    private String scoreDisplay;
+    private String healthDisplay;
+    private BitmapFont statsDisplay;
+    private List<Enemy> enemyList = new ArrayList<Enemy>();
+    private ScorePowerUp scorePowerup = new ScorePowerUp(player);
+    private Texture scorePowerupSprite;
     public ThirdDungeonScreen(final Dungeon game) {
         //reset player position
         player.setPlayerX(-1);
@@ -50,47 +68,31 @@ public class ThirdDungeonScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 13, 9);
         camera.update();
-        
-        /*
-        String name = player.getName();
-        int health = player.getHealth();
-        double score = player.getScore();
-        String difficulty = chosenDifficulty(player.getDifficulty());
-         */
     
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Demon.png"));
-    
-        map = new TmxMapLoader().load("room3.tmx");
+
+        scorePowerupSprite = new Texture(Gdx.files.internal("coin_anim_f0.png"));
+
+        weapon = new Texture(Gdx.files.internal("sword.png"));
+
+        map = new TmxMapLoader().load(level);
     
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        /*
-        Label nameDisplay = new Label("Player: " + name, skin);
-        nameDisplay.setFontScale(2, 2);
-        nameDisplay.setColor(Color.WHITE);
-        Label hp = new Label("HP: " + health, skin);
-        hp.setFontScale(2, 2);
-        hp.setColor(Color.WHITE);
-        scoreDisplay = new Label("Score: " + score, skin);
-        scoreDisplay.setFontScale(2, 2);
-        scoreDisplay.setColor(Color.WHITE);
-        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
-        difficultyDisplay.setFontScale(2, 2);
-        difficultyDisplay.setColor(Color.WHITE);
-    
-        Table table = new Table();
-        table.add(nameDisplay);
-        table.row();
-        table.add(hp);
-        table.row();
-    
-        table.row();
-        table.add(difficultyDisplay);
-        table.row();
-    
-        table.setPosition(250, 100);
-     */
+        
+        movement.addSubscriber(skeletonEnemy);
+        movement.addSubscriber(demonEnemy);
+
+        skeletonEnemy.setPositionX(158);
+        skeletonEnemy.setPositionY(100);
+        skeletonEnemy.setWidth(35);
+        skeletonEnemy.setHeight(45);
+
+        demonEnemy.setPositionX(258);
+        demonEnemy.setPositionY(175);
+        demonEnemy.setWidth(38);
+        demonEnemy.setHeight(55);
 
         createStyle();
         //        next = new TextButton("Next", style);
@@ -119,39 +121,61 @@ public class ThirdDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+        System.out.println(player.getPlayerX() + "" + player.getPlayerY());
 
-        /*
-        timeSeconds += Gdx.graphics.getRawDeltaTime();
-        if (timeSeconds > period) {
-            timeSeconds -= period;
-            game.decreaseScore();
-            scoreDisplay.setText("Score: " + player.getScore());
-        }
-        */
-        skeletonEnemy.setPositionX(158);
-        skeletonEnemy.setPositionY(100);
-        
-        demonEnemy.setPositionX(258);
-        demonEnemy.setPositionY(185);
-        
+        movement.updatePosition(level);
+        skeletonEnemy.move(level);
+        demonEnemy.move(level);
+
+        attacking.checkAttack(movement.getEnemyList());
+
         game.getBatch().begin();
-        movement.updatePosition("room3.tmx");
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+    
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
+        statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(), demonEnemy.getPositionY(), 38,55);
+        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(),
+                player.getWidth(), player.getHeight());
+        if (player.isAttacking()) {
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
+        }
+        if (skeletonEnemy.getAlive()) {
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                    skeletonEnemy.getPositionY(),
+                    skeletonEnemy.getWidth(), skeletonEnemy.getHeight());
+        }
+        if (demonEnemy.getAlive()) {
+            game.getBatch().draw(enemy2Sprite, demonEnemy.getPositionX(),
+                    demonEnemy.getPositionY(),
+                    demonEnemy.getWidth(), demonEnemy.getHeight());
+        }
+        if (scorePowerup.isVisible()) {
+            game.getBatch().draw(scorePowerupSprite, 360, 140, 32, 32);
+        }
+
+        game.getBatch().end();
+    
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
         
-        if (player.getHealth() == 0) {
+        if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
         
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), "room3.tmx")) {
+        if (movement.checkExit(level)) {
             game.setScreen(new WinningScreen(game));
             dispose();
         }
 
-        game.getBatch().end();
+        if (movement.checkPowerup(level, scorePowerup.isVisible())) {
+            scorePowerup.play();
+        }
 
         stage.draw();
         stage.act();
@@ -184,6 +208,18 @@ public class ThirdDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(skeletonEnemy);
+        movement.removeSubscriber(demonEnemy);
+    }
+    public String chosenDifficulty(double difficulty) {
+        if (difficulty == 0.5) {
+            return "Easy";
+        } else if (difficulty == 0.75) {
+            return "Medium";
+        } else if (difficulty == 1.0) {
+            return "Hard";
+        }
+        return null;
     }
     
     public void createStyle() {
@@ -197,5 +233,11 @@ public class ThirdDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+        
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        nameDisplay = "Username: " + player.getName();
+        difficultyDisplay = "Difficulty: " + chosenDifficulty(player.getDifficulty());
+        statsDisplay = new BitmapFont();
     }
 }

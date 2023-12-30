@@ -1,5 +1,6 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="10">
  <tileset firstgid="1" source="Tileess.tsx"/>
  <layer id="1" name="BaseGround" width="13" height="8">
   <data encoding="csv">
@@ -13,6 +14,19 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="6" name="Walls">
+  <object id="1" x="119.779" y="0" width="173.606" height="28.6111"/>
+  <object id="2" x="293.385" y="27.3987" width="93.5921" height="31.5207"/>
+  <object id="3" x="389.159" y="58.6769" width="26.1864" height="135.781"/>
+  <object id="4" x="293.627" y="197.125" width="96.0168" height="28.6111"/>
+  <object id="5" x="124.143" y="228.404" width="169.484" height="26.6713"/>
+  <object id="6" x="27.6412" y="196.156" width="95.0469" height="29.3385"/>
+  <object id="7" x="0.484933" y="56.7372" width="27.1563" height="137.479"/>
+  <object id="8" x="24.4891" y="30.5508" width="98.199" height="27.3987"/>
+ </objectgroup>
+ <objectgroup id="7" name="ExitDoor">
+  <object id="9" x="192.276" y="192.761" width="32.0056" height="30.7933"/>
+ </objectgroup>
  <layer id="3" name="Walls and Objects" width="13" height="8">
   <data encoding="csv">
 0,0,0,18,17,17,17,17,17,19,0,0,0,
@@ -50,3 +64,4 @@
 </data>
  </layer>
 </map>
+

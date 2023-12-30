@@ -59,6 +59,9 @@ public class Dungeon extends Game {
             player.setScore(player.getScore() - 5);
         }
     }
+    public void resetPlayer() {
+        player.resetPlayer();
+    }
     
     public SpriteBatch getBatch() {
         return batch;

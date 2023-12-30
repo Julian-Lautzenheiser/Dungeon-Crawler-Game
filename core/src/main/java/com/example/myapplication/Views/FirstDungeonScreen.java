@@ -1,3 +1,4 @@
+
 package com.example.myapplication.Views;
 
 import com.badlogic.gdx.Gdx;
@@ -12,16 +13,18 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.myapplication.Models.Enemy;
+import com.example.myapplication.Models.HealthPowerUp;
 import com.example.myapplication.Models.Player;
+import com.example.myapplication.ViewModels.AttackingViewModel;
 import com.example.myapplication.ViewModels.Dungeon;
+import com.example.myapplication.ViewModels.EnemyFactory;
 import com.example.myapplication.ViewModels.MovementViewModel;
 
 public class FirstDungeonScreen implements Screen {
-
     private final Dungeon game;
     private Skin skin;
     private TextButton.TextButtonStyle style;
@@ -33,14 +36,29 @@ public class FirstDungeonScreen implements Screen {
     private Texture sprite;
     private Texture enemy1Sprite;
     private Texture enemy2Sprite;
+    private Texture weapon;
     private Player player = Player.getInstance();
     private EnemyFactory enemies = new EnemyFactory();
     private Enemy skeletonEnemy = enemies.createEnemy("Skeleton");
     private Enemy goblinEnemy = enemies.createEnemy("Goblin");
     private MovementViewModel movement = new MovementViewModel();
-    private Label scoreDisplay;
+    private AttackingViewModel attacking = new AttackingViewModel();
+    private double score;
+    private int playerHealth;
+    private String nameDisplay;
+    private String difficultyDisplay;
+    private String scoreDisplay;
+    private String healthDisplay;
+    private BitmapFont statsDisplay;
+    private String level = "room1.tmx";
+    private HealthPowerUp healthPowerup = new HealthPowerUp(player);
+    private Texture healthPowerupSprite;
+
 
     public FirstDungeonScreen(final Dungeon game) {
+        player.setPlayerX(-1);
+        player.setPlayerY(-1);
+        
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -54,50 +72,36 @@ public class FirstDungeonScreen implements Screen {
     
         skin = new Skin(Gdx.files.internal("plain-james-ui.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("plain-james-ui.atlas")));
-    
-        String name = player.getName();
-        int health = player.getHealth();
-        double score = player.getScore();
-        String difficulty = chosenDifficulty(player.getDifficulty());
 
         //Creates the sprite and sets the width and height
         sprite = new Texture(Gdx.files.internal(game.getSprite() + ".png"));
         player.setHeight(2 * sprite.getHeight());
         player.setWidth(2 * sprite.getWidth());
 
+        weapon = new Texture(Gdx.files.internal("sword.png"));
+
         enemy1Sprite = new Texture(Gdx.files.internal("Skeleton.png"));
         enemy2Sprite = new Texture(Gdx.files.internal("Goblin.png"));
+
+        healthPowerupSprite = new Texture(Gdx.files.internal("ui_heart_full.png"));
       
-        map = new TmxMapLoader().load(level);
+        map = new TmxMapLoader().load("room1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-        
-        Label nameDisplay = new Label("Player: " + name, skin);
-        nameDisplay.setFontScale(2, 2);
-        nameDisplay.setColor(Color.WHITE);
-        Label hp = new Label("HP: " + health, skin);
-        hp.setFontScale(2, 2);
-        hp.setColor(Color.WHITE);
-        scoreDisplay = new Label("Score: " + score, skin);
-        scoreDisplay.setFontScale(2, 2);
-        scoreDisplay.setColor(Color.WHITE);
-        Label difficultyDisplay = new Label("Difficulty: " + difficulty, skin);
-        difficultyDisplay.setFontScale(2, 2);
-        difficultyDisplay.setColor(Color.WHITE);
-       
-        /*
-        Table table = new Table();
-        table.add(nameDisplay);
-        table.row();
-        table.add(hp);
-        table.row();
-        
-        table.row();
-        table.add(difficultyDisplay);
-        table.row();
-        
-        table.setPosition(250, 100);
-        */
-    
+
+        //Create list of spawned Enemies to track position/health
+        movement.addSubscriber(skeletonEnemy);
+        movement.addSubscriber(goblinEnemy);
+
+        skeletonEnemy.setPositionX(290);
+        skeletonEnemy.setPositionY(120);
+        skeletonEnemy.setWidth(35);
+        skeletonEnemy.setHeight(45);
+
+        goblinEnemy.setPositionX(158);
+        goblinEnemy.setPositionY(180);
+        goblinEnemy.setWidth(40);
+        goblinEnemy.setHeight(50);
+
         createStyle();
         //        next = new TextButton("Next", style);
         //        next.getLabel().setFontScale(6, 3);
@@ -111,8 +115,6 @@ public class FirstDungeonScreen implements Screen {
         //                dispose();
         //            }
         //        });
-        
-        //stage.addActor(table);
         //stage.addActor(next);
     }
 
@@ -127,32 +129,63 @@ public class FirstDungeonScreen implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
+
+        movement.updatePosition(level);
     
-        skeletonEnemy.setPositionX(158);
-        skeletonEnemy.setPositionY(100);
-    
-        goblinEnemy.setPositionX(258);
-        goblinEnemy.setPositionY(185);
-    
+        skeletonEnemy.move(level);
+        goblinEnemy.move(level);
+
+        attacking.checkAttack(movement.getEnemyList());
+        
         game.getBatch().begin();
 
-        movement.updatePosition("room1.tmx");
-        game.getBatch().draw(sprite, player.getPlayerX(), player.getPlayerY(), player.getWidth(), player.getHeight());
+        //Check if player runs into enemy
         
-        game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(), skeletonEnemy.getPositionY(), 35, 45);
-        game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(), goblinEnemy.getPositionY(), 40, 50);
+        statsDisplay.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        statsDisplay.draw(game.getBatch(), scoreDisplay, 25, 80);
+        statsDisplay.draw(game.getBatch(), healthDisplay, 350, 80);
+        statsDisplay.draw(game.getBatch(), nameDisplay, 25, 50);
+        statsDisplay.draw(game.getBatch(), difficultyDisplay, 350, 50);
         
-        if (player.getHealth() == 0) {
+        game.getBatch().draw(sprite, player.getPlayerX(),
+                player.getPlayerY(), player.getWidth(), player.getHeight());
+        if (player.isAttacking()) {
+            game.getBatch().draw(weapon, player.getPlayerX() + player.getWidth() - 16,
+                    player.getPlayerY() + player.getHeight() / 4, 32, 16);
+        }
+        if (skeletonEnemy.getAlive()) {
+            game.getBatch().draw(enemy1Sprite, skeletonEnemy.getPositionX(),
+                    skeletonEnemy.getPositionY(), skeletonEnemy.getWidth(),
+                    skeletonEnemy.getHeight());
+        }
+        if (goblinEnemy.getAlive()) {
+            game.getBatch().draw(enemy2Sprite, goblinEnemy.getPositionX(),
+                    goblinEnemy.getPositionY(), goblinEnemy.getHeight(), goblinEnemy.getHeight());
+        }
+        if (healthPowerup.isVisible()) {
+            game.getBatch().draw(healthPowerupSprite, 380, 100, 32, 32);
+        }
+
+
+        game.getBatch().end();
+      
+        scoreDisplay = "Score " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        
+        if (player.getHealth() <= 0) {
             game.setScreen(new LosingScreen(game));
             dispose();
         }
-
-        if (movement.checkExit(player.getPlayerX(), player.getPlayerY(), level)) {
+        
+        if (movement.checkExit(level)) {
             game.setScreen(new SecondDungeonScreen(game));
             dispose();
         }
 
-        game.getBatch().end();
+        if (movement.checkPowerup(level, healthPowerup.isVisible())) {
+            healthPowerup.play();
+        }
+
 
         stage.draw();
         stage.act();
@@ -184,6 +217,8 @@ public class FirstDungeonScreen implements Screen {
         sprite.dispose();
         enemy1Sprite.dispose();
         enemy2Sprite.dispose();
+        movement.removeSubscriber(skeletonEnemy);
+        movement.removeSubscriber(goblinEnemy);
     }
     
     public String chosenDifficulty(double difficulty) {
@@ -208,5 +243,12 @@ public class FirstDungeonScreen implements Screen {
         style.up = skin.getDrawable("button_up");
         style.down = skin.getDrawable("button_down");
         style.checked = skin.getDrawable("button_checked");
+        
+        scoreDisplay = "Score: " + player.getScore();
+        healthDisplay = "HP: " + player.getHealth();
+        nameDisplay = "Username: " + player.getName();
+        difficultyDisplay = "Difficulty: " + chosenDifficulty(player.getDifficulty());
+        statsDisplay = new BitmapFont();
     }
 }
+

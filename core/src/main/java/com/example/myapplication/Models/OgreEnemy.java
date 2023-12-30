@@ -1,5 +1,12 @@
+
 package com.example.myapplication.Models;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 public class OgreEnemy implements Enemy {
     // Implement attributes and behaviors for the Ogre
@@ -7,32 +14,60 @@ public class OgreEnemy implements Enemy {
     private Vector2 velocity;
     private Vector2 position;
     private int damage;
-    private int health;
-    Player player = Player.getInstance();
+    private boolean alive;
+    private int width;
+    private int height;
+    private Player player = Player.getInstance();
+    private double score;
     
     public OgreEnemy() {
-        this.velocity = new Vector2(15, 20);
-        this.position = new Vector2(0,0);
-        this.damage = 15;
-        this.health = 175;
+        this.velocity = new Vector2(6, 0);
+        this.position = new Vector2(0, 0);
+        this.damage = (int) (10 * player.getDifficulty());
+        this.alive = true;
+        this.score = 125;
     }
+    
     @Override
-    public void move() {
-        // Implement movement logic
+    public void move(String level) {
+        TiledMap map = new TmxMapLoader().load(level);
+        MapLayer layer = map.getLayers().get("Walls");
+        MapObjects objects = layer.getObjects();
+
+        //Perform collision detection
+        Vector2 newPos = position;
+        newPos.x += velocity.x;
+        newPos.y += velocity.y;
+        for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            if (rectangle.contains(newPos)) {
+                velocity.x = velocity.x * -1;
+                velocity.y = velocity.y * -1;
+            }
+        }
+        position.add(velocity);
+        Rectangle enemyRectangle = new Rectangle(position.x, position.y,
+                getWidth(), getHeight() - 5);
+        if (enemyRectangle.contains(player.getPosition()) && alive) {
+            player.damageTaken(damage);
+        }
     }
 
     @Override
     public int attack() {
-        switch(chosenDifficulty(player.getDifficulty())) {
-            case "Easy":
-                this.damage = 8;
-                break;
-            case "Medium":
-                this.damage = 16;
-                break;
-            case "Hard":
-                this.damage = 24;
-                break;
+        switch (chosenDifficulty(player.getDifficulty())) {
+        case "Easy":
+            this.damage = 9;
+            break;
+        case "Medium":
+            this.damage = 15;
+            break;
+        case "Hard":
+            this.damage = 21;
+            break;
+        default:
+            this.damage = 9;
+            break;
         }
         return this.damage;
     }
@@ -40,9 +75,11 @@ public class OgreEnemy implements Enemy {
     @Override
     public void damageTaken() {
         //Implement hp logic
-        if (this.health > 0) {
-            this.health -= player.getDamage();
-        }
+        alive = false;
+    }
+    @Override
+    public boolean getAlive() {
+        return alive;
     }
 
     @Override
@@ -55,6 +92,16 @@ public class OgreEnemy implements Enemy {
         return this.position.y;
     }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
     public void setPositionY(float yCoordinate) {
         if (yCoordinate > 200) {
             this.position.y = 190;
@@ -64,16 +111,17 @@ public class OgreEnemy implements Enemy {
             this.position.y = yCoordinate;
         }
     }
-    
+
     public void setPositionX(float xCoordinate) {
-        if (xCoordinate > 200) {
-            this.position.x = 190;
+        if (xCoordinate > 340) {
+            this.position.x = 340;
         } else if (xCoordinate < 0) {
             this.position.x = 70;
         } else {
             this.position.x = xCoordinate;
         }
     }
+    
     public String chosenDifficulty(double difficulty) {
         if (difficulty == 0.5) {
             return "Easy";
@@ -86,7 +134,26 @@ public class OgreEnemy implements Enemy {
     }
 
     @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
     public String toString() {
         return "Ogre";
     }
+    
+    public double getScore() {
+        return this.score;
+    }
+    
+    public void setScore(double difficulty) {
+        this.score *= difficulty;
+    }
 }
+

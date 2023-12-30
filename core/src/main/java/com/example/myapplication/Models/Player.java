@@ -1,8 +1,9 @@
+
 package com.example.myapplication.Models;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {
+public class Player implements PlayerInterface {
 
     private static Player player = null;
     private Vector2 position;
@@ -16,12 +17,12 @@ public class Player {
     private float height;
     private int level;
     private final float maxVelocity = 10f;
-    private int level;
     private int damage;
+    private boolean attacking;
 
     private Player() {
         this.position = new Vector2(62, 182);
-        this.velocity = new Vector2(0,0);
+        this.velocity = new Vector2(0, 0);
         this.sprite = "";
         this.health = 200;
         this.score = 0.0;
@@ -29,6 +30,7 @@ public class Player {
         this.difficulty = 0.0;
         this.level = 0;
         this.damage = 15;
+        this.attacking = false;
     }
 
     public static Player getInstance() {
@@ -40,6 +42,10 @@ public class Player {
             }
         }
         return player;
+    }
+    public void resetPlayer() {
+        this.health = 200;
+        this.score = 0.0;
     }
 
     public String getSprite() {
@@ -55,7 +61,7 @@ public class Player {
     }
   
     public int getHealth() {
-        return health;
+        return this.health;
     }
   
     public String getName() {
@@ -93,13 +99,13 @@ public class Player {
     public void setPlayerX(float playerX) {
         position.x = playerX;
         if (position.x < 0) {
-            position.x = 50;
+            position.x = 62;
         }
     }
     public void setPlayerY(float playerY) {
         position.y = playerY;
         if (position.y < 0) {
-            position.y = 100;
+            position.y = 182;
         }
     }
     public double getScore() {
@@ -109,6 +115,12 @@ public class Player {
     public void setScore(double newScore) {
         if (newScore >= 0) {
             this.score = newScore;
+        }
+    }
+
+    public void addScore(double points) {
+        if (score + points >= 0) {
+            score += points;
         }
     }
 
@@ -152,16 +164,16 @@ public class Player {
     }
     
     public float getMaxVelocity() {
-        return this.maxVelocitu;
+        return this.maxVelocity;
     }
     
     public void damageTaken(int damage) {
-        if (this.health > 0) {
-            this.health -= damage;
-        }
+        this.health -= damage;
     }
-    
-    public int getDamage() {
-        return this.damage;
+    public boolean isAttacking() {
+        return attacking;
+    }
+    public void setAttacking(boolean isAttacking) {
+        attacking = isAttacking;
     }
 }

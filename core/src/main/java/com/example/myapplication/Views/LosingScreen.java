@@ -150,4 +150,3 @@ public class LosingScreen implements Screen {
         style.down = buttonSkin.getDrawable("button_down");
         style.checked = buttonSkin.getDrawable("button_checked");
     }
-}

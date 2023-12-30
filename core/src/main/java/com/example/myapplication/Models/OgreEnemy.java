@@ -1,3 +1,4 @@
+
 package com.example.myapplication.Models;
 
 import com.badlogic.gdx.maps.MapLayer;
@@ -155,3 +156,4 @@ public class OgreEnemy implements Enemy {
         this.score *= difficulty;
     }
 }
+
